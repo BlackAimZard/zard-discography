@@ -7,22 +7,55 @@
 <style type="text/css">
 /* BASE RESET */
 body, h2, ul, li { margin: 0; padding: 0; outline: 0; }
-ul { list-style: none; margin-top: 15px; }
+ul { list-style: none; }
 
 /* GLOBAL FONT & BACKGROUND */
 body { background-color: #f4f4f4; font-size: 16px; font-family: "Times New Roman", sans-serif; }
 
 /* ELEMENT & ICON */
-a { text-decoration: none; color: blue; }
-a:hover { color: red; text-decoration: underline; }
+a { text-decoration: none; color: 000000; }
+a:hover { color: red; text-decoration: none; }
+details a { color: blue; }
 li { margin: 15px 0 15px 10px; }
 
 /* DETAILS & SUMMARY (RELEASE NO. FIX) */
-details ul { margin-top: 0; } 
-details li { margin: 8px 0; }
-details li:first-child { margin-top: 3px; }
-details summary { cursor: pointer; user-select: none; color: #333; } 
-details summary:hover { color: red; }
+details li { font-size:14px; margin: 0 0 0 0; }
+details summary { font-size: 14px; cursor: pointer; user-select: none; }
+
+/* YEAR BRACKET UI (Giao diện ngoặc nhóm năm) */
+.year-box {
+    display: flex;
+    align-items: center; 
+    margin: 10px 0 10px 12px; 
+}
+.year-name {
+    font-size: 14px; 
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+}
+.year-bracket {
+    border: 1px solid #888; 
+    border-right: none;     
+    width: 6px;             
+    align-self: stretch;    
+    /* BÍ KÍP CHỈNH TÂM: 12px là con số vàng (bằng đúng 1/2 chiều cao dòng) 
+       để ép 2 đầu ngoặc thụt vào trúng ngay tim của chữ dòng đầu và dòng cuối! */
+    margin: 12px 8px 12px 0; 
+}
+.year-items {
+    margin: 0 !important; 
+    padding: 0;
+}
+.year-items li {
+    margin: 4px 0 !important; 
+}
+/* 1sg per year */
+.year-dash {
+    border-top: 1px solid #888;
+    width: 6px;                 
+    margin: 0 8px 0 0;
+}
 </style>
 </head>
 
@@ -31,27 +64,66 @@ details summary:hover { color: red; }
 <ul>
 <li><a href="profile.html" target="right">Profile</a></li>
 <li><a href="single.html" target="right">Single</a>
-<details style="margin: 5px 0 0px 10px;">
-<summary>Release No.</summary>
-<ul style="margin-left: 15px;">
-<li><a href="single.html#sg01" target="right">01st</a></li>
-<li><a href="single.html#sg02" target="right">02nd</a></li>
-<li><a href="single.html#sg03" target="right">03rd</a></li>
-<li><a href="single.html#sg04" target="right">04th</a></li>
-<li><a href="single.html#sg05" target="right">05th</a></li>
-<li><a href="single.html#sg06" target="right">06th</a></li>
-<li><a href="single.html#sg07" target="right">07th</a></li>
-<li><a href="single.html#sg08" target="right">08th</a></li>
-<li><a href="single.html#sg09" target="right">09th</a></li>
-<li><a href="single.html#sg10" target="right">10th</a></li>
-<li><a href="single.html#sg11" target="right">11th</a></li>
-<li><a href="single.html#sg12" target="right">12th</a></li>
-<li><a href="single.html#sg13" target="right">13th</a></li>
-<li><a href="single.html#sg14" target="right">14th</a></li>
-<li><a href="single.html#sg15" target="right">15th</a></li>
-<li><a href="single.html#sg16" target="right">16th</a></li>
-<li><a href="single.html#sg17" target="right">17th</a></li>
-<li><a href="single.html#sg18" target="right">18th</a></li>
+<details style="margin: 5px 0 0 10px;">
+<summary>Release Order</summary>
+<div class="year-box">
+  <div class="year-name">1991</div>
+  <div class="year-bracket"></div> <ul class="year-items">
+    <li><a href="single.html#sg01" target="right">1st</a></li>
+    <li><a href="single.html#sg02" target="right">2nd</a></li>
+    <li><a href="single.html#sg03" target="right">3rd</a></li>
+  </ul>
+</div>
+<div class="year-box">
+  <div class="year-name">1992</div>
+  <div class="year-bracket"></div>
+  <ul class="year-items">
+    <li><a href="single.html#sg04" target="right">4th</a></li>
+    <li><a href="single.html#sg05" target="right">5th</a></li>
+  </ul>
+</div>
+
+<div class="year-box">
+  <div class="year-name">1993</div>
+  <div class="year-bracket"></div>
+  <ul class="year-items">
+    <li><a href="single.html#sg06" target="right">6th</a></li>
+    <li><a href="single.html#sg07" target="right">7th</a></li>
+    <li><a href="single.html#sg08" target="right">8th</a></li>
+    <li><a href="single.html#sg09" target="right">9th</a></li>
+    <li><a href="single.html#sg10" target="right">10th</a></li>
+  </ul>
+</div>
+
+<div class="year-box">
+  <div class="year-name">1994</div>
+  <div class="year-bracket"></div>
+  <ul class="year-items">
+    <li><a href="single.html#sg11" target="right">11th</a></li>
+    <li><a href="single.html#sg12" target="right">12th</a></li>
+    <li><a href="single.html#sg13" target="right">13th</a></li>
+  </ul>
+</div>
+
+<div class="year-box">
+  <div class="year-name">1995</div>
+  <div class="year-bracket"></div>
+  <ul class="year-items">
+    <li><a href="single.html#sg14" target="right">14th</a></li>
+    <li><a href="single.html#sg15" target="right">15th</a></li>
+    <li><a href="single.html#sg16" target="right">16th</a></li>
+  </ul>
+</div>
+
+<div class="year-box">
+  <div class="year-name">1996</div>
+  <div class="year-bracket"></div>
+  <ul class="year-items">
+    <li><a href="single.html#sg17" target="right">17th</a></li>
+    <li><a href="single.html#sg18" target="right">18th</a></li>
+  </ul>
+</div>
+<li class="year">1997</li>
 <li><a href="single.html#sg19" target="right">19th</a></li>
 <li><a href="single.html#sg20" target="right">20th</a></li>
 <li><a href="single.html#sg21" target="right">21st</a></li>
