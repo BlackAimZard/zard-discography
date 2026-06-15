@@ -1,90 +1,91 @@
 class TextScramble {
   constructor(el) {
     this.el = el;
-    // Chứa đầy đủ các ký tự nhiễu và ô vuông
     this.chars = '!<>-_\\/[]{}—=+*^?#________░▒▓¡';
     this.update = this.update.bind(this);
   }
+  
   setText(newText) {
-    const oldText = this.el.innerText;
-    const length = Math.max(oldText.length, newText.length);
-    const promise = new Promise((resolve) => this.resolve = resolve);
+    this.oldText = this.el.innerText;
+    this.newText = newText;
+    this.promise = new Promise((resolve) => this.resolve = resolve);
+    
+    // Khởi tạo một mảng chứa ký tự nhiễu với chiều dài tối đa
+    const maxLen = Math.max(this.oldText.length, this.newText.length);
     this.queue = [];
-    for (let i = 0; i < length; i++) {
-      const from = oldText[i] || '';
-      const to = newText[i] || '';
-      const start = Math.floor(Math.random() * 40);
-      const end = start + Math.floor(Math.random() * 40);
-      this.queue.push({ from, to, start, end });
+    for (let i = 0; i < maxLen; i++) {
+      this.queue.push({ char: this.randomChar() });
     }
+    
     cancelAnimationFrame(this.frameRequest);
     this.frame = 0;
+    // Tốc độ chạy: 50 khung hình (~gần 1 giây) cho mỗi lần co giãn
+    this.totalFrames = 50; 
     this.update();
-    return promise;
+    return this.promise;
   }
+  
   update() {
-    let output = '';
-    let complete = 0;
-    for (let i = 0, n = this.queue.length; i < n; i++) {
-      let { from, to, start, end, char } = this.queue[i];
-      if (this.frame >= end) {
-        complete++;
-        output += to;
-      } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
-          char = this.randomChar();
-          this.queue[i].char = char;
-        }
-        output += char;
-      } else {
-        output += from;
-      }
-    }
-    this.el.innerHTML = output;
-    if (complete === this.queue.length) {
+    // KẾT THÚC: Đến đúng khung hình 50 thì BÙM! Hiện chữ thật và dừng lại
+    if (this.frame >= this.totalFrames) {
+      this.el.innerHTML = this.newText;
       this.resolve();
-    } else {
-      this.frameRequest = requestAnimationFrame(this.update);
-      this.frame++;
+      return;
     }
+    
+    // ĐANG CHẠY: Tính toán chiều dài của dải nhiễu theo thời gian
+    const oldLen = this.oldText.length;
+    const newLen = this.newText.length;
+    
+    // Tính phần trăm hoàn thành (từ 0.0 đến 1.0)
+    const progress = this.frame / this.totalFrames;
+    
+    // TUYỆT KỸ CO GIÃN: Tính số lượng ký tự cần hiển thị ở khung hình hiện tại
+    // Nếu đang từ 4 lên 11: Nó sẽ làm tròn và tăng dần 4, 5, 6... 11
+    // Nếu đang từ 11 về 4: Nó sẽ làm tròn và giảm dần 11, 10, 9... 4
+    const currentLen = Math.round(oldLen + (newLen - oldLen) * progress);
+    
+    let output = '';
+    // Xuất ra đúng số lượng ký tự nhiễu vừa tính được
+    for (let i = 0; i < currentLen; i++) {
+      // Giữ tốc độ chớp nhiễu 40% để nó "rào rào" liên tục
+      if (Math.random() < 0.4) {
+        this.queue[i].char = this.randomChar();
+      }
+      output += this.queue[i].char;
+    }
+    
+    this.el.innerHTML = output;
+    this.frame++;
+    this.frameRequest = requestAnimationFrame(this.update);
   }
+  
   randomChar() {
     return this.chars[Math.floor(Math.random() * this.chars.length)];
   }
 }
 
-// Playlist name
+// Khai báo 2 chữ cần chạy
 const phrases = [
   "ZARD",
   "IZUMI\u00A0SAKAI"
 ];
 
-// Tìm phần tử có id="scramble" trong HTML
 const el = document.getElementById('scramble');
 
-// Lệnh if này giúp web không bị lỗi nếu HTML trang đó không có id="scramble"
 if (el) {
   const fx = new TextScramble(el);
-  
-  // Bốc đại một bài ngẫu nhiên để bắt đầu phát
-  let counter = Math.floor(Math.random() * phrases.length);
+  let counter = 0;
   
   const next = () => {
-    const currentPhrase = phrases[counter];
-    
-    fx.setText(currentPhrase).then(() => {
-      // Cho nghỉ 2.5s rồi chạy tiếp
+    fx.setText(phrases[counter]).then(() => {
+      // Đứng im hiển thị chữ 2.5s rồi mới lặp lại
       setTimeout(next, 2500);
     });
     
-    // Thuật toán bốc random bài mới (đảm bảo không trùng với bài vừa chạy)
-    let nextCounter;
-    do {
-      nextCounter = Math.floor(Math.random() * phrases.length);
-    } while (nextCounter === counter); 
-    
-    counter = nextCounter; // Gán bài mới để chuẩn bị chạy
+    // Công tắc đổi qua đổi lại
+    counter = (counter + 1) % phrases.length;
   };
 
-  setTimeout(next, 1000);
+  next();
 }
