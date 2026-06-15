@@ -27,7 +27,7 @@ a { background: transparent; text-decoration: none; color: #003399; margin: 0; p
 a:hover { color: #ff0000; text-decoration: underline; }
 
 /* small screen text */
-@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } }
+@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
 
 /* --- MA PHÁP CUỘN NGANG KHI MÀN HÌNH BÉ HƠN 300PX --- */
 @media screen and (max-width: 300px) {
@@ -46,7 +46,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <body>
 
-<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 800px; margin: 0 auto;">
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 500px; margin: 0 auto;">
   <tbody>
     <tr>
       <td align="center" valign="bottom" style="padding: 0 20px 10px 20px;"> 
@@ -60,12 +60,12 @@ a:hover { color: #ff0000; text-decoration: underline; }
   </tbody>
 </table>
 
-<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 800px; margin: 0 auto;">
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 500px; margin: 0 auto;">
   <tbody>
     <tr>
       <td align="center" valign="top" style="padding: 10px 20px 0 20px;">
         <div class="scroll-lock" style="display: inline-block; text-align: left; width: 100%; max-width: 550px;">
-          <div style="max-width: 350px; font-size: 20px; color: #cccccc; line-height: 1.5; font-family: 'Times New Roman', serif;">
+          <div id="content-text" style="max-width: 350px; font-size: 20px; color: #cccccc; line-height: 1.5; font-family: 'Times New Roman', serif;">
             A Japanese musical unit centered around Izumi&nbsp;Sakai&nbsp;(坂井泉水). Even after Izumi Sakai's passing, her works live on as timeless&nbsp;standards.
           </div>
         </div>
