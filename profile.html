@@ -8,58 +8,60 @@
 <meta name="robots" content="none">
 <style type="text/css">
 /* GITHUB FONTS IMPORT */
-@font-face {font-family: 'Meiryo';src: url('fonts/Meiryo.woff2') format('woff2');}
+@font-face {font-family: 'trona-bold';src: url('fonts/trona-bold.woff') format('woff2');}
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; }
-body { background-color: #000000; font-size: 16px; font-family: "Trona light", "Times New Roman", sans-serif; padding: 10px; box-sizing: border-box; }
+body { background-color: #000000; font-size: 16px; font-family: "Trona light", "trona-bold", "Times New Roman", sans-serif; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
 ul { list-style: none; }
 
 /* TD & IMG FIX */
-td { vertical-align: middle; }
 img { border: 0; display: block; }
 
 /* ELEMENT & ICON */
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
+
+/* small screen text */
+@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } }
 </style>
 </head>
 
 <body>
 
-<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 800px; margin: 0 auto;">
 <tbody>
 <tr>
- <td align="center" valign="middle">
- 
- <table width="800" cellpadding="10" cellspacing="0" style="">
- <tbody>
- <tr>
-  <td align="left"> 
-  
-  <span style="display: block; text-align: left; font-size: 40px; color: #aaaaaa;">
-    Melodies of Life
-  </span>
-  
-  <span id="scramble" style="display: block; text-align: left; font-size: 40px; color: #FFFFFF; margin-top: 5px;">
-  </span>
-  
-  </td>
- </tr>
- </tbody>
- </table>
- 
- </td>
+<td align="center" valign="bottom" style="padding-bottom: 5px;"> 
+<div style="display: inline-block; text-align: left; width: 100%; max-width: 550px;">
+<span id="title-text" style="display: block; font-size: 50px; color: #AAAAAA;">
+Melodies of Memory
+</span>
+</div>
+</td>
+</tr>
+  </tbody>
+</table>
+
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="height: 50vh; max-width: 800px; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center" valign="top" style="padding-top: 5px;">
+<div style="display: inline-block; text-align: left; width: 100%; max-width: 550px;">
+<div>
+<span id="scramble" style="display: block; font-size: 50px; color: #FFFFFF;"></span>
+</div>
+</div>
+</td>
 </tr>
 </tbody>
 </table>
 
 <script src="scramble.js"></script>
 
-<!--SMALL SCREEN BUTTON-->
 <script src="small-screen-btn.js"></script>
 </body>
 </html>
