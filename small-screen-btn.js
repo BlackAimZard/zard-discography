@@ -1,4 +1,25 @@
-document.body.insertAdjacentHTML('beforeend', '<button id="mBtn" style="display:none; position:fixed; bottom:20px; right:20px; z-index:9999; width:45px; height:45px; padding:0; text-align:center; line-height:45px; background:#000000; color:#fff; border:none; border-radius:5px; font-size:24px; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.3); -webkit-appearance:none; appearance:none;">☰</button>');
+document.body.insertAdjacentHTML('beforeend', `
+<button id="mBtn" style="
+position: fixed; 
+bottom: 20px; 
+right: 20px; 
+z-index: 9999; 
+padding: 10px 5px; 
+background: #000000; 
+border: none; 
+border-radius: 0; 
+cursor: pointer; 
+box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+-webkit-appearance: none; 
+appearance: none;
+display: block;
+line-height: 0;
+font-size: 0;
+">
+<span style="display: block; width: 40px; height: 1px; background: #FFFFFF; margin-bottom: 8px;"></span>
+<span style="display: block; width: 40px; height: 1px; background: #FFFFFF; margin-bottom: 8px;"></span>
+<span style="display: block; width: 40px; height: 1px; background: #FFFFFF;"></span>
+</button>`);
 
 // LOGIC
 var btn = document.getElementById('mBtn');
