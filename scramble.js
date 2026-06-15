@@ -53,53 +53,10 @@ class TextScramble {
   }
 }
 
-// Playlist 46 bài của ZARD (Dùng ngoặc kép "" để không bị lỗi mấy bài có dấu ')
+// Playlist name
 const phrases = [
-  "Good-bye My Loneliness",
-  "Fushigi ne...",
-  "Mou Sagasanai",
-  "Nemurenai Yoru wo Daite",
-  "IN MY ARMS TONIGHT",
-  "Makenaide",
-  "Kimi ga Inai",
-  "Yureru Omoi",
-  "Mou Sukoshi Ato Sukoshi.../Kanariya",
-  "Kitto Wasurenai",
-  "Kono Ai ni Oyogi Tsukarete mo/Boy",
-  "Konna ni Soba ni Iru no ni",
-  "Anata wo Kanjite Itai",
-  "Just believe in love",
-  "Ai ga Mienai",
-  "Sayonara wa Ima mo Kono Mune ni Imasu",
-  "My Friend",
-  "Kokoro wo Hiraite",
-  "Don't you see!",
-  "Kimi ni Aitaku Nattara...",
-  "Kaze ga Toori Nukeru Machi he",
-  "Eien",
-  "My Baby Grand ~Nukumori ga Hoshikute~",
-  "Iki mo Dekinai",
-  "Unmei no Roulette Mawashite",
-  "Atarashii Door ~Fuyu no Himawari~",
-  "Good Day",
-  "Mind Games",
-  "Sekai wa Kitto Mirai no Naka",
-  "Itai Kurai Kimi ga Afureteiru yo",
-  "Kono Namida Hoshi ni Nare",
-  "Get U're Dream",
-  "Promised You",
-  "Sawayakana Kimi no Kimochi",
-  "Ashita wo Yumemite",
-  "Hitomi Tojite",
-  "Motto Chikaku de Kimi no Yokogao Miteitai",
-  "Kakegae no Nai Mono",
-  "Kyou wa Yukkuri Hanasou",
-  "Hoshi no Kagayaki yo/Natsu wo Matsu Sail no You ni",
-  "Kanashii Hodo Anata ga Suki/Karatto Ikou!",
-  "Heart ni Hi wo Tsukete",
-  "Glorious Mind",
-  "Tsubasa wo Hirogete/Ai wa Kurayami no Naka de",
-  "Sunao ni Ienakute"
+  "ZARD",
+  "IZUMI\u00A0SAKAI"
 ];
 
 // Tìm phần tử có id="scramble" trong HTML
