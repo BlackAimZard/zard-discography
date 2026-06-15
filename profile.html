@@ -34,16 +34,15 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <tbody>
 <tr>
  <td align="center" valign="middle">
- <table width="400" cellpadding="10" cellspacing="0" style="">
+ <table width="300" cellpadding="10" cellspacing="0" style="">
  <tbody>
  <tr>
   <td>
-  <span style="display: inline-block; text-align: left; font-size: 40px; color: #FFFFFF; margin-top: 5px;">
-    ZARD (ザード)
-  </span>
-  <span style="display: inline-block; text-align: left; font-size: 20px; color: #FFFFFF; margin-top: 5px;">
+  <!-- Đệ đã thêm id="scramble" vào thẻ span này để JS nhận diện -->
+  <span id="scramble" style="display: inline-block; text-align: left; font-size: 40px; color: #FFFFFF; margin-top: 5px;"></span>
+  <!--<span style="display: inline-block; text-align: left; font-size: 20px; color: #FFFFFF; margin-top: 5px;">
     A Japanese musical unit centered around Izumi Sakai (坂井泉水). Even after Izumi Sakai's passing, her works live on as timeless standards.
-  </span>
+  </span>-->
   </td>
  </tr>
  </tbody>
@@ -52,6 +51,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 </tr>
 </tbody>
 </table>
+
+<!-- Cú pháp gọi file JS, đặt ở cuối cùng của đoạn HTML -->
+<script src="scramble.js"></script>
 
 <!--SMALL SCREEN BUTTON-->
 <script src="small-screen-btn.js"></script>
