@@ -1,7 +1,7 @@
 class TextScramble {
   constructor(el) {
     this.el = el;
-    this.chars = '!<>-_\\/[]{}—=+*^?#________░▒▓¡';
+    this.chars = '#?¿!¡[]{}<>/\░▒▓';
     this.update = this.update.bind(this);
   }
   
@@ -55,7 +55,7 @@ class TextScramble {
       output += this.queue[i].char;
     }
     
-    this.el.innerHTML = output;
+    this.el.innerText = output;
     this.frame++;
     this.frameRequest = requestAnimationFrame(this.update);
   }
