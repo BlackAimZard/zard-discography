@@ -29,57 +29,49 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* small screen text */
 @media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
 
-/* --- MA PHÁP CUỘN NGANG KHI MÀN HÌNH BÉ HƠN 300PX --- */
+/* 300PX Fix */
 @media screen and (max-width: 300px) {
-  .scroll-lock {
-    width: 260px !important; /* Khóa chết chiều rộng để cố định chiều cao, chống giựt */
-    overflow-x: auto !important; /* Bật tính năng cuộn ngang */
-    -webkit-overflow-scrolling: touch; /* Giúp vuốt trượt trên iPhone mượt mà */
-  }
-  .scroll-lock::-webkit-scrollbar {
-    display: none;
-  }
+.scroll-lock {
+width: 260px !important; /* Khóa chết chiều rộng để cố định chiều cao, chống giựt */
+overflow-x: auto !important; /* Bật tính năng cuộn ngang */
+-webkit-overflow-scrolling: touch; /* Giúp vuốt trượt trên iPhone mượt mà */
 }
-  
+.scroll-lock::-webkit-scrollbar {
+display: none;
+}
+}
+
 </style>
 </head>
 
 <body>
 
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-  <tbody>
-    <tr>
-      <td align="center" valign="middle">
+<tbody>
+<tr>
+<td align="center" valign="middle">
 
-        <table width="100%" border="0" cellpadding="10" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
-          <tbody>
-            <tr>
-              <td align="center" valign="bottom" style="padding: 0 20px 10px 20px;"> 
-                <div class="scroll-lock" style="display: inline-block; text-align: left; width: 100%;">
-                  <div id="title-text" style="font-size: 50px; color: #888888; line-height: 1.2; white-space: nowrap;">
-                    About <span id="scramble" style="color: #FFFFFF;"></span>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="100%" border="0" cellpadding="10" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
-          <tbody>
-            <tr>
-              <td align="center" valign="top" style="padding: 10px 20px 0 20px;">
-                <div class="scroll-lock" style="display: inline-block; text-align: left; width: 100%;">
-                  <div id="content-text" style="font-size: 20px; color: #cccccc; line-height: 1.6; font-family: 'Times New Roman', serif;">
-                    ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai (坂井泉水)</span>. Even after <span style="white-space: nowrap;">Izumi Sakai's</span> passing, her works live on as timeless standards.
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        </td>
-    </tr>
-  </tbody>
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center" valign="bottom" style="padding: 0 20px 15px 20px;"> 
+<span id="title-text" class="scroll-lock" style="display: block; width: 100%; text-align: left; font-size: 50px; color: #888; line-height: 1.2; white-space: nowrap;">
+About <span id="scramble" style="color: #fff;"></span></span></td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center" valign="top" style="padding: 15px 20px 0 20px;">
+<span id="content-text" class="scroll-lock" style="display: block; width: 100%; text-align: left; font-size: 20px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
 </table>
 
 <script src="scramble.js"></script>
