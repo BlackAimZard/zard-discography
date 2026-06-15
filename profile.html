@@ -41,6 +41,20 @@ display: none;
 }
 }
 
+#scramble {
+  /* TUYỆT KỸ ÉP XUNG GPU: Bắt trình duyệt đưa dòng chữ này lên một Layer đồ họa riêng biệt. 
+     Mỗi lần chạy nó sẽ xóa sạch sẽ nguyên cái layer đó chứ không để lại rác pixel. */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* KHÓA KHUNG MỀM: Giúp lúc huynh xoay ngang/dọc điện thoại, 
+     chữ nó không bị rớt dòng đột ngột làm kẹt pixel */
+  display: inline-block;
+  white-space: nowrap;
+}
+
 </style>
 </head>
 
