@@ -7,28 +7,15 @@
 <script type="text/javascript">
  var isMenuOpen = false, currentMode = "unknown";
 
- /* GET MENU WIDTH */
- function getMenuWidth() {
-  var div = document.createElement('div');
-  div.style.paddingLeft = 'env(safe-area-inset-left, 0px)';
-  div.style.position = 'absolute';
-  div.style.visibility = 'hidden';
-  document.documentElement.appendChild(div);
-  var safeAreaLeft = parseInt(window.getComputedStyle(div).paddingLeft, 10) || 0;
-  document.documentElement.removeChild(div);
-  return 150 + safeAreaLeft;
- }
-
  /* CHECK LAYOUT */
  function checkLayout() {
   var pw = window.innerWidth || document.documentElement.clientWidth;
   var fs = document.getElementById('mainFrameset'), lf = document.getElementById('leftFrame'), rf = document.getElementById('rightFrame');
-  var menuWidth = getMenuWidth();
   if (pw < 800) {
    if (currentMode !== "mobile") { currentMode = "mobile"; isMenuOpen = false; lf.noResize = true; rf.noResize = true; fs.cols = ""; fs.cols = "0,*"; }
    tellChild('show');
   } else {
-   if (currentMode !== "desktop") { currentMode = "desktop"; isMenuOpen = false; lf.noResize = false; rf.noResize = false; fs.cols = ""; fs.cols = menuWidth + ",*"; }
+   if (currentMode !== "desktop") { currentMode = "desktop"; isMenuOpen = false; lf.noResize = false; rf.noResize = false; fs.cols = ""; fs.cols = "150,*"; }
    tellChild('hide');
   }
  }
@@ -37,9 +24,7 @@
  function toggleMenu() {
   if ((window.innerWidth || document.documentElement.clientWidth) < 800) {
    isMenuOpen = !isMenuOpen;
-   var fs = document.getElementById('mainFrameset');
-   var menuWidth = getMenuWidth();
-   fs.cols = ""; fs.cols = isMenuOpen ? menuWidth + ",*" : "0,*";
+   var fs = document.getElementById('mainFrameset'); fs.cols = ""; fs.cols = isMenuOpen ? "150,*" : "0,*";
   }
  }
 
