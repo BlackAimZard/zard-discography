@@ -9,7 +9,7 @@ document.body.insertAdjacentHTML('beforeend', `
  /* Line styles */
  .mBtn-line {
   display: block;
-  width: 40px;
+  width: 39px;
   height: 1px;
   background: linear-gradient(90deg, #fff 33.33%, #888 33.33%, #888 66.66%, #fff 66.66%);
   background-size: 300% 100%;
@@ -21,7 +21,7 @@ document.body.insertAdjacentHTML('beforeend', `
  bottom: 20px;
  right: 20px;
  z-index: 9999;
- padding: 10px 5px;
+ padding: 15px 5px;
  background: #000;
  border: none;
  border-radius: 0;
