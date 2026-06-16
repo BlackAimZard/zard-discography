@@ -29,7 +29,7 @@ document.body.insertAdjacentHTML('beforeend', `
  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
  -webkit-appearance: none;
  appearance: none;
- display: block;
+ display: none;
  line-height: 0;
  font-size: 0;
 ">
