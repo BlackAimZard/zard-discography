@@ -26,23 +26,21 @@ img { border: 0; display: block; }
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
 
-/* small screen text */
+/* small screen FIX */
 @media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
 
-/* 300PX Fix */
+/* 300PX FIX */
 @media screen and (max-width: 300px) {
-.scroll-lock {
-width: 260px !important; /* Khóa chết chiều rộng để cố định chiều cao, chống giựt */
-overflow-x: auto !important; /* Bật tính năng cuộn ngang */
--webkit-overflow-scrolling: touch; /* Giúp vuốt trượt trên iPhone mượt mà */
-}
-.scroll-lock::-webkit-scrollbar {
-display: none;
-}
-}
+.scroll-lock { width: 260px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+.scroll-lock::-webkit-scrollbar { display: none; } }
 
-
-
+/* ANIMATION FIX */
+#scramble { transform: translateZ(0);
+-webkit-transform: translateZ(0);
+backface-visibility: hidden;
+-webkit-backface-visibility: hidden;
+display: inline-block;
+white-space: nowrap; }
 </style>
 </head>
 
@@ -58,7 +56,7 @@ display: none;
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px 15px 20px;"> 
 <span id="title-text" class="scroll-lock" style="display: block; width: 100%; text-align: left; font-size: 50px; color: #888; line-height: 1.2; white-space: nowrap;">
-Abouts <span id="scramble" style="color: #fff;"></span></span></td>
+About <span id="scramble" style="color: #fff;"></span></span></td>
 </tr>
 </tbody>
 </table>

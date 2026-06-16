@@ -2,9 +2,9 @@ document.body.insertAdjacentHTML('beforeend', `
 <style>
  /* Animation keyframes */
  @keyframes slowFlow {
-  0%, 25% { background-position: 100% 0; }
-  42.5%, 57.5% { background-position: 50% 0; }
-  75%, 100% { background-position: 0% 0; }
+  0%, 21.4% { background-position: 100% 0; }
+  41.4%, 58.6% { background-position: 50% 0; }
+  78.6%, 100% { background-position: 0% 0; }
  }
  /* Line styles */
  .mBtn-line {
@@ -13,7 +13,7 @@ document.body.insertAdjacentHTML('beforeend', `
   height: 1px;
   background: linear-gradient(90deg, #fff 33.33%, #888 33.33%, #888 66.66%, #fff 66.66%);
   background-size: 300% 100%;
-  animation: slowFlow 4s ease-in-out infinite;
+  animation: slowFlow 3.5s ease-in-out infinite;
  }
 </style>
 <button id="mBtn" style="
