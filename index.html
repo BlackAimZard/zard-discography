@@ -60,11 +60,7 @@
   }
  });
 
-var resizeTimer;
- window.onresize = function() {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(checkLayout, 200); 
- };
+ window.onresize = checkLayout;
 </script>
 </head>
 <frameset cols="150,*" id="mainFrameset" onload="checkLayout()">
