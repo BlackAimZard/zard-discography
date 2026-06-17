@@ -27,10 +27,9 @@ a { background: transparent; text-decoration: none; color: #003399; margin: 0; p
 a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SMALL SCREEN FIX */
-@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 38px !important; } #content-text { font-size: 16px !important; } }
-@media screen and (max-width: 300px) {
-.scroll-lock { width: 260px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
-.scroll-lock::-webkit-scrollbar { display: none; } }
+@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
+.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.scroll-wrapper::-webkit-scrollbar { display: none; }
 
 /* ANIMATION FIX */
 #scramble { transform: translateZ(0);
@@ -47,26 +46,24 @@ white-space: nowrap; }
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-<td align="center" valign="middle" style="padding-bottom:50px;">
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
+<td align="center" valign="middle" style="padding-bottom: 50px;">
+<div class="scroll-wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto;">
 <tbody>
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px 15px 20px;"> 
-<span id="title-text" class="scroll-lock" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.6; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span></td>
+<span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
+About <span id="scramble" style="color: #fff;"></span></span>
+</td>
 </tr>
-</tbody>
-</table>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 666px; margin: 0 auto;">
-<tbody>
 <tr>
 <td align="center" valign="top" style="padding: 15px 20px 0 20px;">
-<span id="content-text" class="scroll-lock" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span></td>
+<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
+</td>
 </tr>
 </tbody>
 </table>
+ </div>
 </td>
 </tr>
 </tbody>
