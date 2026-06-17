@@ -11,9 +11,9 @@
 @font-face {font-family: 'trona-bold'; src: url('fonts/trona-bold.woff') format('woff');}
 @font-face { font-family: 'Trona-Bold'; src: local('Trona Bold'), local('Trona-Bold'); }
 
-/* PROFILE LAYOUT */
+/* PROFILE LAYOUT & ANTI-ALIASING */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; }
-body { background-color: #000000; font-size: 16px; font-family: "Trona Bold", "trona-bold", "Times New Roman", sans-serif; }
+body { background-color: #000000; font-size: 16px; font-family: "Trona Bold", "trona-bold", "Times New Roman", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -27,28 +27,31 @@ a { background: transparent; text-decoration: none; color: #003399; margin: 0; p
 a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SMALL SCREEN FIX */
-@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.scroll-wrapper::-webkit-scrollbar { display: none; }
+@media screen and (max-width: 600px) { 
+#title-text, #scramble { font-size: 38px !important; } 
+#content-text { font-size: 16px !important; } 
+}
+
+/* SCROLL WRAPPER */
+.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #333 transparent; }
+.scroll-wrapper::-webkit-scrollbar { height: 4px; display: none; }
+
+/* HIỆU ỨNG ẢNH ĐEN TRẮNG MỘC MẠC (BASIC) */
+.gallery-img { filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
+.gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* ANIMATION FIX */
-#scramble { transform: translateZ(0);
--webkit-transform: translateZ(0);
-backface-visibility: hidden;
--webkit-backface-visibility: hidden;
-display: inline-block;
-white-space: nowrap; }
+#scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 </style>
 </head>
 
 <body>
-
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
 <td align="center" valign="middle" style="padding-bottom: 50px;">
 <div class="scroll-wrapper">
-<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px 15px 20px;"> 
@@ -61,13 +64,42 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
-</tbody>
-</table>
- </div>
+<tr>
+<td align="left" valign="bottom" style="padding: 60px 20px 15px 20px;"> 
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 0 20px 0 20px;">
+<div class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left;">
+<img src="img/1.jpg" alt="Pic 1" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/2.jpg" alt="Pic 2" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/3.jpg" alt="Pic 3" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/4.jpg" alt="Pic 4" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/5.jpg" alt="Pic 5" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/6.jpg" alt="Pic 6" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/7.jpg" alt="Pic 7" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: zoom-in;">
+<img src="img/8.jpg" alt="Pic 8" class="gallery-img" draggable="false" onclick="openLightbox(this.src)" style="display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; cursor: zoom-in;">
+</div>
 </td>
 </tr>
 </tbody>
 </table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+<div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
+<img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
+</div>
+
+<script>
+function openLightbox(imageSrc) {
+document.getElementById('lightbox-img').src = imageSrc;
+document.getElementById('lightbox').style.display = 'flex'; 
+}
+</script>
 
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
