@@ -32,12 +32,33 @@ a:hover { color: #ff0000; text-decoration: underline; }
 #content-text { font-size: 16px !important; } 
 }
 
-/* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #333 transparent; padding-bottom: 8px; }
-.scroll-wrapper::-webkit-scrollbar { height: 4px; display: block; }
-.scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
-.scroll-wrapper::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-.scroll-wrapper::-webkit-scrollbar-thumb:hover { background: #555; }
+/* SCROLL WRAPPER & THANH CUỘN VUÔNG VỨC, 2PX CÓ ĐƯỜNG RAY */
+.scroll-wrapper { 
+    width: 100%; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    padding-bottom: 5px; 
+}
+
+/* Ép thanh cuộn hiển thị mọi lúc */
+.scroll-wrapper::-webkit-scrollbar { 
+    height: 5px !important; 
+    display: block !important; 
+    visibility: visible !important;
+}
+
+/* ĐƯỜNG RAY NHẠT (TRACK) - Đã quay trở lại */
+.scroll-wrapper::-webkit-scrollbar-track { 
+    background: #222 !important; /* Cái thanh nhạt nhạt phía sau đây đại ca */
+    border-radius: 0 !important;
+}
+
+/* THANH TRƯỢT (THUMB) - 2px, vuông vức */
+.scroll-wrapper::-webkit-scrollbar-thumb { 
+    background: #555 !important; 
+    border-radius: 0 !important; 
+    border: none !important; 
+}
 
 /* HIỆU ỨNG ẢNH ĐEN TRẮNG MỘC MẠC (BASIC) */
 .gallery-img { filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
@@ -52,7 +73,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-<td align="center" valign="middle" style="padding-bottom: 50px;">
+<td align="center" valign="middle" style="padding-bottom: 30px;">
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
@@ -68,7 +89,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <tr>
-<td align="left" valign="bottom" style="padding: 100px 20px 15px 20px;"> 
+<td align="left" valign="bottom" style="padding: 150px 20px 15px 20px;"> 
 </td>
 </tr>
 <tr>
