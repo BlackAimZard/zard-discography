@@ -33,8 +33,11 @@ a:hover { color: #ff0000; text-decoration: underline; }
 }
 
 /* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #333 transparent; }
-.scroll-wrapper::-webkit-scrollbar { height: 4px; display: none; }
+.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #333 transparent; padding-bottom: 8px; }
+.scroll-wrapper::-webkit-scrollbar { height: 4px; display: block; }
+.scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
+.scroll-wrapper::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+.scroll-wrapper::-webkit-scrollbar-thumb:hover { background: #555; }
 
 /* HIỆU ỨNG ẢNH ĐEN TRẮNG MỘC MẠC (BASIC) */
 .gallery-img { filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
