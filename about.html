@@ -38,10 +38,23 @@ display: inline-block;
 white-space: nowrap; }
 
 /* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; padding-bottom: 5px; }
+/* --- SCROLL WRAPPER (NATIVE CHO PC) --- */
+.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { height: 5px !important; display: block !important; visibility: visible !important; }
 .scroll-wrapper::-webkit-scrollbar-track { background: #222 !important; border-radius: 0 !important; }
 .scroll-wrapper::-webkit-scrollbar-thumb { background: #666 !important; border-radius: 0 !important; border: none !important; }
+
+/* --- THANH CUỘN GIẢ CHO MOBILE --- */
+.custom-scrollbar-container { display: none; /* Mặc định giấu đi trên PC */ }
+
+/* Nhận diện điện thoại / thiết bị cảm ứng */
+@media (hover: none) and (pointer: coarse), screen and (max-width: 600px) {
+    /* Ép tàng hình thanh cuộn gốc của Safari/Chrome Mobile */
+    .scroll-wrapper::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+    .scroll-wrapper { scrollbar-width: none !important; }
+    /* Hiện thanh cuộn giả bằng HTML lên */
+    .custom-scrollbar-container { display: block; width: 100%; height: 5px; background: #222; margin-top: 5px; position: relative; }
+}
 
 /* IMG */
 .gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer;
@@ -63,7 +76,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-Abouts <span id="scramble" style="color: #fff;"></span></span>
+About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -79,7 +92,7 @@ Abouts <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left;">
+<div id="photo-slider" class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left; padding-bottom: 5px;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -88,6 +101,10 @@ Abouts <span id="scramble" style="color: #fff;"></span></span>
 <img src="photo/thumb/06.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/06.jpg')">
 <img src="photo/thumb/07.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
 <img src="photo/thumb/08.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
+</div>
+
+<div class="custom-scrollbar-container">
+<div id="custom-thumb" style="height: 5px; background: #666; width: 0%; position: absolute; left: 0; top: 0; border-radius: 0;"></div>
 </div>
 </td>
 </tr>
@@ -109,5 +126,33 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!--SMALL SCREEN JS-->
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
+
+<script>
+// CHỈ ĐỒNG BỘ HIỂN THỊ TRÊN MOBILE
+const slider = document.getElementById('photo-slider');
+const thumb = document.getElementById('custom-thumb');
+
+function syncCustomScrollbar() {
+    // Nếu đang ở PC (thanh giả bị display: none) thì bỏ qua, không tính toán cho nhẹ máy
+    if (!slider || !thumb || thumb.parentElement.offsetParent === null) return; 
+
+    const thumbWidthPercent = (slider.clientWidth / slider.scrollWidth) * 100;
+    thumb.style.width = thumbWidthPercent + '%';
+    
+    if (slider.scrollWidth <= slider.clientWidth) {
+        thumb.style.left = '0%';
+        return;
+    }
+    
+    const scrollPercent = slider.scrollLeft / (slider.scrollWidth - slider.clientWidth);
+    const maxLeft = 100 - thumbWidthPercent;
+    thumb.style.left = (scrollPercent * maxLeft) + '%';
+}
+
+slider.addEventListener('scroll', syncCustomScrollbar);
+window.addEventListener('resize', syncCustomScrollbar);
+window.addEventListener('load', syncCustomScrollbar);
+syncCustomScrollbar(); 
+</script>
 </body>
 </html>
