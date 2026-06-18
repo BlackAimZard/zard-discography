@@ -37,21 +37,13 @@ backface-visibility: hidden;
 display: inline-block;
 white-space: nowrap; }
 
-/* --- SCROLL WRAPPER (Tàng hình 100%) --- */
-.scroll-wrapper { 
-    width: 100%; 
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch; /* Giữ độ nhún cho Mobile */
-    scrollbar-width: none; /* Cấm Firefox */
-    -ms-overflow-style: none; /* Cấm IE/Edge */
-    scroll-behavior: smooth; /* Ép trượt mượt khi bấm nút */
-}
-.scroll-wrapper::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+/* SCROLL WRAPPER */
+.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
+.scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
 /* IMG */
 .gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer;
-filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
-.gallery-img:last-child { margin-right: 0; }
+filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; flex-shrink: 0; vertical-align: top; }
 .gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 </style>
 </head>
@@ -84,7 +76,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="photo-slider" class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left; padding-bottom: 5px;">
+<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -94,9 +86,13 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <img src="photo/thumb/07.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
 <img src="photo/thumb/08.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
 </div>
-<div style="text-align: right; margin-top: 10px;">
-    <span id="btn-prev" style="color: #666; font-size: 20px; font-family: 'Times New Roman', serif; cursor: pointer; padding: 0 15px; user-select: none;">&lt;</span>
-    <span id="btn-next" style="color: #666; font-size: 20px; font-family: 'Times New Roman', serif; cursor: pointer; padding: 0 0 0 15px; user-select: none;">&gt;</span>
+</td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding-top: 10px;">
+<div style="font-size: 24px; color: #888; user-select: none;">
+<span style="cursor: pointer; padding: 0 30px; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slidePrev()">&#10094;</span>
+<span style="cursor: pointer; padding: 0 30px; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slideNext()">&#10095;</span>
 </div>
 </td>
 </tr>
@@ -115,14 +111,33 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
+
+<!-- NEXT-PREV -->
+<script>
+let isSliding = false;
+function smoothScroll(el, chg, dur, cb) {
+    const start = el.scrollLeft, startTime = performance.now();
+    function animate(cur) {
+        const prog = Math.min((cur - startTime) / dur, 1), ease = prog < 0.5 ? 2 * prog * prog : -1 + (4 - 2 * prog) * prog;
+        el.scrollLeft = start + chg * ease;
+        prog < 1 ? requestAnimationFrame(animate) : (cb && cb());
+    }
+    requestAnimationFrame(animate);
+}
+function slideNext() {
+    if (isSliding) return; isSliding = true; const t = document.getElementById('slider-track'), w = 140;
+    smoothScroll(t, w, 150, () => { t.appendChild(t.firstElementChild); t.scrollLeft -= w; isSliding = false; });
+}
+function slidePrev() {
+    if (isSliding) return; isSliding = true; const t = document.getElementById('slider-track'), w = 140;
+    t.prepend(t.lastElementChild); t.scrollLeft += w;
+    smoothScroll(t, -w, 150, () => { isSliding = false; });
+}
+</script>
+
 <!--SMALL SCREEN JS-->
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
 
-<script>
-// CLICK NÚT LÀ TRƯỢT
-document.getElementById('btn-prev').onclick = () => document.getElementById('photo-slider').scrollBy({ left: -280, behavior: 'smooth' });
-document.getElementById('btn-next').onclick = () => document.getElementById('photo-slider').scrollBy({ left: 280, behavior: 'smooth' });
-</script>
 </body>
 </html>
