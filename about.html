@@ -128,12 +128,31 @@ function smoothScroll(el, chg, dur, cb) {
     }
     requestAnimationFrame(animate);
 }
+
+const t = document.getElementById('slider-track'), w = 140;
+
+t.prepend(t.lastElementChild);
+t.scrollLeft = w;
+
+// Thêm { passive: true } vào cuối dòng này để mở khóa sức mạnh GPU
+t.addEventListener('scroll', () => {
+    if (isSliding) return; 
+    if (t.scrollLeft <= 5) {
+        t.prepend(t.lastElementChild);
+        t.scrollLeft += w;
+    } 
+    else if (t.scrollLeft >= t.scrollWidth - t.clientWidth - 5) {
+        t.appendChild(t.firstElementChild);
+        t.scrollLeft -= w;
+    }
+}, { passive: true }); // <--- Bí kíp nằm ở góc này đây đại ca!
+
 function slideNext() {
-    if (isSliding) return; isSliding = true; const t = document.getElementById('slider-track'), w = 140;
+    if (isSliding) return; isSliding = true; 
     smoothScroll(t, w, 150, () => { t.appendChild(t.firstElementChild); t.scrollLeft -= w; isSliding = false; });
 }
 function slidePrev() {
-    if (isSliding) return; isSliding = true; const t = document.getElementById('slider-track'), w = 140;
+    if (isSliding) return; isSliding = true; 
     t.prepend(t.lastElementChild); t.scrollLeft += w;
     smoothScroll(t, -w, 150, () => { isSliding = false; });
 }
