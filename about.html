@@ -12,7 +12,7 @@
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('Trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
 
 /* PROFILE LAYOUT */
-html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; }
+html, body { height: 100%; margin: 0; padding: 0; background-color: #000000; }
 body { font-size: 16px; font-family: "Trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
@@ -30,22 +30,55 @@ a:hover { color: #ff0000; text-decoration: underline; }
 @media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
 
 /* ANIMATION FIX */
-#scramble { transform: translateZ(0);
--webkit-transform: translateZ(0);
-backface-visibility: hidden;
--webkit-backface-visibility: hidden;
-display: inline-block;
-white-space: nowrap; }
+#scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
-/* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; }
-.scroll-wrapper::-webkit-scrollbar { height: 5px !important; display: block !important; visibility: visible !important; }
-.scroll-wrapper::-webkit-scrollbar-track { background: #222 !important; border-radius: 0 !important; }
-.scroll-wrapper::-webkit-scrollbar-thumb { background: #666 !important; border-radius: 0 !important; border: none !important; }
+/* ========================================= */
+/* SCROLL WRAPPER (SÁT THỦ DIỆT THANH CUỘN GỐC) */
+/* ========================================= */
+.scroll-wrapper { 
+    width: 100%; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    padding-bottom: 5px; 
+    
+    /* Ép Firefox tàng hình */
+    scrollbar-width: none !important; 
+    /* Ép IE/Edge tàng hình */
+    -ms-overflow-style: none !important; 
+}
+/* Ép Chrome/Safari/Opera tàng hình */
+.scroll-wrapper::-webkit-scrollbar { 
+    display: none !important; 
+    width: 0 !important; 
+    height: 0 !important; 
+}
+
+/* THANH CUỘN GIẢ TỰ BUILD (HIỆN TRÊN MỌI MẶT TRẬN) */
+.custom-scrollbar-container { 
+    display: block; 
+    width: 100%; 
+    height: 5px; 
+    background: #222; 
+    margin-top: 5px; 
+    position: relative; 
+}
+.custom-scrollbar-thumb {
+    height: 5px; 
+    background: #666; 
+    width: 0%; 
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    border-radius: 0;
+    cursor: grab; /* Biểu tượng bàn tay trên PC */
+}
+.custom-scrollbar-thumb:active {
+    cursor: grabbing; /* Bàn tay nắm lại khi đang kéo */
+    background: #888; /* Kéo thì sáng màu lên tí cho sinh động */
+}
 
 /* IMG */
-.gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer;
-filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
+.gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer; filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; }
 .gallery-img:last-child { margin-right: 0; }
 .gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 </style>
@@ -56,30 +89,25 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tbody>
 <tr>
 <td align="center" valign="middle" style="padding-top: 60px; padding-bottom: 100px;">
-<div class="scroll-wrapper">
+<div class="scroll-wrapper" style="overflow-y: hidden;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
-<!--TITLE-->
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
-<!--SPACE-->
 <tr><td style="height: 30px; padding: 0 20px;"></td></tr>
-<!--TEXT-->
 <tr>
 <td align="center" valign="top" style="padding: 0 20px;">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
-<!--SPACE-->
 <tr><td style="height: 120px; padding: 0 20px;"></td></tr>
-<!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left;">
+<div id="photo-slider" class="scroll-wrapper" style="width: 100%; white-space: nowrap; text-align: left; padding-bottom: 5px;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -88,6 +116,10 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <img src="photo/thumb/06.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/06.jpg')">
 <img src="photo/thumb/07.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
 <img src="photo/thumb/08.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
+</div>
+
+<div class="custom-scrollbar-container">
+<div id="custom-thumb" class="custom-scrollbar-thumb"></div>
 </div>
 </td>
 </tr>
@@ -99,15 +131,72 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tbody>
 </table>
 
-<!--IMG LIGHT BOX-->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
 </div>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-<!--SMALL SCREEN JS-->
+
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
+
+<script>
+const slider = document.getElementById('photo-slider');
+const thumb = document.getElementById('custom-thumb');
+
+if (slider && thumb) {
+
+    function syncScrollbar() {
+        const thumbWidth = (slider.clientWidth / slider.scrollWidth) * 100;
+        thumb.style.width = thumbWidth + '%';
+
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+        if (maxScroll <= 0) {
+            thumb.style.left = '0%';
+            return;
+        }
+
+        const scrollPercent = slider.scrollLeft / maxScroll;
+        thumb.style.left = (scrollPercent * (100 - thumbWidth)) + '%';
+    }
+
+    slider.addEventListener('scroll', syncScrollbar);
+    window.addEventListener('resize', syncScrollbar);
+    window.addEventListener('load', syncScrollbar);
+
+    syncScrollbar();
+
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    thumb.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startScrollLeft = slider.scrollLeft;
+
+        document.body.style.userSelect = 'none';
+        thumb.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+
+        document.body.style.userSelect = '';
+        thumb.style.cursor = '';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const deltaX = e.clientX - startX;
+        const scrollRatio = slider.scrollWidth / slider.clientWidth;
+
+        slider.scrollLeft = startScrollLeft + (deltaX * scrollRatio);
+    });
+}
+</script>
 </body>
 </html>
