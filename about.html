@@ -60,7 +60,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+Abouts <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -76,7 +76,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none;">
+<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -131,21 +131,32 @@ function smoothScroll(el, chg, dur, cb) {
 
 const t = document.getElementById('slider-track'), w = 140;
 
+// Giấu ảnh cuối lên đầu để tạo đà
 t.prepend(t.lastElementChild);
 t.scrollLeft = w;
 
-// Thêm { passive: true } vào cuối dòng này để mở khóa sức mạnh GPU
-t.addEventListener('scroll', () => {
-    if (isSliding) return; 
-    if (t.scrollLeft <= 5) {
-        t.prepend(t.lastElementChild);
-        t.scrollLeft += w;
-    } 
-    else if (t.scrollLeft >= t.scrollWidth - t.clientWidth - 5) {
-        t.appendChild(t.firstElementChild);
-        t.scrollLeft -= w;
-    }
-}, { passive: true }); // <--- Bí kíp nằm ở góc này đây đại ca!
+// --- CẢM BIẾN VUỐT TAY (SWIPE SENSOR) ---
+let touchStartX = 0;
+let touchEndX = 0;
+
+t.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+t.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    if (isSliding) return;
+    const diff = touchStartX - touchEndX;
+    
+    // Nếu quãng đường vuốt lớn hơn 40px mới tính là 1 lần vuốt (tránh chạm nhầm)
+    if (diff > 40) slideNext();       // Vuốt tay sang trái -> Hiện ảnh tiếp theo
+    else if (diff < -40) slidePrev(); // Vuốt tay sang phải -> Quay lại ảnh trước
+}
+// -----------------------------------------
 
 function slideNext() {
     if (isSliding) return; isSliding = true; 
