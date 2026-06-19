@@ -118,74 +118,30 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-let isSliding = false, isDragging = false, startX, startScroll;
-const t = document.getElementById('slider-track'), w = 140;
-
-function smoothScrollTo(target, cb) {
-    const start = t.scrollLeft, change = target - start, startTime = performance.now();
-    function animate(cur) {
-        const prog = Math.min((cur - startTime) / 150, 1);
-        const ease = prog < 0.5 ? 2 * prog * prog : -1 + (4 - 2 * prog) * prog;
-        t.scrollLeft = start + change * ease;
-        prog < 1 ? requestAnimationFrame(animate) : (cb && cb());
+let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
+const t=document.getElementById('slider-track'),w=140;
+function smoothScrollTo(tgt,cb){
+    const st=t.scrollLeft,chg=tgt-st,sTime=performance.now();
+    function animate(cur){
+        const p=Math.min((cur-sTime)/150,1),e=p<0.5?2*p*p:-1+(4-2*p)*p;
+        t.scrollLeft=st+chg*e; p<1?requestAnimationFrame(animate):(cb&&cb());
     }
     requestAnimationFrame(animate);
 }
-
-function snap(target, cb) {
-    isSliding = true;
-    smoothScrollTo(target, () => { if(cb) cb(); isSliding = false; });
-}
-
-// Lấy đà
-t.prepend(t.lastElementChild);
-t.scrollLeft = w;
-
-// --- LOGIC KÉO THẢ VẬT LÝ ---
-const startDrag = (x) => {
-    if (isSliding) return;
-    isDragging = true; startX = x; startScroll = t.scrollLeft;
-    t.style.cursor = 'grabbing';
-};
-
-const onDrag = (x) => {
-    if (!isDragging || isSliding) return;
-    let targetScroll = startScroll + (startX - x);
-    
-    // BẢO BỐI 1: Khóa lực kéo! Chống vuốt lố qua tấm thứ 3 gây giật ngược
-    targetScroll = Math.max(0, Math.min(targetScroll, w * 2)); 
-    t.scrollLeft = targetScroll;
-};
-
-const endDrag = () => {
-    if (!isDragging) return;
-    isDragging = false; t.style.cursor = 'grab';
-    
-    const diff = t.scrollLeft - w;
-    
-    // BẢO BỐI 2: Chỉnh độ nhạy tại đây!
-    // 35px tương đương với việc vuốt qua 25% tấm ảnh là nó tự hít sang ảnh kế tiếp.
-    // (Nếu huynh muốn vuốt đúng 70% mới qua bài thì sửa số 35 thành 98 nhé).
-    const threshold = 35; 
-    
-    if (diff > threshold) snap(w * 2, () => { t.appendChild(t.firstElementChild); t.scrollLeft = w; });
-    else if (diff < -threshold) snap(0, () => { t.prepend(t.lastElementChild); t.scrollLeft = w; });
-    else snap(w); 
-};
-
-// Cảm biến Mobile
-t.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
-t.addEventListener('touchmove', e => onDrag(e.touches[0].pageX), { passive: true });
-t.addEventListener('touchend', endDrag);
-
-// Cảm biến PC
-t.addEventListener('mousedown', e => startDrag(e.pageX));
-t.addEventListener('mousemove', e => { if(isDragging) e.preventDefault(); onDrag(e.pageX); });
-t.addEventListener('mouseup', endDrag);
-t.addEventListener('mouseleave', endDrag);
-
-function slideNext() { if (!isSliding) snap(w * 2, () => { t.appendChild(t.firstElementChild); t.scrollLeft = w; }); }
-function slidePrev() { if (!isSliding) snap(0, () => { t.prepend(t.lastElementChild); t.scrollLeft = w; }); }
+function snap(tgt,cb){isSliding=true;smoothScrollTo(tgt,()=>{if(cb)cb();isSliding=false;});}
+t.prepend(t.lastElementChild); t.scrollLeft=w;
+const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;t.style.cursor='grabbing';};
+const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;t.scrollLeft=Math.max(0,Math.min(startScroll+(startX-x),w*2));};
+const endDrag=()=>{if(!isDragging)return;isDragging=false;t.style.cursor='grab';const d=t.scrollLeft-w;d>35?snap(w*2,()=>{t.appendChild(t.firstElementChild);t.scrollLeft=w;}):d<-35?snap(0,()=>{t.prepend(t.lastElementChild);t.scrollLeft=w;}):snap(w);};
+t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
+t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
+t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
+t.addEventListener('touchend',endDrag);
+t.addEventListener('mousedown',e=>startDrag(e.pageX));
+t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
+t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
+function slideNext(){if(!isSliding)snap(w*2,()=>{t.appendChild(t.firstElementChild);t.scrollLeft=w;});}
+function slidePrev(){if(!isSliding)snap(0,()=>{t.prepend(t.lastElementChild);t.scrollLeft=w;});}
 </script>
 
 <!--SMALL SCREEN JS-->
