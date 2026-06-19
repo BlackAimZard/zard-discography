@@ -71,7 +71,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-Abouts <span id="scramble" style="color: #fff;"></span></span>
+About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -130,64 +130,77 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!-- NEXT-PREV -->
 <script>
 const t = document.getElementById('slider-track');
+const w = 140; // Chiều rộng ảnh (130) + margin (10)
 
-const w = 140;
-const baseCount = t.children.length;
+// Kiểm tra thiết bị cảm ứng
+const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-// clone 3 lần
-t.innerHTML = t.innerHTML + t.innerHTML + t.innerHTML;
+if (!isTouchDevice) {
+    // ==========================================
+    // TRÊN PC: VÒNG LẶP VÔ HẠN & CHỈ DÙNG NÚT < >
+    // ==========================================
+    
+    t.style.overflowX = 'hidden'; // Khóa cuộn trackpad/chuột
+    
+    let isSliding = false;
+    const setW = t.children.length * w;
+    
+    t.innerHTML += t.innerHTML + t.innerHTML; 
+    t.scrollLeft = setW;
 
-const setW = baseCount * w;
-
-// luôn bắt đầu ở giữa
-t.scrollLeft = setW;
-
-let isSliding = false;
-
-// ===== helper: ép luôn về vùng giữa =====
-function fixPosition() {
-    if (t.scrollLeft < setW) {
-        t.scrollLeft += setW;
-    } 
-    else if (t.scrollLeft >= setW * 2) {
-        t.scrollLeft -= setW;
+    function smoothScrollTo(tgt, cb) {
+        const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
+        function animate(cur) {
+            const p = Math.min((cur - sT) / 250, 1), e = 0.5 - Math.cos(p * Math.PI) / 2;
+            t.scrollLeft = st + chg * e;
+            if (p < 1) requestAnimationFrame(animate);
+            else {
+                const c = Math.round(t.scrollLeft);
+                if (c < setW) t.scrollLeft += setW; 
+                else if (c >= setW * 2) t.scrollLeft -= setW;
+                if (cb) cb();
+            }
+        }
+        requestAnimationFrame(animate);
     }
-}
 
-// ===== core move =====
-function move(step) {
-    if (isSliding) return;
-    isSliding = true;
+    function snap(tgt) { isSliding = true; smoothScrollTo(tgt, () => isSliding = false); }
 
-    const start = t.scrollLeft;
-    const target = start + step;
-    const startTime = performance.now();
+    window.slideNext = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w + w); }
+    window.slidePrev = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w - w); }
 
-    function anim(now) {
-        const p = Math.min((now - startTime) / 250, 1);
-        const ease = 0.5 - Math.cos(p * Math.PI) / 2;
-
-        t.scrollLeft = start + (target - start) * ease;
-
-        if (p < 1) {
-            requestAnimationFrame(anim);
+} else {
+    // ==========================================
+    // TRÊN MOBILE: THẢ TỰ DO CHO CSS SNAP
+    // ==========================================
+    
+    window.slideNext = function() { 
+        // Tính toán giới hạn cuộn tối đa của Mobile
+        const maxScroll = t.scrollWidth - t.clientWidth;
+        let target = t.scrollLeft + w;
+        
+        // Nếu đã chạm (hoặc gần chạm) ảnh cuối cùng -> cuộn tuột về lại đầu tiên cho mượt
+        if (t.scrollLeft >= maxScroll - 5) {
+            t.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-            fixPosition(); // teleport giữ loop
-            isSliding = false;
+            // Ép chặt không cho vượt quá maxScroll tránh vùng đen
+            t.scrollTo({ left: Math.min(target, maxScroll), behavior: 'smooth' });
         }
     }
-
-    requestAnimationFrame(anim);
+    
+    window.slidePrev = function() { 
+        let target = t.scrollLeft - w;
+        
+        // Nếu đang ở ảnh đầu tiên mà lùi -> cuộn cái vèo tới ảnh cuối cùng
+        if (t.scrollLeft <= 5) {
+            const maxScroll = t.scrollWidth - t.clientWidth;
+            t.scrollTo({ left: maxScroll, behavior: 'smooth' });
+        } else {
+            // Ép chặt không cho lùi quá 0 (âm tọa độ)
+            t.scrollTo({ left: Math.max(target, 0), behavior: 'smooth' });
+        }
+    }
 }
-
-// ===== buttons =====
-window.slideNext = () => move(w);
-window.slidePrev = () => move(-w);
-
-// ===== optional mobile safety =====
-t.addEventListener('scroll', () => {
-    if (!isSliding) fixPosition();
-});
 </script>
 
 <!--SMALL SCREEN JS-->
