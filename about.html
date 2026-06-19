@@ -46,10 +46,11 @@ white-space: nowrap; }
 filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; flex-shrink: 0; vertical-align: top; }
 .gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
-/* CHỈ ÁP DỤNG SNAP CHO THIẾT BỊ CẢM ỨNG (MOBILE/TABLET) */
+/* MOBILE NATIVE SCROLL SNAP */
 @media (hover: none) and (pointer: coarse) {
   #slider-track {
     scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; /* Thêm cái này để lúc bấm nút mũi tên nó trượt mượt */
   }
   .gallery-img {
     scroll-snap-align: start;
@@ -86,7 +87,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: auto;">
+<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -128,75 +129,58 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-let isSliding=false, isDragging=false, dragged=false, startX, startScroll;
-const t=document.getElementById('slider-track'), w=140; 
-// Đã bỏ biến setW và bỏ luôn lệnh nhân 3 ảnh (t.innerHTML += ...)
+const t = document.getElementById('slider-track');
+const w = 140; // Chiều rộng ảnh (130) + margin (10)
 
-function smoothScrollTo(tgt,cb){
-    const st=t.scrollLeft, chg=tgt-st, sT=performance.now();
-    function animate(cur){
-        const p=Math.min((cur-sT)/250, 1), e=0.5-Math.cos(p*Math.PI)/2;
-        t.scrollLeft = st+chg*e;
-        if(p<1) requestAnimationFrame(animate);
-        else{
-            // Bỏ vòng lặp vô tận, chỉ gọi callback khi xong
-            if(cb) cb();
+// Kiểm tra có phải thiết bị cảm ứng hay không
+const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+if (!isTouchDevice) {
+    // ==========================================
+    // TRÊN PC: VÒNG LẶP VÔ HẠN & CHỈ DÙNG NÚT < >
+    // ==========================================
+    
+    // Khóa cuộn bằng trackpad/con lăn để bắt buộc dùng nút < > theo ý đại ca
+    t.style.overflowX = 'hidden'; 
+    
+    let isSliding = false;
+    const setW = t.children.length * w;
+    
+    // Nhân bản ảnh để tạo vòng lặp
+    t.innerHTML += t.innerHTML + t.innerHTML; 
+    t.scrollLeft = setW;
+
+    function smoothScrollTo(tgt, cb) {
+        const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
+        function animate(cur) {
+            const p = Math.min((cur - sT) / 250, 1), e = 0.5 - Math.cos(p * Math.PI) / 2;
+            t.scrollLeft = st + chg * e;
+            if (p < 1) requestAnimationFrame(animate);
+            else {
+                const c = Math.round(t.scrollLeft);
+                if (c < setW) t.scrollLeft += setW; 
+                else if (c >= setW * 2) t.scrollLeft -= setW;
+                if (cb) cb();
+            }
         }
+        requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
-}
 
-function snap(tgt){isSliding=true; smoothScrollTo(tgt, ()=>isSliding=false);}
+    function snap(tgt) { isSliding = true; smoothScrollTo(tgt, () => isSliding = false); }
 
-// GIỮ NGUYÊN LOGIC CHUỘT CHO PC
-const startDrag=x=>{
-    if(isSliding) return;
-    isDragging=true; dragged=false; startX=x; startScroll=t.scrollLeft;
-};
+    // Gán chức năng cho nút
+    window.slideNext = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w + w); }
+    window.slidePrev = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w - w); }
 
-const onDrag=x=>{
-    if(!isDragging || isSliding) return;
-    if(Math.abs(startX-x)>5) dragged=true;
-    // Kéo tự do không giới hạn, không cản lực
-    t.scrollLeft = startScroll+(startX-x);
-};
-
-const endDrag=()=>{
-    if(!isDragging) return;
-    isDragging=false;
-    // BỎ QUÁN TÍNH: Bắt đúng tọa độ ngay lúc thả tay, làm tròn về ảnh gần nhất
-    snap(Math.round(t.scrollLeft/w)*w);
-};
-
-// SỰ KIỆN LẮNG NGHE
-t.addEventListener('click', e=>{if(dragged){e.preventDefault(); e.stopPropagation();}}, true);
-
-// Đã xoá các sự kiện touchstart, touchmove, touchend để trả về mặc định cho mobile
-
-t.addEventListener('mousedown', e=>startDrag(e.pageX));
-t.addEventListener('mousemove', e=>{if(isDragging){e.preventDefault(); onDrag(e.pageX);}});
-t.addEventListener('mouseup', endDrag); 
-t.addEventListener('mouseleave', endDrag);
-
-// BẤM NÚT ĐI TỪNG BÀI (CÓ REWIND KHI TỚI ĐẦU/CUỐI)
-function slideNext() {
-    if(isSliding) return;
-    // Nếu đã cuộn sát lề phải (cho sai số 5px) -> Tua về đầu (0)
-    if(t.scrollLeft + t.clientWidth >= t.scrollWidth - 5) {
-        snap(0);
-    } else {
-        snap(Math.round(t.scrollLeft/w)*w + w);
-    }
-}
-
-function slidePrev() {
-    if(isSliding) return;
-    // Nếu đang sát lề trái (<= 5px) -> Tua về cuối cùng
-    if(t.scrollLeft <= 5) {
-        snap(t.scrollWidth);
-    } else {
-        snap(Math.round(t.scrollLeft/w)*w - w);
-    }
+} else {
+    // ==========================================
+    // TRÊN MOBILE: THẢ TỰ DO CHO CSS SNAP
+    // ==========================================
+    
+    // Không nhân bản ảnh, không vòng lặp vô hạn.
+    // Nếu bấm nút trên mobile thì nó vẫn tự cuộn mượt đi tới/lui một ảnh.
+    window.slideNext = function() { t.scrollBy({ left: w, behavior: 'smooth' }); }
+    window.slidePrev = function() { t.scrollBy({ left: -w, behavior: 'smooth' }); }
 }
 </script>
 
