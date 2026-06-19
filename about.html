@@ -27,7 +27,17 @@ a { background: transparent; text-decoration: none; color: #003399; margin: 0; p
 a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SMALL SCREEN FIX */
-@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } #content-text { font-size: 16px !important; } }
+@media screen and (max-width: 600px) { 
+  #title-text, #scramble { font-size: 36px !important; } 
+  #content-text { font-size: 16px !important; } 
+  /* Đã xóa dòng ép padding về 0, giữ lại lề 20px như PC */
+  .gallery-img { 
+    width: 75vw !important; /* Ảnh tự co giãn chiếm 75% chiều ngang màn hình đt */
+    max-width: 300px !important; /* CHỐT CHẶN: Dù màn hình có to cỡ nào cũng không được vượt qua 300px */
+    height: auto !important; 
+    aspect-ratio: 300 / 175; /* Luôn giữ form chuẩn tỉ lệ */
+  }
+}
 
 /* ANIMATION FIX */
 #scramble { transform: translateZ(0);
@@ -42,9 +52,10 @@ white-space: nowrap; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
 /* IMG */
-.gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer;
+.gallery-img { display: inline-block; width: 300px; height: 175px; margin-right: 15px; cursor: pointer;
 filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; flex-shrink: 0; vertical-align: top; }
 .gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
+.gallery-img.active-center { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 </style>
 </head>
 
@@ -75,7 +86,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <tr><td style="height: 120px; padding: 0 20px;"></td></tr>
 <!--PHOTO SLIDE-->
 <tr>
-<td align="left" valign="top" style="padding: 0 20px 0 20px;">
+<td class="slider-cell" align="left" valign="top" style="padding: 0 20px 0 20px;">
 <div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
@@ -119,8 +130,27 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!-- NEXT-PREV -->
 <script>
 let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
-const t=document.getElementById('slider-track'),w=140,setW=t.children.length*w;
-t.innerHTML+=t.innerHTML+t.innerHTML; t.scrollLeft=setW;
+const t=document.getElementById('slider-track');
+
+// Hàm tự động đọc kích thước thực tế của ảnh và lề từ CSS
+function getImgProps() {
+    const img = t.querySelector('.gallery-img');
+    if (!img) return { w: 300, m: 15 };
+    const style = window.getComputedStyle(img);
+    return {
+        w: img.clientWidth,
+        m: parseFloat(style.marginRight) || 0
+    };
+}
+function getW() { const p = getImgProps(); return p.w + p.m; }
+function getOffset() { return (t.clientWidth - getImgProps().w) / 2; }
+
+const originalLength = t.children.length;
+t.innerHTML+=t.innerHTML+t.innerHTML; 
+
+function getSetW() { return originalLength * getW(); }
+t.scrollLeft = getSetW() - getOffset(); // Căn giữa lần đầu
+
 function smoothScrollTo(tgt,cb){
     const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
     function animate(cur){
@@ -128,8 +158,8 @@ function smoothScrollTo(tgt,cb){
         t.scrollLeft=st+chg*e;
         if(p<1)requestAnimationFrame(animate);
         else{
-            const c=Math.round(t.scrollLeft);
-            if(c<setW)t.scrollLeft+=setW;else if(c>=setW*2)t.scrollLeft-=setW;
+            const c=Math.round(t.scrollLeft),os=getOffset(),setW=getSetW();
+            if(c<setW-os)t.scrollLeft+=setW;else if(c>=setW*2-os)t.scrollLeft-=setW;
             if(cb)cb();
         }
     }
@@ -137,8 +167,8 @@ function smoothScrollTo(tgt,cb){
 }
 function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
 const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;};
-const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x;d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
-const endDrag=()=>{if(!isDragging)return;isDragging=false;const eS=Math.round(startScroll/w)*w,d=t.scrollLeft-eS;d>35?snap(eS+w):d<-35?snap(eS-w):snap(eS);};
+const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x,w=getW();d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
+const endDrag=()=>{if(!isDragging)return;isDragging=false;const w=getW(),eS=startScroll,d=t.scrollLeft-eS;d>35?snap(eS+w):d<-35?snap(eS-w):snap(eS);};
 t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
 t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
@@ -146,8 +176,34 @@ t.addEventListener('touchend',endDrag);
 t.addEventListener('mousedown',e=>startDrag(e.pageX));
 t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
 t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
-function slideNext(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w);}
-function slidePrev(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w);}
+
+function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os);}}
+function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os);}}
+
+function updateActiveCenter() {
+    const images = t.querySelectorAll('.gallery-img');
+    const trackCenter = t.scrollLeft + t.clientWidth / 2;
+    let closestImg = null;
+    let minDiff = Infinity;
+
+    images.forEach(img => {
+        const imgCenter = img.offsetLeft + img.clientWidth / 2;
+        const diff = Math.abs(trackCenter - imgCenter);
+        if (diff < minDiff) {
+            minDiff = diff;
+            closestImg = img;
+        }
+        img.classList.remove('active-center');
+    });
+
+    if (closestImg) closestImg.classList.add('active-center');
+}
+t.addEventListener('scroll', updateActiveCenter);
+
+// Đảm bảo ảnh luôn ở giữa dù tải chậm hoặc người dùng xoay ngang điện thoại
+window.addEventListener('load', () => { t.scrollLeft = getSetW() - getOffset(); });
+window.addEventListener('resize', () => { t.scrollLeft = getSetW() - getOffset(); updateActiveCenter(); });
+setTimeout(updateActiveCenter, 50);
 </script>
 
 <!--SMALL SCREEN JS-->
