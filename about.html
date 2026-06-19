@@ -70,7 +70,7 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+Abouts <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -153,13 +153,14 @@ t.scrollLeft = getSetW() - getOffset();
 function smoothScrollTo(tgt, cb) {
     const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
     
-    // Đệ set sẵn 450ms (0.45 giây). Đại ca có thể chỉnh số này to lên (vd: 600) nếu muốn trượt chậm và lả lướt hơn nữa.
-    const duration = 450; 
+    // Đệ vẫn giữ nguyên 600ms lả lướt theo ý đại ca nhé
+    const duration = 600; 
 
     function animate(cur) {
-        const p = Math.min((cur - sT) / duration, 1);
+        // TUYỆT CHIÊU Ở ĐÂY: Dùng Math.max(0, ...) ép % quãng đường (p) không bao giờ bị âm
+        const p = Math.max(0, Math.min((cur - sT) / duration, 1)); 
         
-        // Công thức Ease-out Quart (chạy nhanh lúc đầu, lướt êm dần về cuối cực mượt)
+        // Công thức Ease-out Quart cực mượt
         const e = 1 - Math.pow(1 - p, 4); 
         
         t.scrollLeft = st + chg * e;
