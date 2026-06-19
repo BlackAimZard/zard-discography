@@ -71,7 +71,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+Abouts <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -130,58 +130,64 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!-- NEXT-PREV -->
 <script>
 const t = document.getElementById('slider-track');
-const w = 140; // Chiều rộng ảnh (130) + margin (10)
 
-// Kiểm tra có phải thiết bị cảm ứng hay không
-const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+const w = 140;
+const baseCount = t.children.length;
 
-if (!isTouchDevice) {
-    // ==========================================
-    // TRÊN PC: VÒNG LẶP VÔ HẠN & CHỈ DÙNG NÚT < >
-    // ==========================================
-    
-    // Khóa cuộn bằng trackpad/con lăn để bắt buộc dùng nút < > theo ý đại ca
-    t.style.overflowX = 'hidden'; 
-    
-    let isSliding = false;
-    const setW = t.children.length * w;
-    
-    // Nhân bản ảnh để tạo vòng lặp
-    t.innerHTML += t.innerHTML + t.innerHTML; 
-    t.scrollLeft = setW;
+// clone 3 lần
+t.innerHTML = t.innerHTML + t.innerHTML + t.innerHTML;
 
-    function smoothScrollTo(tgt, cb) {
-        const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
-        function animate(cur) {
-            const p = Math.min((cur - sT) / 250, 1), e = 0.5 - Math.cos(p * Math.PI) / 2;
-            t.scrollLeft = st + chg * e;
-            if (p < 1) requestAnimationFrame(animate);
-            else {
-                const c = Math.round(t.scrollLeft);
-                if (c < setW) t.scrollLeft += setW; 
-                else if (c >= setW * 2) t.scrollLeft -= setW;
-                if (cb) cb();
-            }
+const setW = baseCount * w;
+
+// luôn bắt đầu ở giữa
+t.scrollLeft = setW;
+
+let isSliding = false;
+
+// ===== helper: ép luôn về vùng giữa =====
+function fixPosition() {
+    if (t.scrollLeft < setW) {
+        t.scrollLeft += setW;
+    } 
+    else if (t.scrollLeft >= setW * 2) {
+        t.scrollLeft -= setW;
+    }
+}
+
+// ===== core move =====
+function move(step) {
+    if (isSliding) return;
+    isSliding = true;
+
+    const start = t.scrollLeft;
+    const target = start + step;
+    const startTime = performance.now();
+
+    function anim(now) {
+        const p = Math.min((now - startTime) / 250, 1);
+        const ease = 0.5 - Math.cos(p * Math.PI) / 2;
+
+        t.scrollLeft = start + (target - start) * ease;
+
+        if (p < 1) {
+            requestAnimationFrame(anim);
+        } else {
+            fixPosition(); // teleport giữ loop
+            isSliding = false;
         }
-        requestAnimationFrame(animate);
     }
 
-    function snap(tgt) { isSliding = true; smoothScrollTo(tgt, () => isSliding = false); }
-
-    // Gán chức năng cho nút
-    window.slideNext = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w + w); }
-    window.slidePrev = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w - w); }
-
-} else {
-    // ==========================================
-    // TRÊN MOBILE: THẢ TỰ DO CHO CSS SNAP
-    // ==========================================
-    
-    // Không nhân bản ảnh, không vòng lặp vô hạn.
-    // Nếu bấm nút trên mobile thì nó vẫn tự cuộn mượt đi tới/lui một ảnh.
-    window.slideNext = function() { t.scrollBy({ left: w, behavior: 'smooth' }); }
-    window.slidePrev = function() { t.scrollBy({ left: -w, behavior: 'smooth' }); }
+    requestAnimationFrame(anim);
 }
+
+// ===== buttons =====
+window.slideNext = () => move(w);
+window.slidePrev = () => move(-w);
+
+// ===== optional mobile safety =====
+t.addEventListener('scroll', () => {
+    if (!isSliding) fixPosition();
+});
 </script>
 
 <!--SMALL SCREEN JS-->
