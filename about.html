@@ -175,9 +175,8 @@ t.addEventListener('mousedown',e=>startDrag(e.pageX));
 t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
 t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
 
-// --- ĐÃ THÊM resetAutoPlay() VÀO 2 HÀM NEXT/PREV ---
-function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os); resetAutoPlay();}}
-function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os); resetAutoPlay();}}
+function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os);}}
+function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os);}}
 
 // --- PHẦN ĐÃ ĐƯỢC TỐI ƯU CỰC ĐẠI ---
 
@@ -215,59 +214,13 @@ window.addEventListener('resize', () => {
     // Ép thanh cuộn chạy theo con số vừa tính nhẩm (Cực kỳ nhẹ, hoàn toàn ko lag)
     t.scrollLeft = currentIndex * stepW - newOffset;
     
-    // --- VẪN GIỮ NGUYÊN QUY TẮC DEBOUNCE ---
+    // --- VẪN GIỮ NGUYÊN QUY TẮC DEBOUNCE CỦA ĐẠI CA ---
     clearTimeout(resizeTimer); 
     resizeTimer = setTimeout(() => {
         isResizing = false; // Buông chuột 0.2s mới mở khóa
         updateActiveCenter(); // Cập nhật lại màu sắc sắc nét
     }, 200); 
 });
-
-// --- 4. TÍNH NĂNG AUTO-PLAY 3s (BẢN HOÀN THIỆN) ---
-let autoPlayTimer;
-const autoPlayDelay = 3000; // Cách nhau 3 giây (3000ms)
-let isAutoPlayAllowed = true; // Cờ theo dõi trạng thái: Được phép chạy hay không?
-
-function startAutoPlay() {
-    stopAutoPlay(); // Dọn dẹp timer cũ trước khi tạo mới để tránh lỗi chạy chồng chéo
-    if (isAutoPlayAllowed) {
-        autoPlayTimer = setInterval(slideNext, autoPlayDelay);
-    }
-}
-
-function stopAutoPlay() {
-    clearInterval(autoPlayTimer);
-}
-
-// Hàm khởi động lại đồng hồ đếm 3s mỗi khi có tác động (bấm nút)
-function resetAutoPlay() {
-    if (isAutoPlayAllowed) {
-        startAutoPlay();
-    }
-}
-
-// Bắt sự kiện: Đụng tay/chuột vào là cấm chạy, rút ra là cho phép chạy
-t.addEventListener('mouseenter', () => { isAutoPlayAllowed = false; stopAutoPlay(); });
-t.addEventListener('mouseleave', () => { isAutoPlayAllowed = true; startAutoPlay(); });
-t.addEventListener('touchstart', () => { isAutoPlayAllowed = false; stopAutoPlay(); }, { passive: true });
-t.addEventListener('touchend', () => { isAutoPlayAllowed = true; startAutoPlay(); });
-
-// --- 5. TỐI ƯU HIỆU NĂNG: Cho ngủ đông khi chuyển tab ---
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        isAutoPlayAllowed = false; // Tắt tab là cấm Auto-play
-        stopAutoPlay();
-    } else {
-        // Mở lại tab: Chỉ cho chạy tiếp nếu chuột ĐANG KHÔNG nằm trên slider
-        if (!t.matches(':hover')) {
-            isAutoPlayAllowed = true;
-            startAutoPlay();
-        }
-    }
-});
-
-// Bắt đầu nhịp chạy khi mọi thứ load xong
-startAutoPlay();
 </script>
 
 <!--SMALL SCREEN JS-->
