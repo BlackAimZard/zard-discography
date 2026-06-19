@@ -121,55 +121,97 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
 const t=document.getElementById('slider-track'),w=140,setW=t.children.length*w;
 
+// NHÂN BẢN KHÔNG GIAN
 t.innerHTML+=t.innerHTML+t.innerHTML; t.scrollLeft=setW;
 
-function smoothScrollTo(tgt,cb){
-    const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
-    function animate(cur){
-        const p=Math.min((cur-sT)/250,1),e=0.5-Math.cos(p*Math.PI)/2;
-        t.scrollLeft=st+chg*e;
-        if(p<1)requestAnimationFrame(animate);
-        else{
-            const c=Math.round(t.scrollLeft);
-            if(c<setW)t.scrollLeft+=setW;else if(c>=setW*2)t.scrollLeft-=setW;
-            if(cb)cb();
+// MẮT THẦN: Phát hiện thiết bị cảm ứng (Mobile/Tablet)
+const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+let doNext, doPrev; // Biến gá tạm để phân luồng nút bấm
+
+if (isTouch) {
+    // ============================================================
+    // 📱 MOBILE MODE: THẢ RÔNG CHO TRÌNH DUYỆT MẶC ĐỊNH XỬ LÝ
+    // ============================================================
+    t.style.overflowX = 'auto'; // Trả lại thanh cuộn mặc định
+    t.style.scrollSnapType = 'x mandatory'; // Bật hút nam châm của hệ điều hành
+    Array.from(t.children).forEach(img => img.style.scrollSnapAlign = 'start');
+
+    // Chờ Mobile vuốt xong thả tay ra mới lén lút Teleport (Vòng lặp)
+    let scrollTimeout;
+    t.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const c = t.scrollLeft;
+            if (c < setW) {
+                t.style.scrollSnapType = 'none'; t.scrollLeft += setW;
+                requestAnimationFrame(() => t.style.scrollSnapType = 'x mandatory');
+            } else if (c >= setW * 2) {
+                t.style.scrollSnapType = 'none'; t.scrollLeft -= setW;
+                requestAnimationFrame(() => t.style.scrollSnapType = 'x mandatory');
+            }
+        }, 100);
+    });
+
+    // Nút bấm trên Mobile dùng lệnh cuộn mượt mặc định
+    doNext = () => t.scrollBy({ left: w, behavior: 'smooth' });
+    doPrev = () => t.scrollBy({ left: -w, behavior: 'smooth' });
+
+} else {
+    // ============================================================
+    // 💻 PC MODE: CHẠY CODE CHUẨN CỦA ĐẠI CA (Custom Drag & Snap)
+    // ============================================================
+    t.style.overflowX = 'hidden'; // Giấu thanh cuộn trên PC cho sang
+
+    function smoothScrollTo(tgt,cb){
+        const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
+        function animate(cur){
+            const p=Math.min((cur-sT)/250,1),e=0.5-Math.cos(p*Math.PI)/2;
+            t.scrollLeft=st+chg*e;
+            if(p<1)requestAnimationFrame(animate);
+            else{
+                const c=Math.round(t.scrollLeft);
+                if(c<setW)t.scrollLeft+=setW;else if(c>=setW*2)t.scrollLeft-=setW;
+                if(cb)cb();
+            }
         }
+        requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
+
+    function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
+
+    const startDrag=x=>{
+        if(isSliding)return;
+        isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;
+        t.style.cursor='grabbing';
+    };
+
+    const onDrag=x=>{
+        if(!isDragging||isSliding)return;
+        if(Math.abs(startX-x)>5)dragged=true;
+        t.scrollLeft=startScroll+(startX-x);
+    };
+
+    const endDrag=()=>{
+        if(!isDragging)return;
+        isDragging=false; t.style.cursor='';
+        snap(Math.round(t.scrollLeft/w)*w);
+    };
+
+    t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
+    t.addEventListener('mousedown',e=>startDrag(e.pageX));
+    t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
+    t.addEventListener('mouseup',endDrag); 
+    t.addEventListener('mouseleave',endDrag);
+
+    // Nút bấm trên PC giữ nguyên hàm Custom xịn xò
+    doNext = () => { if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w); };
+    doPrev = () => { if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w); };
 }
 
-function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
-
-const startDrag=x=>{
-    if(isSliding)return;
-    isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;
-};
-
-const onDrag=x=>{
-    if(!isDragging||isSliding)return;
-    if(Math.abs(startX-x)>5)dragged=true;
-    // Kéo tự do không giới hạn, không cản lực
-    t.scrollLeft=startScroll+(startX-x);
-};
-
-const endDrag=()=>{
-    if(!isDragging)return;
-    isDragging=false;
-    // BỎ QUÁN TÍNH: Bắt đúng tọa độ ngay lúc thả tay, làm tròn về ảnh gần nhất
-    snap(Math.round(t.scrollLeft/w)*w);
-};
-
-t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
-t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
-t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
-t.addEventListener('touchend',endDrag);
-t.addEventListener('mousedown',e=>startDrag(e.pageX));
-t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
-t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
-
-// Bấm nút đi từng bài 
-function slideNext(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w);}
-function slidePrev(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w);}
+// Bơm chức năng vào 2 nút bấm ngoài giao diện
+function slideNext() { doNext(); }
+function slidePrev() { doPrev(); }
 </script>
 
 <!--SMALL SCREEN JS-->
