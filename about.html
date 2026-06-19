@@ -30,12 +30,11 @@ a:hover { color: #ff0000; text-decoration: underline; }
 @media screen and (max-width: 600px) { 
   #title-text, #scramble { font-size: 36px !important; } 
   #content-text { font-size: 16px !important; } 
-  /* Đã xóa dòng ép padding về 0, giữ lại lề 20px như PC */
   .gallery-img { 
-    width: 75vw !important; /* Ảnh tự co giãn chiếm 75% chiều ngang màn hình đt */
-    max-width: 300px !important; /* CHỐT CHẶN: Dù màn hình có to cỡ nào cũng không được vượt qua 300px */
+    /* Tuyệt chiêu Clamp (Nhỏ nhất, Mức ưu tiên co giãn, Lớn nhất) */
+    width: clamp(180px, 60vw, 300px) !important; 
     height: auto !important; 
-    aspect-ratio: 300 / 175; /* Luôn giữ form chuẩn tỉ lệ */
+    aspect-ratio: 300 / 175; 
   }
 }
 
