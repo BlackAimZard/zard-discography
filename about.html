@@ -70,7 +70,7 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-Abouts <span id="scramble" style="color: #fff;"></span></span>
+About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -131,7 +131,7 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
 const t=document.getElementById('slider-track');
 
-// 1. Dùng getBoundingClientRect để lấy chính xác số thập phân, triệt tiêu sai số
+// 1. Lấy thông số kích thước
 function getImgProps() {
     const img = t.querySelector('.gallery-img');
     if (!img) return { w: 300, m: 15 };
@@ -147,24 +147,27 @@ function getOffset() { return (t.getBoundingClientRect().width - getImgProps().w
 const originalLength = t.children.length;
 t.innerHTML+=t.innerHTML+t.innerHTML; 
 
-function getSetW() { return originalLength * getW(); }
-t.scrollLeft = getSetW() - getOffset(); 
+// --- MỎ NEO BẤT TỬ ---
+// Khởi tạo mặc định ở tấm số 1 của Set giữa (tức là index 8)
+let currentIndex = originalLength; 
 
+// Hàm chuyên dụng để khóa chặt ảnh vào giữa dựa trên currentIndex
+function snapToCurrent() {
+    t.scrollLeft = currentIndex * getW() - getOffset();
+}
+
+function getSetW() { return originalLength * getW(); }
+snapToCurrent(); // Ép vị trí ngay lúc bắt đầu
+
+// 2. Logic vuốt và trượt
 function smoothScrollTo(tgt, cb) {
     const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
-    
-    // Đệ vẫn giữ nguyên 600ms lả lướt theo ý đại ca nhé
     const duration = 600; 
 
     function animate(cur) {
-        // TUYỆT CHIÊU Ở ĐÂY: Dùng Math.max(0, ...) ép % quãng đường (p) không bao giờ bị âm
         const p = Math.max(0, Math.min((cur - sT) / duration, 1)); 
-        
-        // Công thức Ease-out Quart cực mượt
         const e = 1 - Math.pow(1 - p, 4); 
-        
         t.scrollLeft = st + chg * e;
-        
         if (p < 1) requestAnimationFrame(animate);
         else {
             const c = t.scrollLeft, os = getOffset(), setW = getSetW();
@@ -180,7 +183,6 @@ function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
 const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;};
 const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x,w=getW();d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
 
-// Đã thay thế hàm endDrag mới triệt tiêu sai số cộng dồn
 const endDrag=()=>{
     if(!isDragging)return;
     isDragging=false;
@@ -202,60 +204,46 @@ t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
 function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os);}}
 function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os);}}
 
-// --- PHẦN NÂNG CẤP XỊN SÒ NẰM Ở ĐÂY ---
-let isResizing = false; // Cờ theo dõi trạng thái
+// 3. Xử lý UI và Resize
+let isResizing = false; 
 
-/// 2. Tối ưu hàm quét màu (có cờ chống lag + fix chớp nháy)
 function updateActiveCenter() {
-    if (isResizing) return; // Đang kéo cửa sổ thì cấm chạy đoạn này để khỏi lag máy
+    if (isResizing) return; 
     const os = getOffset(), w = getW();
-    const activeIndex = Math.round((t.scrollLeft + os) / w);
     
-    // Tìm ra index gốc thật sự (từ 0 đến originalLength - 1) 
-    // Cộng thêm originalLength để phòng hờ vuốt quá nhanh sinh ra số âm
-    const realIndex = (activeIndex % originalLength + originalLength) % originalLength;
+    // Liên tục cập nhật Mỏ Neo khi đang lướt
+    currentIndex = Math.round((t.scrollLeft + os) / w);
+    
+    const realIndex = (currentIndex % originalLength + originalLength) % originalLength;
 
     const images = t.querySelectorAll('.gallery-img');
     images.forEach((img, i) => {
-        // Bật màu cho CẢ 3 BẢN SAO của cùng một tấm ảnh cùng lúc
-        if (i % originalLength === realIndex) {
-            img.classList.add('active-center');
-        } else {
-            img.classList.remove('active-center');
-        }
+        if (i % originalLength === realIndex) img.classList.add('active-center');
+        else img.classList.remove('active-center');
     });
 }
 t.addEventListener('scroll', updateActiveCenter);
 
-// 3. Khóa chết vị trí khi co kéo/zoom màn hình (Debounce + Tracking)
 let resizeTimer;
-let cachedActiveIndex = -1; // Bộ nhớ lưu vị trí tấm ảnh
-
 window.addEventListener('resize', () => { 
-    isResizing = true; // Kích hoạt cờ đang kéo cửa sổ
+    isResizing = true; 
     clearTimeout(resizeTimer); 
     
-    // BƯỚC 1: Tính chuẩn vị trí index trực tiếp bằng toán học (không dùng findIndex nữa vì giờ có 3 class active)
-    if (cachedActiveIndex === -1) {
-        const os = getOffset(), w = getW();
-        cachedActiveIndex = Math.round((t.scrollLeft + os) / w);
-    }
+    // Khi xoay ngang/dọc, ép thanh cuộn dính chặt vào mỏ neo bằng kích thước mới nhất
+    snapToCurrent();
 
-    // BƯỚC 2: Trong lúc kéo/zoom, ép thanh cuộn chạy theo ảnh
-    if (cachedActiveIndex !== -1) {
-        t.scrollLeft = cachedActiveIndex * getW() - getOffset();
-    }
-
-    // BƯỚC 3: Buông chuột/ngưng zoom 200ms thì mới reset
     resizeTimer = setTimeout(() => {
-        isResizing = false; // Tắt cờ
-        cachedActiveIndex = -1; // Xóa bộ nhớ
-        updateActiveCenter(); // Kích hoạt lại quét màu
+        isResizing = false; 
+        updateActiveCenter(); 
     }, 200); 
 });
 
-window.addEventListener('load', () => { t.scrollLeft = getSetW() - getOffset(); updateActiveCenter(); });
-setTimeout(updateActiveCenter, 50);
+// Chốt hạ khi load xong CSS trên Mobile
+window.addEventListener('load', () => { 
+    snapToCurrent(); 
+    updateActiveCenter(); 
+});
+setTimeout(() => { snapToCurrent(); updateActiveCenter(); }, 150);
 </script>
 
 <!--SMALL SCREEN JS-->
