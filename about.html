@@ -71,7 +71,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+Abouts <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -201,29 +201,30 @@ if (!isTouchDevice) {
         }
     }
 
-    // ==========================================
-    // FIX HIỆU ỨNG CHẠM/KÉO HIỆN MÀU GỐC (MOBILE)
-    // ==========================================
-    const images = t.querySelectorAll('.gallery-img');
-    images.forEach(img => {
-        // Khi ngón tay chạm vào
-        img.addEventListener('touchstart', function() {
-            this.style.filter = 'grayscale(0%)';
-            this.style.webkitFilter = 'grayscale(0%)';
-        }, { passive: true });
+    // --- BỔ SUNG: XỬ LÝ MÀU KHI CHẠM/VUỐT TRÊN MOBILE ---
+    // Chạm tay vào -> Bật màu gốc
+    t.addEventListener('touchstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.target.style.filter = 'grayscale(0%)';
+            e.target.style.webkitFilter = 'grayscale(0%)';
+        }
+    }, { passive: true });
 
-        // Khi nhấc ngón tay lên
-        img.addEventListener('touchend', function() {
-            this.style.filter = ''; // Trả về css mặc định
-            this.style.webkitFilter = '';
-        }, { passive: true });
+    // Nhấc tay lên -> Trả về trắng đen
+    t.addEventListener('touchend', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.target.style.filter = '';
+            e.target.style.webkitFilter = '';
+        }
+    }, { passive: true });
 
-        // Khi thao tác bị hủy (vuốt văng ra ngoài, có cuộc gọi tới, v.v.)
-        img.addEventListener('touchcancel', function() {
-            this.style.filter = '';
-            this.style.webkitFilter = '';
-        }, { passive: true });
-    });
+    // Bị ngắt giữa chừng (vd có cuộc gọi tới lúc đang vuốt) -> Trả về trắng đen
+    t.addEventListener('touchcancel', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.target.style.filter = '';
+            e.target.style.webkitFilter = '';
+        }
+    }, { passive: true });
 }
 </script>
 
