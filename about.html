@@ -200,6 +200,30 @@ if (!isTouchDevice) {
             t.scrollTo({ left: Math.max(target, 0), behavior: 'smooth' });
         }
     }
+
+    // ==========================================
+    // FIX HIỆU ỨNG CHẠM/KÉO HIỆN MÀU GỐC (MOBILE)
+    // ==========================================
+    const images = t.querySelectorAll('.gallery-img');
+    images.forEach(img => {
+        // Khi ngón tay chạm vào
+        img.addEventListener('touchstart', function() {
+            this.style.filter = 'grayscale(0%)';
+            this.style.webkitFilter = 'grayscale(0%)';
+        }, { passive: true });
+
+        // Khi nhấc ngón tay lên
+        img.addEventListener('touchend', function() {
+            this.style.filter = ''; // Trả về css mặc định
+            this.style.webkitFilter = '';
+        }, { passive: true });
+
+        // Khi thao tác bị hủy (vuốt văng ra ngoài, có cuộc gọi tới, v.v.)
+        img.addEventListener('touchcancel', function() {
+            this.style.filter = '';
+            this.style.webkitFilter = '';
+        }, { passive: true });
+    });
 }
 </script>
 
