@@ -150,16 +150,26 @@ t.innerHTML+=t.innerHTML+t.innerHTML;
 function getSetW() { return originalLength * getW(); }
 t.scrollLeft = getSetW() - getOffset(); 
 
-function smoothScrollTo(tgt,cb){
-    const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
-    function animate(cur){
-        const p=Math.min((cur-sT)/250,1),e=0.5-Math.cos(p*Math.PI)/2;
-        t.scrollLeft=st+chg*e;
-        if(p<1)requestAnimationFrame(animate);
-        else{
-            const c=t.scrollLeft,os=getOffset(),setW=getSetW();
-            if(c<setW-os)t.scrollLeft+=setW;else if(c>=setW*2-os)t.scrollLeft-=setW;
-            if(cb)cb();
+function smoothScrollTo(tgt, cb) {
+    const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
+    
+    // Đệ set sẵn 450ms (0.45 giây). Đại ca có thể chỉnh số này to lên (vd: 600) nếu muốn trượt chậm và lả lướt hơn nữa.
+    const duration = 450; 
+
+    function animate(cur) {
+        const p = Math.min((cur - sT) / duration, 1);
+        
+        // Công thức Ease-out Quart (chạy nhanh lúc đầu, lướt êm dần về cuối cực mượt)
+        const e = 1 - Math.pow(1 - p, 4); 
+        
+        t.scrollLeft = st + chg * e;
+        
+        if (p < 1) requestAnimationFrame(animate);
+        else {
+            const c = t.scrollLeft, os = getOffset(), setW = getSetW();
+            if (c < setW - os) t.scrollLeft += setW; 
+            else if (c >= setW * 2 - os) t.scrollLeft -= setW;
+            if (cb) cb();
         }
     }
     requestAnimationFrame(animate);
@@ -216,7 +226,7 @@ function updateActiveCenter() {
 }
 t.addEventListener('scroll', updateActiveCenter);
 
-// 3. Khóa chết vị trí khi co kéo màn hình (Debounce + Tracking)
+// 3. Khóa chết vị trí khi co kéo/zoom màn hình (Debounce + Tracking)
 let resizeTimer;
 let cachedActiveIndex = -1; // Bộ nhớ lưu vị trí tấm ảnh
 
@@ -224,18 +234,18 @@ window.addEventListener('resize', () => {
     isResizing = true; // Kích hoạt cờ đang kéo cửa sổ
     clearTimeout(resizeTimer); 
     
-    // BƯỚC 1: Chỉ chốt index của tấm ảnh ĐÚNG 1 LẦN DUY NHẤT lúc vừa nhích chuột
+    // BƯỚC 1: Tính chuẩn vị trí index trực tiếp bằng toán học (không dùng findIndex nữa vì giờ có 3 class active)
     if (cachedActiveIndex === -1) {
-        const images = Array.from(t.querySelectorAll('.gallery-img'));
-        cachedActiveIndex = images.findIndex(img => img.classList.contains('active-center'));
+        const os = getOffset(), w = getW();
+        cachedActiveIndex = Math.round((t.scrollLeft + os) / w);
     }
 
-    // BƯỚC 2: Trong lúc kéo, chỉ dùng toán học ép thanh cuộn chạy theo ảnh (cực nhẹ)
+    // BƯỚC 2: Trong lúc kéo/zoom, ép thanh cuộn chạy theo ảnh
     if (cachedActiveIndex !== -1) {
         t.scrollLeft = cachedActiveIndex * getW() - getOffset();
     }
 
-    // BƯỚC 3: Buông chuột ngưng kéo 200ms thì mới reset mọi thứ về ban đầu
+    // BƯỚC 3: Buông chuột/ngưng zoom 200ms thì mới reset
     resizeTimer = setTimeout(() => {
         isResizing = false; // Tắt cờ
         cachedActiveIndex = -1; // Xóa bộ nhớ
