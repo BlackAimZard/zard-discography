@@ -45,17 +45,6 @@ white-space: nowrap; }
 .gallery-img { display: inline-block; width: 130px; height: 130px; object-fit: cover; object-position: top; margin-right: 10px; cursor: pointer;
 filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; flex-shrink: 0; vertical-align: top; }
 .gallery-img:hover { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
-
-/* MOBILE NATIVE SCROLL SNAP */
-@media (hover: none) and (pointer: coarse) {
-  #slider-track {
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth; /* Thêm cái này để lúc bấm nút mũi tên nó trượt mượt */
-  }
-  .gallery-img {
-    scroll-snap-align: start;
-  }
-}
 </style>
 </head>
 
@@ -71,7 +60,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-Abouts <span id="scramble" style="color: #fff;"></span></span>
+About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -87,7 +76,7 @@ Abouts <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none;">
+<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -129,103 +118,36 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-const t = document.getElementById('slider-track');
-const w = 140; // Chiều rộng ảnh (130) + margin (10)
-
-// Kiểm tra thiết bị cảm ứng
-const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
-if (!isTouchDevice) {
-    // ==========================================
-    // TRÊN PC: VÒNG LẶP VÔ HẠN & CHỈ DÙNG NÚT < >
-    // ==========================================
-    
-    t.style.overflowX = 'hidden'; // Khóa cuộn trackpad/chuột
-    
-    let isSliding = false;
-    const setW = t.children.length * w;
-    
-    t.innerHTML += t.innerHTML + t.innerHTML; 
-    t.scrollLeft = setW;
-
-    function smoothScrollTo(tgt, cb) {
-        const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
-        function animate(cur) {
-            const p = Math.min((cur - sT) / 250, 1), e = 0.5 - Math.cos(p * Math.PI) / 2;
-            t.scrollLeft = st + chg * e;
-            if (p < 1) requestAnimationFrame(animate);
-            else {
-                const c = Math.round(t.scrollLeft);
-                if (c < setW) t.scrollLeft += setW; 
-                else if (c >= setW * 2) t.scrollLeft -= setW;
-                if (cb) cb();
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    function snap(tgt) { isSliding = true; smoothScrollTo(tgt, () => isSliding = false); }
-
-    window.slideNext = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w + w); }
-    window.slidePrev = function() { if (!isSliding) snap(Math.round(t.scrollLeft / w) * w - w); }
-
-} else {
-    // ==========================================
-    // TRÊN MOBILE: THẢ TỰ DO CHO CSS SNAP
-    // ==========================================
-    
-    window.slideNext = function() { 
-        // Tính toán giới hạn cuộn tối đa của Mobile
-        const maxScroll = t.scrollWidth - t.clientWidth;
-        let target = t.scrollLeft + w;
-        
-        // Nếu đã chạm (hoặc gần chạm) ảnh cuối cùng -> cuộn tuột về lại đầu tiên cho mượt
-        if (t.scrollLeft >= maxScroll - 5) {
-            t.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            // Ép chặt không cho vượt quá maxScroll tránh vùng đen
-            t.scrollTo({ left: Math.min(target, maxScroll), behavior: 'smooth' });
+let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
+const t=document.getElementById('slider-track'),w=140,setW=t.children.length*w;
+t.innerHTML+=t.innerHTML+t.innerHTML; t.scrollLeft=setW;
+function smoothScrollTo(tgt,cb){
+    const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
+    function animate(cur){
+        const p=Math.min((cur-sT)/250,1),e=0.5-Math.cos(p*Math.PI)/2;
+        t.scrollLeft=st+chg*e;
+        if(p<1)requestAnimationFrame(animate);
+        else{
+            const c=Math.round(t.scrollLeft);
+            if(c<setW)t.scrollLeft+=setW;else if(c>=setW*2)t.scrollLeft-=setW;
+            if(cb)cb();
         }
     }
-    
-    window.slidePrev = function() { 
-        let target = t.scrollLeft - w;
-        
-        // Nếu đang ở ảnh đầu tiên mà lùi -> cuộn cái vèo tới ảnh cuối cùng
-        if (t.scrollLeft <= 5) {
-            const maxScroll = t.scrollWidth - t.clientWidth;
-            t.scrollTo({ left: maxScroll, behavior: 'smooth' });
-        } else {
-            // Ép chặt không cho lùi quá 0 (âm tọa độ)
-            t.scrollTo({ left: Math.max(target, 0), behavior: 'smooth' });
-        }
-    }
-
-    // --- BỔ SUNG: XỬ LÝ MÀU KHI CHẠM/VUỐT TRÊN MOBILE ---
-    // Chạm tay vào -> Bật màu gốc
-    t.addEventListener('touchstart', (e) => {
-        if (e.target.tagName === 'IMG') {
-            e.target.style.filter = 'grayscale(0%)';
-            e.target.style.webkitFilter = 'grayscale(0%)';
-        }
-    }, { passive: true });
-
-    // Nhấc tay lên -> Trả về trắng đen
-    t.addEventListener('touchend', (e) => {
-        if (e.target.tagName === 'IMG') {
-            e.target.style.filter = '';
-            e.target.style.webkitFilter = '';
-        }
-    }, { passive: true });
-
-    // Bị ngắt giữa chừng (vd có cuộc gọi tới lúc đang vuốt) -> Trả về trắng đen
-    t.addEventListener('touchcancel', (e) => {
-        if (e.target.tagName === 'IMG') {
-            e.target.style.filter = '';
-            e.target.style.webkitFilter = '';
-        }
-    }, { passive: true });
+    requestAnimationFrame(animate);
 }
+function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
+const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;};
+const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x;d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
+const endDrag=()=>{if(!isDragging)return;isDragging=false;const eS=Math.round(startScroll/w)*w,d=t.scrollLeft-eS;d>35?snap(eS+w):d<-35?snap(eS-w):snap(eS);};
+t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
+t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
+t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
+t.addEventListener('touchend',endDrag);
+t.addEventListener('mousedown',e=>startDrag(e.pageX));
+t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
+t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
+function slideNext(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w);}
+function slidePrev(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w);}
 </script>
 
 <!--SMALL SCREEN JS-->
