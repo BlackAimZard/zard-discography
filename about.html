@@ -119,12 +119,11 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!-- NEXT-PREV -->
 <script>
 let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
-let v=0,lastX=0,lastT=0; // Vũ khí mới: Radar đo lực búng tay
+let v=0,lastX=0,lastT=0;
 const t=document.getElementById('slider-track'),w=140,setW=t.children.length*w;
 
 t.innerHTML+=t.innerHTML+t.innerHTML; t.scrollLeft=setW;
 
-// Hàm trượt giờ nhận thêm biến 'dur' (Thời gian trượt)
 function smoothScrollTo(tgt,dur,cb){
     const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
     function animate(cur){
@@ -145,44 +144,37 @@ function snap(tgt,dur=250){isSliding=true;smoothScrollTo(tgt,dur,()=>isSliding=f
 const startDrag=x=>{
     if(isSliding)return;
     isDragging=true;dragged=false;startX=lastX=x;startScroll=t.scrollLeft;
-    lastT=performance.now();v=0; // Khởi động radar
+    lastT=performance.now();v=0;
 };
 
 const onDrag=x=>{
     if(!isDragging||isSliding)return;
     if(Math.abs(startX-x)>5)dragged=true;
     
-    // Đo vận tốc ngón tay liên tục
     let now=performance.now();
     if(now-lastT>0) v=(lastX-x)/(now-lastT);
     lastX=x; lastT=now;
     
-    // Xóa nệm cao su, cho đại ca kéo vuốt thả ga xuyên lục địa
+    // TRƯỢT TỰ DO: Không giới hạn, không cản lực, kéo bao xa tùy thích
     t.scrollLeft=startScroll+(startX-x); 
 };
 
 const endDrag=()=>{
     if(!isDragging)return;
     isDragging=false;
-    
-    // Nếu giữ tay đứng im quá 100ms thì cấm quán tính
     if(performance.now()-lastT>100) v=0;
     
-    const eS=Math.round(startScroll/w)*w, d=t.scrollLeft-eS;
+    // Tọa độ dự kiến dựa trên lực búng tay (Quán tính)
+    let predictedScroll = t.scrollLeft + (v * 150); 
     
-    // TOÁN HỌC QUÁN TÍNH: Lực kéo (d) + Lực búng (v * 250)
-    let pd = d + v*250; 
+    // HÚT NAM CHÂM: Làm tròn về bức ảnh gần nhất (bội số của 140px)
+    let targetSnap = Math.round(predictedScroll / w) * w;
     
-    // Thuật toán chia bậc: Vượt ngưỡng 35px là tính 1 ảnh, nhân lên theo lực búng
-    let jump = Math.sign(pd) * Math.floor((Math.abs(pd) + (w - 35)) / w);
+    // Thời gian trượt linh hoạt: Trượt càng xa thì thời gian càng giãn ra để mắt kịp nhìn (200ms -> 500ms)
+    let distance = Math.abs(targetSnap - t.scrollLeft);
+    let dur = Math.max(200, Math.min(500, distance * 1.5));
     
-    // Khóa max trôi 6 ảnh một lúc để không văng khỏi vũ trụ Teleport =)))
-    jump = Math.max(-6, Math.min(6, jump)); 
-    
-    // Tính thời gian trượt (Trôi càng nhiều ảnh, thời gian càng dài ra cho mượt)
-    let dur = 200 + Math.abs(jump) * 60;
-    
-    snap(eS + jump*w, dur);
+    snap(targetSnap, dur);
 };
 
 t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
@@ -193,6 +185,7 @@ t.addEventListener('mousedown',e=>startDrag(e.pageX));
 t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
 t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
 
+// Bấm nút vẫn đi từng tấm mượt mà
 function slideNext(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w);}
 function slidePrev(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w);}
 </script>
