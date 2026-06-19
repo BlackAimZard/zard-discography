@@ -76,7 +76,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO SLIDE-->
 <tr>
 <td align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y; cursor: grab;">
+<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y;">
 <img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
 <img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
 <img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
@@ -118,84 +118,38 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-let isSliding=false, isDragging=false, dragged=false, startX, startScroll;
-const t=document.getElementById('slider-track'), w=140;
-
-// 1. NHÂN BẢN KHÔNG GIAN (Tạo 3 Set: Trái - Giữa - Phải)
-const setW = t.children.length * w; // Tính chiều rộng 1 Set gốc (8 ảnh = 1120px)
-t.innerHTML = t.innerHTML + t.innerHTML + t.innerHTML; // Clone DOM ra gấp 3 lần!
-t.scrollLeft = setW; // Đặt Camera bắt đầu ở vị trí Set Giữa (Vùng an toàn)
-
-function smoothScrollTo(tgt, cb){
-    const st=t.scrollLeft, chg=tgt-st, sTime=performance.now();
+let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
+const t=document.getElementById('slider-track'),w=140,setW=t.children.length*w;
+t.innerHTML+=t.innerHTML+t.innerHTML; t.scrollLeft=setW;
+function smoothScrollTo(tgt,cb){
+    const st=t.scrollLeft,chg=tgt-st,sT=performance.now();
     function animate(cur){
-        const p=Math.min((cur-sTime)/250, 1);
-        const e=0.5 - Math.cos(p * Math.PI)/2; // Sine êm ái
-        t.scrollLeft = st + chg * e;
-        
-        if(p<1) requestAnimationFrame(animate);
-        else {
-            // 2. TELEPORT ẢO THUẬT (Dịch chuyển tức thời khi đụng biên)
-            // Vì ảnh giống nhau 100%, nhảy tọa độ thì mắt người không thể thấy
-            const current = Math.round(t.scrollLeft);
-            if (current < setW) t.scrollLeft += setW;        // Rơi xuống Set 1 -> Kéo lên Set 2
-            else if (current >= setW * 2) t.scrollLeft -= setW; // Chạy lố sang Set 3 -> Kéo về Set 2
-            
+        const p=Math.min((cur-sT)/250,1),e=0.5-Math.cos(p*Math.PI)/2;
+        t.scrollLeft=st+chg*e;
+        if(p<1)requestAnimationFrame(animate);
+        else{
+            const c=Math.round(t.scrollLeft);
+            if(c<setW)t.scrollLeft+=setW;else if(c>=setW*2)t.scrollLeft-=setW;
             if(cb)cb();
         }
     }
     requestAnimationFrame(animate);
 }
-
-function snap(tgt){isSliding=true; smoothScrollTo(tgt, ()=>isSliding=false);}
-
-const startDrag=x=>{
-    if(isSliding)return;
-    isDragging=true; dragged=false; startX=x; 
-    startScroll=t.scrollLeft; 
-    t.style.cursor='grabbing';
-};
-
-const onDrag=x=>{
-    if(!isDragging||isSliding)return;
-    if(Math.abs(startX-x)>5) dragged=true;
-    
-    let diff = startX - x;
-    
-    // 3. RUBBER-BAND CAO SU (Xử lý trên từng lần vuốt)
-    // Cứ kéo lố qua 1 bức ảnh (140px) là bị dây thun hãm lực lại ngay!
-    if (diff > w) diff = w + (diff - w) * 0.35;
-    else if (diff < -w) diff = -w + (diff + w) * 0.35;
-
-    t.scrollLeft = startScroll + diff;
-};
-
-const endDrag=()=>{
-    if(!isDragging)return;
-    isDragging=false; t.style.cursor='grab';
-    
-    // Khóa tọa độ tuyệt đối để không bao giờ bị trôi pixel lẻ
-    const exactStart = Math.round(startScroll / w) * w;
-    const d = t.scrollLeft - exactStart;
-    
-    // Vuốt qua 35px là qua bài mới
-    if (d > 35) snap(exactStart + w);
-    else if (d < -35) snap(exactStart - w);
-    else snap(exactStart);
-};
-
+function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
+const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;};
+const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x;d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
+const endDrag=()=>{if(!isDragging)return;isDragging=false;const eS=Math.round(startScroll/w)*w,d=t.scrollLeft-eS;d>35?snap(eS+w):d<-35?snap(eS-w):snap(eS);};
 t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
 t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchend',endDrag);
 t.addEventListener('mousedown',e=>startDrag(e.pageX));
 t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
-t.addEventListener('mouseup',endDrag); 
-t.addEventListener('mouseleave',endDrag);
-
-function slideNext(){if(!isSliding) snap(Math.round(t.scrollLeft/w)*w + w);}
-function slidePrev(){if(!isSliding) snap(Math.round(t.scrollLeft/w)*w - w);}
+t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
+function slideNext(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w+w);}
+function slidePrev(){if(!isSliding)snap(Math.round(t.scrollLeft/w)*w-w);}
 </script>
+
 <!--SMALL SCREEN JS-->
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
