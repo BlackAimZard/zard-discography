@@ -69,7 +69,7 @@ filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4
 <tr>
 <td align="center" valign="bottom" style="padding: 0 20px;"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+Abouts <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
@@ -178,49 +178,51 @@ t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
 function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os);}}
 function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os);}}
 
-// --- PHẦN ĐÃ ĐƯỢC TỐI ƯU CỰC ĐẠI ---
+// --- PHẦN NÂNG CẤP XỊN SÒ NẰM Ở ĐÂY ---
+let isResizing = false; // Cờ theo dõi trạng thái
 
-// 2. Tối ưu lại hàm quét ảnh trung tâm bằng toán học
-let currentIndex = 0; // Bộ nhớ toàn cục lưu vị trí ảnh đang xem
-let isResizing = false; // Cờ chống lag
-
+// 2. Tối ưu hàm quét màu (có cờ chống lag)
 function updateActiveCenter() {
-    if (isResizing) return; // Kéo cửa sổ là JS đi ngủ luôn
+    if (isResizing) return; // Đang kéo cửa sổ thì cấm chạy đoạn này để khỏi lag máy
     const os = getOffset(), w = getW();
-    currentIndex = Math.round((t.scrollLeft + os) / w); 
+    const activeIndex = Math.round((t.scrollLeft + os) / w);
     const images = t.querySelectorAll('.gallery-img');
     images.forEach((img, i) => {
-        if (i === currentIndex) img.classList.add('active-center');
+        if (i === activeIndex) img.classList.add('active-center');
         else img.classList.remove('active-center');
     });
 }
 t.addEventListener('scroll', updateActiveCenter);
 
-// 3. Khóa chết vị trí khi co kéo màn hình (Tuyệt chiêu TÍNH NHẨM TOÁN HỌC - 0% Lag)
-let resizeTimer; 
+// 3. Khóa chết vị trí khi co kéo màn hình (Debounce + Tracking)
+let resizeTimer;
+let cachedActiveIndex = -1; // Bộ nhớ lưu vị trí tấm ảnh
 
 window.addEventListener('resize', () => { 
-    isResizing = true; // Khóa sự kiện quét màu lại (thủ phạm gây giật màn hình)
-    
-    // --- BÍ THUẬT Ở ĐÂY: JS TỰ TÍNH NHẨM (KHÔNG ĐO ĐẠC DOM) ---
-    const screenW = window.innerWidth; // Lấy chiều rộng màn hình
-    
-    // JS tự giả lập lại công thức clamp(180px, 60vw, 300px) của CSS:
-    const imgW = Math.max(180, Math.min(300, screenW * 0.6)); 
-    
-    const stepW = imgW + 15; // Cộng thêm 15px lề phải
-    const newOffset = (t.clientWidth - imgW) / 2; // Tính khoảng trống 2 bên
-    
-    // Ép thanh cuộn chạy theo con số vừa tính nhẩm (Cực kỳ nhẹ, hoàn toàn ko lag)
-    t.scrollLeft = currentIndex * stepW - newOffset;
-    
-    // --- VẪN GIỮ NGUYÊN QUY TẮC DEBOUNCE CỦA ĐẠI CA ---
+    isResizing = true; // Kích hoạt cờ đang kéo cửa sổ
     clearTimeout(resizeTimer); 
+    
+    // BƯỚC 1: Chỉ chốt index của tấm ảnh ĐÚNG 1 LẦN DUY NHẤT lúc vừa nhích chuột
+    if (cachedActiveIndex === -1) {
+        const images = Array.from(t.querySelectorAll('.gallery-img'));
+        cachedActiveIndex = images.findIndex(img => img.classList.contains('active-center'));
+    }
+
+    // BƯỚC 2: Trong lúc kéo, chỉ dùng toán học ép thanh cuộn chạy theo ảnh (cực nhẹ)
+    if (cachedActiveIndex !== -1) {
+        t.scrollLeft = cachedActiveIndex * getW() - getOffset();
+    }
+
+    // BƯỚC 3: Buông chuột ngưng kéo 200ms thì mới reset mọi thứ về ban đầu
     resizeTimer = setTimeout(() => {
-        isResizing = false; // Buông chuột 0.2s mới mở khóa
-        updateActiveCenter(); // Cập nhật lại màu sắc sắc nét
+        isResizing = false; // Tắt cờ
+        cachedActiveIndex = -1; // Xóa bộ nhớ
+        updateActiveCenter(); // Kích hoạt lại quét màu
     }, 200); 
 });
+
+window.addEventListener('load', () => { t.scrollLeft = getSetW() - getOffset(); updateActiveCenter(); });
+setTimeout(updateActiveCenter, 50);
 </script>
 
 <!--SMALL SCREEN JS-->
