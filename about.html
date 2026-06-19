@@ -118,126 +118,84 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
-const t=document.getElementById('slider-track'),w=140;
+let isSliding=false, isDragging=false, dragged=false, startX, startScroll;
+const t=document.getElementById('slider-track'), w=140;
 
-// 1. CHÂN ÁI: Giữ nguyên hàm Easing 150ms của Code 2 (êm ái, không bị chớp giật)
-function smoothScrollTo(tgt,cb){
-    const st=t.scrollLeft,chg=tgt-st,sTime=performance.now();
+// 1. NHÂN BẢN KHÔNG GIAN (Tạo 3 Set: Trái - Giữa - Phải)
+const setW = t.children.length * w; // Tính chiều rộng 1 Set gốc (8 ảnh = 1120px)
+t.innerHTML = t.innerHTML + t.innerHTML + t.innerHTML; // Clone DOM ra gấp 3 lần!
+t.scrollLeft = setW; // Đặt Camera bắt đầu ở vị trí Set Giữa (Vùng an toàn)
+
+function smoothScrollTo(tgt, cb){
+    const st=t.scrollLeft, chg=tgt-st, sTime=performance.now();
     function animate(cur){
-        const p=Math.min((cur-sTime)/150,1),
-              e=p<0.5?2*p*p:-1+(4-2*p)*p;
-        t.scrollLeft=st+chg*e;
-        p<1?requestAnimationFrame(animate):(cb&&cb());
+        const p=Math.min((cur-sTime)/250, 1);
+        const e=0.5 - Math.cos(p * Math.PI)/2; // Sine êm ái
+        t.scrollLeft = st + chg * e;
+        
+        if(p<1) requestAnimationFrame(animate);
+        else {
+            // 2. TELEPORT ẢO THUẬT (Dịch chuyển tức thời khi đụng biên)
+            // Vì ảnh giống nhau 100%, nhảy tọa độ thì mắt người không thể thấy
+            const current = Math.round(t.scrollLeft);
+            if (current < setW) t.scrollLeft += setW;        // Rơi xuống Set 1 -> Kéo lên Set 2
+            else if (current >= setW * 2) t.scrollLeft -= setW; // Chạy lố sang Set 3 -> Kéo về Set 2
+            
+            if(cb)cb();
+        }
     }
     requestAnimationFrame(animate);
 }
 
-function snap(tgt,cb){
-    isSliding=true;
-    smoothScrollTo(tgt,()=>{
-        if(cb)cb();
-        isSliding=false;
-    });
-}
+function snap(tgt){isSliding=true; smoothScrollTo(tgt, ()=>isSliding=false);}
 
-// setup infinite buffer
-t.prepend(t.lastElementChild);
-t.scrollLeft=w;
-
-// ================= DRAG =================
 const startDrag=x=>{
     if(isSliding)return;
-    isDragging=true;
-    dragged=false;
-    startX=x;
-    startScroll=t.scrollLeft;
+    isDragging=true; dragged=false; startX=x; 
+    startScroll=t.scrollLeft; 
     t.style.cursor='grabbing';
 };
 
 const onDrag=x=>{
     if(!isDragging||isSliding)return;
-
     if(Math.abs(startX-x)>5) dragged=true;
+    
+    let diff = startX - x;
+    
+    // 3. RUBBER-BAND CAO SU (Xử lý trên từng lần vuốt)
+    // Cứ kéo lố qua 1 bức ảnh (140px) là bị dây thun hãm lực lại ngay!
+    if (diff > w) diff = w + (diff - w) * 0.35;
+    else if (diff < -w) diff = -w + (diff + w) * 0.35;
 
-    let ts = startScroll + (startX - x);
-
-    // 2. FIX CỨNG TAY: Tọa độ gốc chuẩn là 0 và w*2. Thêm 80px đàn hồi.
-    // (Bản cũ set min=w nên huynh vuốt ngược nó bị tông vào tường)
-    const min = 0;
-    const max = w*2;
-    ts = Math.max(min-80, Math.min(max+80, ts));
-
-    t.scrollLeft = ts;
+    t.scrollLeft = startScroll + diff;
 };
 
 const endDrag=()=>{
     if(!isDragging)return;
-    isDragging=false;
-    t.style.cursor='grab';
-
-    // 3. FIX LỆCH TRỤC: Tâm đang đứng là w (140px). 
-    const d = t.scrollLeft - w;
-
-    // 4. QUÁN TÍNH ĐỀU 2 BÊN: Set 25% tấm ảnh. Nhích nhẹ là bay qua bài mượt mà.
-    const threshold = w * 0.25;
-
-    if(d > threshold){
-        snap(w*2,()=>{
-            t.appendChild(t.firstElementChild);
-            t.scrollLeft=w;
-        });
-    }
-    else if(d < -threshold){
-        snap(0,()=>{
-            t.prepend(t.lastElementChild);
-            t.scrollLeft=w;
-        });
-    }
-    else{
-        snap(w);
-    }
+    isDragging=false; t.style.cursor='grab';
+    
+    // Khóa tọa độ tuyệt đối để không bao giờ bị trôi pixel lẻ
+    const exactStart = Math.round(startScroll / w) * w;
+    const d = t.scrollLeft - exactStart;
+    
+    // Vuốt qua 35px là qua bài mới
+    if (d > 35) snap(exactStart + w);
+    else if (d < -35) snap(exactStart - w);
+    else snap(exactStart);
 };
 
-// block click khi drag
-t.addEventListener('click',e=>{
-    if(dragged){
-        e.preventDefault();
-        e.stopPropagation();
-    }
-},true);
-
-// mobile
+t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
 t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchend',endDrag);
-
-// pc
 t.addEventListener('mousedown',e=>startDrag(e.pageX));
-t.addEventListener('mousemove',e=>{
-    if(isDragging){e.preventDefault();onDrag(e.pageX);}
-});
-t.addEventListener('mouseup',endDrag);
+t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
+t.addEventListener('mouseup',endDrag); 
 t.addEventListener('mouseleave',endDrag);
 
-// buttons
-function slideNext(){
-    if(!isSliding)
-        snap(w*2,()=>{
-            t.appendChild(t.firstElementChild);
-            t.scrollLeft=w;
-        });
-}
-
-function slidePrev(){
-    if(!isSliding)
-        snap(0,()=>{
-            t.prepend(t.lastElementChild);
-            t.scrollLeft=w;
-        });
-}
+function slideNext(){if(!isSliding) snap(Math.round(t.scrollLeft/w)*w + w);}
+function slidePrev(){if(!isSliding) snap(Math.round(t.scrollLeft/w)*w - w);}
 </script>
-
 <!--SMALL SCREEN JS-->
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
