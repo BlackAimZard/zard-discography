@@ -120,28 +120,122 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <script>
 let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
 const t=document.getElementById('slider-track'),w=140;
+
+// 1. CHÂN ÁI: Giữ nguyên hàm Easing 150ms của Code 2 (êm ái, không bị chớp giật)
 function smoothScrollTo(tgt,cb){
     const st=t.scrollLeft,chg=tgt-st,sTime=performance.now();
     function animate(cur){
-        const p=Math.min((cur-sTime)/150,1),e=p<0.5?2*p*p:-1+(4-2*p)*p;
-        t.scrollLeft=st+chg*e; p<1?requestAnimationFrame(animate):(cb&&cb());
+        const p=Math.min((cur-sTime)/150,1),
+              e=p<0.5?2*p*p:-1+(4-2*p)*p;
+        t.scrollLeft=st+chg*e;
+        p<1?requestAnimationFrame(animate):(cb&&cb());
     }
     requestAnimationFrame(animate);
 }
-function snap(tgt,cb){isSliding=true;smoothScrollTo(tgt,()=>{if(cb)cb();isSliding=false;});}
-t.prepend(t.lastElementChild); t.scrollLeft=w;
-const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;t.style.cursor='grabbing';};
-const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;t.scrollLeft=Math.max(0,Math.min(startScroll+(startX-x),w*2));};
-const endDrag=()=>{if(!isDragging)return;isDragging=false;t.style.cursor='grab';const d=t.scrollLeft-w;d>35?snap(w*2,()=>{t.appendChild(t.firstElementChild);t.scrollLeft=w;}):d<-35?snap(0,()=>{t.prepend(t.lastElementChild);t.scrollLeft=w;}):snap(w);};
-t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
+
+function snap(tgt,cb){
+    isSliding=true;
+    smoothScrollTo(tgt,()=>{
+        if(cb)cb();
+        isSliding=false;
+    });
+}
+
+// setup infinite buffer
+t.prepend(t.lastElementChild);
+t.scrollLeft=w;
+
+// ================= DRAG =================
+const startDrag=x=>{
+    if(isSliding)return;
+    isDragging=true;
+    dragged=false;
+    startX=x;
+    startScroll=t.scrollLeft;
+    t.style.cursor='grabbing';
+};
+
+const onDrag=x=>{
+    if(!isDragging||isSliding)return;
+
+    if(Math.abs(startX-x)>5) dragged=true;
+
+    let ts = startScroll + (startX - x);
+
+    // 2. FIX CỨNG TAY: Tọa độ gốc chuẩn là 0 và w*2. Thêm 80px đàn hồi.
+    // (Bản cũ set min=w nên huynh vuốt ngược nó bị tông vào tường)
+    const min = 0;
+    const max = w*2;
+    ts = Math.max(min-80, Math.min(max+80, ts));
+
+    t.scrollLeft = ts;
+};
+
+const endDrag=()=>{
+    if(!isDragging)return;
+    isDragging=false;
+    t.style.cursor='grab';
+
+    // 3. FIX LỆCH TRỤC: Tâm đang đứng là w (140px). 
+    const d = t.scrollLeft - w;
+
+    // 4. QUÁN TÍNH ĐỀU 2 BÊN: Set 25% tấm ảnh. Nhích nhẹ là bay qua bài mượt mà.
+    const threshold = w * 0.25;
+
+    if(d > threshold){
+        snap(w*2,()=>{
+            t.appendChild(t.firstElementChild);
+            t.scrollLeft=w;
+        });
+    }
+    else if(d < -threshold){
+        snap(0,()=>{
+            t.prepend(t.lastElementChild);
+            t.scrollLeft=w;
+        });
+    }
+    else{
+        snap(w);
+    }
+};
+
+// block click khi drag
+t.addEventListener('click',e=>{
+    if(dragged){
+        e.preventDefault();
+        e.stopPropagation();
+    }
+},true);
+
+// mobile
 t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
 t.addEventListener('touchend',endDrag);
+
+// pc
 t.addEventListener('mousedown',e=>startDrag(e.pageX));
-t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
-t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
-function slideNext(){if(!isSliding)snap(w*2,()=>{t.appendChild(t.firstElementChild);t.scrollLeft=w;});}
-function slidePrev(){if(!isSliding)snap(0,()=>{t.prepend(t.lastElementChild);t.scrollLeft=w;});}
+t.addEventListener('mousemove',e=>{
+    if(isDragging){e.preventDefault();onDrag(e.pageX);}
+});
+t.addEventListener('mouseup',endDrag);
+t.addEventListener('mouseleave',endDrag);
+
+// buttons
+function slideNext(){
+    if(!isSliding)
+        snap(w*2,()=>{
+            t.appendChild(t.firstElementChild);
+            t.scrollLeft=w;
+        });
+}
+
+function slidePrev(){
+    if(!isSliding)
+        snap(0,()=>{
+            t.prepend(t.lastElementChild);
+            t.scrollLeft=w;
+        });
+}
 </script>
 
 <!--SMALL SCREEN JS-->
