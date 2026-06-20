@@ -90,10 +90,10 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <td align="center" valign="top" style="padding-top: 10px;">
 <div style="display: flex; justify-content: center; gap: 120px; color: #888; user-select: none;">
 <span style="cursor: pointer; transition: color 0.3s; display: flex; align-items: center;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slidePrev()">
-<svg width="60" height="36" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="39 8 4 8 11 15 14 12"></polyline></svg>
+<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
 <span style="cursor: pointer; transition: color 0.3s; display: flex; align-items: center;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slideNext()">
-<svg width="60" height="36" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 8 36 8 29 15 26 12"></polyline></svg>
+<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
 </div>
 </td>
@@ -185,7 +185,7 @@ measure(); targetX = currentX = originalLength * w - os; wakeUp();
 const getX = e => e.touches ? e.touches[0].clientX : e.clientX;
 const onDown = e => { isDragging=true; dragged=false; startClientX=getX(e); startTargetX=targetX=currentX; viewport.style.cursor='grabbing'; wakeUp(); };
 const onMove = e => { if(!isDragging) return; const d = startClientX - getX(e); if(Math.abs(d) > 5) dragged=true; targetX = startTargetX + d; wakeUp(); };
-const onUp = () => { if(!isDragging) return; isDragging=false; viewport.style.cursor=''; const d = targetX - startTargetX; let N = Math.round((targetX + os) / w); targetX = (d > 35 ? N+1 : d < -35 ? N-1 : N) * w - os; wakeUp(); };
+const onUp = () => { if(!isDragging) return; isDragging=false; viewport.style.cursor=''; const d = targetX - startTargetX; let N = Math.round((targetX + os) / w); targetX = (d > 50 ? N+1 : d < -50 ? N-1 : N) * w - os; wakeUp(); };
 
 viewport.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
 viewport.addEventListener('touchstart', onDown, {passive:true}); viewport.addEventListener('touchmove', onMove, {passive:true}); 
