@@ -43,6 +43,12 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .gallery-img { display: inline-block; width: 300px; height: 175px; margin-right: 15px; cursor: pointer;
 filter: grayscale(100%); -webkit-filter: grayscale(100%); flex-shrink: 0; vertical-align: top; 
 user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+
+/* NAV ARROW BUTTONS */
+.nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
+@media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
+.nav-arrow:active { color: #fff; transition: none; }
+.nav-arrow.light-up { color: #fff !important; }
 </style>
 </head>
 
@@ -88,11 +94,11 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 <tr>
 <td align="center" valign="top" style="padding-top: 10px;">
-<div style="display: flex; justify-content: center; gap: 120px; color: #888; user-select: none;">
-<span style="cursor: pointer; transition: color 0.3s; display: flex; align-items: center;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slidePrev()">
+<div style="display: flex; justify-content: center; gap: 120px; user-select: none;">
+<span id="btn-prev" class="nav-arrow" onclick="slidePrev()">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-<span style="cursor: pointer; transition: color 0.3s; display: flex; align-items: center;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'" onclick="slideNext()">
+<span id="btn-next" class="nav-arrow" onclick="slideNext()">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
 </div>
@@ -116,105 +122,39 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!--NEXT-PREV-->
 <script>
-const viewport = document.getElementById('slider-track'), track = document.createElement('div');
-track.style.cssText = 'display:flex;will-change:transform;transform-style:preserve-3d;';
-while(viewport.firstChild) track.appendChild(viewport.firstChild);
-viewport.appendChild(track); viewport.style.overflow = 'hidden';
-
-const originalLength = track.children.length;
-track.innerHTML += track.innerHTML + track.innerHTML;
-const images = track.querySelectorAll('.gallery-img'), colorProgress = new Array(originalLength).fill(0);
-
-// Khai báo thêm biến lastWinW để nhớ chiều ngang màn hình
-let w=0, os=0, setW=0, currentX=0, targetX=0, isDragging=false, dragged=false, startClientX=0, startTargetX=0, lastActiveIndex=-1, isAnimating=false, resizeTimer;
-let lastWinW = window.innerWidth; 
-
-const measure = () => {
- if(!images[0]) return;
- const rect = images[0].getBoundingClientRect();
- w = rect.width + parseFloat(window.getComputedStyle(images[0]).marginRight || 0);
- os = (viewport.getBoundingClientRect().width - rect.width) / 2;
- setW = originalLength * w;
+const viewport=document.getElementById('slider-track'),track=document.createElement('div'),btnPrev=document.getElementById('btn-prev'),btnNext=document.getElementById('btn-next');
+track.style.cssText='display:flex;transform-style:preserve-3d;';
+while(viewport.firstChild)track.appendChild(viewport.firstChild);
+viewport.appendChild(track);viewport.style.overflow='hidden';
+const originalLength=track.children.length;
+track.innerHTML+=track.innerHTML+track.innerHTML;
+const images=track.querySelectorAll('.gallery-img'),colorProgress=new Array(originalLength).fill(0);
+let w=0,os=0,setW=0,currentX=0,targetX=0,isDragging=false,dragged=false,startClientX=0,startTargetX=0,lastActiveIndex=-1,isAnimating=false,resizeTimer,lastWinW=window.innerWidth,lightTimer;
+const measure=()=>{if(!images[0])return;const r=images[0].getBoundingClientRect();w=r.width+parseFloat(window.getComputedStyle(images[0]).marginRight||0);os=(viewport.getBoundingClientRect().width-r.width)/2;setW=originalLength*w;};
+const wakeUp=()=>{if(!isAnimating){isAnimating=true;renderLoop();}};
+const renderLoop=()=>{
+if(isDragging)currentX=targetX;else{const d=targetX-currentX;currentX+=Math.abs(d)<0.1?d:d*0.08;}
+if(currentX<setW-os-w/2){currentX+=setW;targetX+=setW;startTargetX+=setW;}else if(currentX>setW*2-os+w/2){currentX-=setW;targetX-=setW;startTargetX-=setW;}
+track.style.transform=`translate3d(${-currentX}px,0,0)`;
+let realIndex=((Math.round((currentX+os)/w)%originalLength)+originalLength)%originalLength,classChanged=realIndex!==lastActiveIndex,colorAnimating=false;
+for(let i=0;i<originalLength;i++){let tC=i===realIndex?1:0,d=tC-colorProgress[i];if(Math.abs(d)>0.005){colorProgress[i]+=d*0.1;colorAnimating=true;}else colorProgress[i]=tC;}
+images.forEach((img,i)=>{let m=i%originalLength,gv=Math.round((1-colorProgress[m])*100),val=`grayscale(${gv}%)`;if(img.dataset.gv!==val){img.style.filter=img.style.WebkitFilter=val;img.dataset.gv=val;}if(classChanged)img.classList.toggle('active-center',m===realIndex);});
+if(classChanged)lastActiveIndex=realIndex;
+if(isDragging||Math.abs(targetX-currentX)>=0.1||colorAnimating)requestAnimationFrame(renderLoop);else isAnimating=false;
 };
-
-const wakeUp = () => { if(!isAnimating) { isAnimating = true; renderLoop(); } };
-
-const renderLoop = () => {
- if(isDragging) currentX = targetX;
- else { const diff = targetX - currentX; currentX += Math.abs(diff) < 0.1 ? diff : diff * 0.08; }
-
- if(currentX < setW - os - w/2) { currentX += setW; targetX += setW; startTargetX += setW; }
- else if(currentX > setW * 2 - os + w/2) { currentX -= setW; targetX -= setW; startTargetX -= setW; }
- track.style.transform = `translate3d(${-currentX}px, 0, 0)`;
-
- let realIndex = ((Math.round((currentX + os) / w) % originalLength) + originalLength) % originalLength;
- let classChanged = realIndex !== lastActiveIndex;
- let colorAnimating = false; 
-
- for(let i=0; i<originalLength; i++) {
-  let targetC = (i === realIndex ? 1 : 0);
-  let diff = targetC - colorProgress[i];
-  if(Math.abs(diff) > 0.005) { 
-      colorProgress[i] += diff * 0.1; 
-      colorAnimating = true; 
-  } else { 
-      colorProgress[i] = targetC; 
-  }
- }
-
- images.forEach((img, i) => {
-  let m = i % originalLength;
-  let gv = Math.round((1 - colorProgress[m]) * 100);
-  let val = `grayscale(${gv}%)`;
-  
-  if(img.dataset.gv !== val) {
-     img.style.filter = img.style.WebkitFilter = val;
-     img.dataset.gv = val;
-  }
-  if(classChanged) img.classList.toggle('active-center', m === realIndex);
- });
-
- if(classChanged) lastActiveIndex = realIndex;
-
- if(isDragging || Math.abs(targetX - currentX) >= 0.1 || colorAnimating) requestAnimationFrame(renderLoop);
- else isAnimating = false; 
-};
-
-measure(); targetX = currentX = originalLength * w - os; wakeUp();
-
-const getX = e => e.touches ? e.touches[0].clientX : e.clientX;
-const onDown = e => { isDragging=true; dragged=false; startClientX=getX(e); startTargetX=targetX=currentX; viewport.style.cursor='grabbing'; wakeUp(); };
-const onMove = e => { if(!isDragging) return; const d = startClientX - getX(e); if(Math.abs(d) > 5) dragged=true; targetX = startTargetX + d; wakeUp(); };
-const onUp = () => { if(!isDragging) return; isDragging=false; viewport.style.cursor=''; const d = targetX - startTargetX; let N = Math.round((targetX + os) / w); targetX = (d > 50 ? N+1 : d < -50 ? N-1 : N) * w - os; wakeUp(); };
-
-viewport.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
-viewport.addEventListener('touchstart', onDown, {passive:true}); viewport.addEventListener('touchmove', onMove, {passive:true}); 
-viewport.addEventListener('touchend', onUp); viewport.addEventListener('touchcancel', onUp);
-viewport.addEventListener('click', e => { if(dragged){ e.preventDefault(); e.stopPropagation(); } }, true);
-
-const slide = dir => { targetX = Math.round((targetX + os) / w + dir) * w - os; wakeUp(); };
-window.slideNext = () => slide(1);
-window.slidePrev = () => slide(-1);
-
-// BÙA CHỐNG TRÔI ẢNH: Xử lý Resize hoàn hảo
-window.addEventListener('resize', () => {
- // Khóa chết 1: Nếu chiều ngang KHÔNG đổi (thò thụt URL Mobile / Dọc Frameset), dẹp nghỉ không chạy!
- if (window.innerWidth === lastWinW) return; 
- lastWinW = window.innerWidth;
-
- const set = () => { 
-     measure(); 
-     // Khóa chết 2: Tính ra tọa độ neo là ốp mẹ ngay vào currentX và targetX
-     targetX = currentX = (originalLength + Math.max(0, lastActiveIndex)) * w - os; 
-     // Khóa chết 3: Ép CSS di chuyển NGAY LẬP TỨC mà không cần đợi vòng lặp JS nhích từng bước
-     track.style.transform = `translate3d(${-currentX}px, 0, 0)`; 
-     wakeUp(); 
- };
- 
- set(); // Chạy TỨC TỐC ngay mili-giây đầu tiên đại ca resize (Không bao giờ bị chạy 1 vòng nữa)
- clearTimeout(resizeTimer); 
- resizeTimer = setTimeout(set, 150); // Chốt chặn an toàn: Chạy bồi thêm 1 phát cuối để căn giữa cho chuẩn khi thả chuột
-});
+measure();targetX=currentX=originalLength*w-os;wakeUp();
+const getX=e=>e.touches?e.touches[0].clientX:e.clientX;
+const off=()=>{if(btnPrev&&btnNext){btnPrev.classList.remove('light-up');btnNext.classList.remove('light-up');}};
+const onDown=e=>{isDragging=true;dragged=false;startClientX=getX(e);startTargetX=targetX=currentX;viewport.style.cursor='grabbing';clearTimeout(lightTimer);off();wakeUp();};
+const onMove=e=>{if(!isDragging)return;const d=startClientX-getX(e);if(Math.abs(d)>5)dragged=true;targetX=startTargetX+d;if(btnPrev&&btnNext){btnNext.classList.toggle('light-up',d>10);btnPrev.classList.toggle('light-up',d<-10);}wakeUp();};
+const onUp=()=>{if(!isDragging)return;isDragging=false;viewport.style.cursor='';clearTimeout(lightTimer);lightTimer=setTimeout(off,1000);const d=targetX-startTargetX;let N=Math.round((targetX+os)/w);targetX=(d>50?N+1:d<-50?N-1:N)*w-os;wakeUp();};
+viewport.addEventListener('mousedown',onDown);window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
+viewport.addEventListener('touchstart',onDown,{passive:true});viewport.addEventListener('touchmove',onMove,{passive:true});
+viewport.addEventListener('touchend',onUp);viewport.addEventListener('touchcancel',onUp);
+viewport.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
+window.slideNext=()=>{off();targetX=Math.round((targetX+os)/w+1)*w-os;wakeUp();};
+window.slidePrev=()=>{off();targetX=Math.round((targetX+os)/w-1)*w-os;wakeUp();};
+window.addEventListener('resize',()=>{if(window.innerWidth===lastWinW)return;lastWinW=window.innerWidth;const s=()=>{measure();targetX=currentX=(originalLength+Math.max(0,lastActiveIndex))*w-os;track.style.transform=`translate3d(${-currentX}px,0,0)`;wakeUp();};s();clearTimeout(resizeTimer);resizeTimer=setTimeout(s,150);});
 </script>
 
 <!--SMALL SCREEN JS-->
