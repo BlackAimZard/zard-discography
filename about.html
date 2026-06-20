@@ -125,7 +125,9 @@ const originalLength = track.children.length;
 track.innerHTML += track.innerHTML + track.innerHTML;
 const images = track.querySelectorAll('.gallery-img'), colorProgress = new Array(originalLength).fill(0);
 
+// Khai báo thêm biến lastWinW để nhớ chiều ngang màn hình
 let w=0, os=0, setW=0, currentX=0, targetX=0, isDragging=false, dragged=false, startClientX=0, startTargetX=0, lastActiveIndex=-1, isAnimating=false, resizeTimer;
+let lastWinW = window.innerWidth; 
 
 const measure = () => {
  if(!images[0]) return;
@@ -194,16 +196,24 @@ const slide = dir => { targetX = Math.round((targetX + os) / w + dir) * w - os; 
 window.slideNext = () => slide(1);
 window.slidePrev = () => slide(-1);
 
+// BÙA CHỐNG TRÔI ẢNH: Xử lý Resize hoàn hảo
 window.addEventListener('resize', () => {
+ // Khóa chết 1: Nếu chiều ngang KHÔNG đổi (thò thụt URL Mobile / Dọc Frameset), dẹp nghỉ không chạy!
+ if (window.innerWidth === lastWinW) return; 
+ lastWinW = window.innerWidth;
+
  const set = () => { 
-     let oldW = w; 
      measure(); 
-     if(w !== oldW && oldW > 0) {
-         targetX = currentX = (originalLength + Math.max(0, lastActiveIndex)) * w - os; 
-         wakeUp();
-     }
+     // Khóa chết 2: Tính ra tọa độ neo là ốp mẹ ngay vào currentX và targetX
+     targetX = currentX = (originalLength + Math.max(0, lastActiveIndex)) * w - os; 
+     // Khóa chết 3: Ép CSS di chuyển NGAY LẬP TỨC mà không cần đợi vòng lặp JS nhích từng bước
+     track.style.transform = `translate3d(${-currentX}px, 0, 0)`; 
+     wakeUp(); 
  };
- clearTimeout(resizeTimer); resizeTimer = setTimeout(set, 150);
+ 
+ set(); // Chạy TỨC TỐC ngay mili-giây đầu tiên đại ca resize (Không bao giờ bị chạy 1 vòng nữa)
+ clearTimeout(resizeTimer); 
+ resizeTimer = setTimeout(set, 150); // Chốt chặn an toàn: Chạy bồi thêm 1 phát cuối để căn giữa cho chuẩn khi thả chuột
 });
 </script>
 
