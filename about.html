@@ -128,122 +128,127 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 
 <!-- NEXT-PREV -->
 <script>
-let isSliding=false,isDragging=false,dragged=false,startX,startScroll;
-const t=document.getElementById('slider-track');
+const viewport = document.getElementById('slider-track');
 
-// 1. Lấy thông số kích thước
-function getImgProps() {
-    const img = t.querySelector('.gallery-img');
-    if (!img) return { w: 300, m: 15 };
-    const style = window.getComputedStyle(img);
-    return {
-        w: img.getBoundingClientRect().width, 
-        m: parseFloat(style.marginRight) || 0
-    };
+// 1. NÂNG CẤP DOM: Tự động bọc ảnh bằng thẻ Track để dùng GPU Transform
+const track = document.createElement('div');
+track.style.display = 'flex';
+track.style.willChange = 'transform';
+track.style.transformStyle = 'preserve-3d'; // Chống xé hình 
+while (viewport.firstChild) track.appendChild(viewport.firstChild);
+viewport.appendChild(track);
+viewport.style.overflow = 'hidden'; // Khóa chết cuộn mặc định của trình duyệt
+
+// 2. NHÂN BẢN 3 SET (Logic nguyên bản)
+const originalLength = track.children.length;
+track.innerHTML += track.innerHTML + track.innerHTML;
+const images = track.querySelectorAll('.gallery-img');
+
+// 3. BIẾN TRẠNG THÁI (Toàn bộ là số thập phân Float)
+let w = 0, os = 0, setW = 0;
+let currentX = 0; // Vị trí hiển thị thực tế
+let targetX = 0;  // Vị trí người dùng muốn tới
+let isDragging = false, dragged = false;
+let startClientX = 0, startTargetX = 0;
+let lastActiveIndex = -1;
+
+function measure() {
+    if (!images[0]) return;
+    const style = window.getComputedStyle(images[0]);
+    w = images[0].getBoundingClientRect().width + parseFloat(style.marginRight || 0);
+    os = (viewport.getBoundingClientRect().width - images[0].getBoundingClientRect().width) / 2;
+    setW = originalLength * w;
 }
-function getW() { const p = getImgProps(); return p.w + p.m; }
-function getOffset() { return (t.getBoundingClientRect().width - getImgProps().w) / 2; }
 
-const originalLength = t.children.length;
-t.innerHTML+=t.innerHTML+t.innerHTML; 
+// 4. TRÁI TIM CỦA HỆ THỐNG: Vòng lặp Render 60 FPS
+function renderLoop() {
+    // A. Kéo mượt (Lerp) khi thả tay, bám dính 1:1 khi đang giữ chuột
+    if (!isDragging) currentX += (targetX - currentX) * 0.08; // Hệ số 0.08 tạo độ trượt đà siêu mượt
+    else currentX = targetX; 
 
-// --- MỎ NEO BẤT TỬ ---
-// Khởi tạo mặc định ở tấm số 1 của Set giữa (tức là index 8)
-let currentIndex = originalLength; 
-
-// Hàm chuyên dụng để khóa chặt ảnh vào giữa dựa trên currentIndex
-function snapToCurrent() {
-    t.scrollLeft = currentIndex * getW() - getOffset();
-}
-
-function getSetW() { return originalLength * getW(); }
-snapToCurrent(); // Ép vị trí ngay lúc bắt đầu
-
-// 2. Logic vuốt và trượt
-function smoothScrollTo(tgt, cb) {
-    const st = t.scrollLeft, chg = tgt - st, sT = performance.now();
-    const duration = 600; 
-
-    function animate(cur) {
-        const p = Math.max(0, Math.min((cur - sT) / duration, 1)); 
-        const e = 1 - Math.pow(1 - p, 4); 
-        t.scrollLeft = st + chg * e;
-        if (p < 1) requestAnimationFrame(animate);
-        else {
-            const c = t.scrollLeft, os = getOffset(), setW = getSetW();
-            if (c < setW - os) t.scrollLeft += setW; 
-            else if (c >= setW * 2 - os) t.scrollLeft -= setW;
-            if (cb) cb();
-        }
+    // B. Dịch chuyển tức thời (Teleport) khi chạm mép vòng lặp
+    // Đệ nới rộng biên độ thêm (w/2) để lúc teleport không bị chớp ảnh
+    if (currentX < setW - os - (w/2)) {
+        currentX += setW; targetX += setW; startTargetX += setW;
+    } else if (currentX > setW * 2 - os + (w/2)) {
+        currentX -= setW; targetX -= setW; startTargetX -= setW;
     }
-    requestAnimationFrame(animate);
+
+    // C. Ra lệnh cho Card đồ họa vẽ
+    track.style.transform = `translate3d(${-currentX}px, 0, 0)`;
+
+    // D. Cập nhật màu (Chỉ cập nhật khi thực sự sang tấm mới để chống lag)
+    let activeIndex = Math.round((currentX + os) / w);
+    let realIndex = (activeIndex % originalLength + originalLength) % originalLength;
+    
+    if (realIndex !== lastActiveIndex) {
+        images.forEach((img, i) => {
+            if (i % originalLength === realIndex) img.classList.add('active-center');
+            else img.classList.remove('active-center');
+        });
+        lastActiveIndex = realIndex;
+    }
+
+    requestAnimationFrame(renderLoop);
 }
-function snap(tgt){isSliding=true;smoothScrollTo(tgt,()=>isSliding=false);}
 
-const startDrag=x=>{if(isSliding)return;isDragging=true;dragged=false;startX=x;startScroll=t.scrollLeft;};
-const onDrag=x=>{if(!isDragging||isSliding)return;if(Math.abs(startX-x)>5)dragged=true;let d=startX-x,w=getW();d=d>w?w+(d-w)*0.35:d<-w?-w+(d+w)*0.35:d;t.scrollLeft=startScroll+d;};
+// Khởi chạy vòng lặp
+measure();
+targetX = currentX = originalLength * w - os; // Bắt đầu ở trung tâm
+renderLoop();
 
-const endDrag=()=>{
-    if(!isDragging)return;
-    isDragging=false;
-    const w=getW(), os=getOffset();
-    const d=t.scrollLeft-startScroll;
-    let N=Math.round((startScroll+os)/w);
-    if(d>35) N+=1; else if(d<-35) N-=1;
-    snap(N*w-os);
+// 5. XỬ LÝ SỰ KIỆN KÉO THẢ (Hỗ trợ cả Chuột & Cảm ứng)
+const onDown = e => {
+    isDragging = true; dragged = false;
+    startClientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    startTargetX = targetX = currentX; // Thắng gấp xe lại ngay vị trí đang trượt
+    viewport.style.cursor = 'grabbing';
 };
 
-t.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();}},true);
-t.addEventListener('touchstart',e=>startDrag(e.touches[0].pageX),{passive:true});
-t.addEventListener('touchmove',e=>onDrag(e.touches[0].pageX),{passive:true});
-t.addEventListener('touchend',endDrag);
-t.addEventListener('mousedown',e=>startDrag(e.pageX));
-t.addEventListener('mousemove',e=>{if(isDragging){e.preventDefault();onDrag(e.pageX);}});
-t.addEventListener('mouseup',endDrag); t.addEventListener('mouseleave',endDrag);
+const onMove = e => {
+    if (!isDragging) return;
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const d = startClientX - clientX;
+    if (Math.abs(d) > 5) dragged = true;
+    targetX = startTargetX + d; // Di chuyển mục tiêu theo tay
+};
 
-function slideNext(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N+1)*w-os);}}
-function slidePrev(){if(!isSliding){const os=getOffset(),w=getW(),N=Math.round((t.scrollLeft+os)/w);snap((N-1)*w-os);}}
-
-// 3. Xử lý UI và Resize
-let isResizing = false; 
-
-function updateActiveCenter() {
-    if (isResizing) return; 
-    const os = getOffset(), w = getW();
+const onUp = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    viewport.style.cursor = '';
     
-    // Liên tục cập nhật Mỏ Neo khi đang lướt
-    currentIndex = Math.round((t.scrollLeft + os) / w);
-    
-    const realIndex = (currentIndex % originalLength + originalLength) % originalLength;
+    // Thuật toán bám dính (Snap) vào tấm gần nhất khi buông tay
+    const d = targetX - startTargetX;
+    let N = Math.round((targetX + os) / w);
+    if (d > 35) N += 1; else if (d < -35) N -= 1;
+    targetX = N * w - os;
+};
 
-    const images = t.querySelectorAll('.gallery-img');
-    images.forEach((img, i) => {
-        if (i % originalLength === realIndex) img.classList.add('active-center');
-        else img.classList.remove('active-center');
-    });
-}
-t.addEventListener('scroll', updateActiveCenter);
+viewport.addEventListener('mousedown', onDown);
+window.addEventListener('mousemove', onMove);
+window.addEventListener('mouseup', onUp);
 
+viewport.addEventListener('touchstart', onDown, { passive: true });
+viewport.addEventListener('touchmove', onMove, { passive: true });
+viewport.addEventListener('touchend', onUp);
+
+viewport.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+// 6. XỬ LÝ NÚT BẤM NEXT/PREV
+window.slideNext = () => { targetX = Math.round((targetX + os) / w + 1) * w - os; };
+window.slidePrev = () => { targetX = Math.round((targetX + os) / w - 1) * w - os; };
+
+// 7. XỬ LÝ CO KÉO MÀN HÌNH CHỐNG VỠ GIAO DIỆN
 let resizeTimer;
-window.addEventListener('resize', () => { 
-    isResizing = true; 
-    clearTimeout(resizeTimer); 
-    
-    // Khi xoay ngang/dọc, ép thanh cuộn dính chặt vào mỏ neo bằng kích thước mới nhất
-    snapToCurrent();
-
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    let currentReal = lastActiveIndex; // Ghi nhớ tấm ảnh đang xem
     resizeTimer = setTimeout(() => {
-        isResizing = false; 
-        updateActiveCenter(); 
-    }, 200); 
+        measure();
+        targetX = currentX = (originalLength + currentReal) * w - os; // Ép về lại tâm
+    }, 150);
 });
-
-// Chốt hạ khi load xong CSS trên Mobile
-window.addEventListener('load', () => { 
-    snapToCurrent(); 
-    updateActiveCenter(); 
-});
-setTimeout(() => { snapToCurrent(); updateActiveCenter(); }, 150);
 </script>
 
 <!--SMALL SCREEN JS-->
