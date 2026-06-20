@@ -28,23 +28,12 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 600px) { 
-  #title-text, #scramble { font-size: 36px !important; } 
-  #content-text { font-size: 16px !important; } 
-  .gallery-img { 
-    /* Tuyệt chiêu Clamp (Nhỏ nhất, Mức ưu tiên co giãn, Lớn nhất) */
-    width: clamp(180px, 60vw, 300px) !important; 
-    height: auto !important; 
-    aspect-ratio: 300 / 175; 
-  }
-}
+#title-text, #scramble { font-size: 36px !important; } 
+#content-text { font-size: 16px !important; } 
+.gallery-img { width: clamp(180px, 60vw, 300px) !important; height: auto !important; aspect-ratio: 300 / 175; } }
 
 /* ANIMATION FIX */
-#scramble { transform: translateZ(0);
--webkit-transform: translateZ(0);
-backface-visibility: hidden;
--webkit-backface-visibility: hidden;
-display: inline-block;
-white-space: nowrap; }
+#scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
 /* SCROLL WRAPPER */
 .scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
@@ -52,9 +41,9 @@ white-space: nowrap; }
 
 /* IMG */
 .gallery-img { display: inline-block; width: 300px; height: 175px; margin-right: 15px; cursor: pointer;
-filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease, -webkit-filter 0.4s ease; flex-shrink: 0; vertical-align: top; 
-user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
-.gallery-img.active-center { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
+filter: grayscale(100%); -webkit-filter: grayscale(100%); flex-shrink: 0; vertical-align: top; 
+user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent;
+will-change: filter; transform: translateZ(0); }
 </style>
 </head>
 
@@ -87,14 +76,14 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <tr>
 <td class="slider-cell" align="left" valign="top" style="padding: 0 20px 0 20px;">
 <div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y;">
-<img src="photo/thumb/01.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
-<img src="photo/thumb/02.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
-<img src="photo/thumb/03.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
-<img src="photo/thumb/04.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/04.jpg')">
-<img src="photo/thumb/05.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/05.jpg')">
-<img src="photo/thumb/06.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/06.jpg')">
-<img src="photo/thumb/07.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
-<img src="photo/thumb/08.jpg" decoding="async" loading="lazy" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
+<img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
+<img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
+<img src="photo/thumb/03.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
+<img src="photo/thumb/04.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/04.jpg')">
+<img src="photo/thumb/05.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/05.jpg')">
+<img src="photo/thumb/06.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/06.jpg')">
+<img src="photo/thumb/07.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
+<img src="photo/thumb/08.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
 </div>
 </td>
 </tr>
@@ -126,145 +115,73 @@ About <span id="scramble" style="color: #fff;"></span></span>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
 
-<!-- NEXT-PREV -->
+<!--NEXT-PREV-->
 <script>
-const viewport = document.getElementById('slider-track');
+const viewport = document.getElementById('slider-track'), track = document.createElement('div');
+track.style.cssText = 'display:flex;will-change:transform;transform-style:preserve-3d;';
+while(viewport.firstChild) track.appendChild(viewport.firstChild);
+viewport.appendChild(track); viewport.style.overflow = 'hidden';
 
-// 1. NÂNG CẤP DOM: Tự động bọc ảnh bằng thẻ Track để dùng GPU Transform
-const track = document.createElement('div');
-track.style.display = 'flex';
-track.style.willChange = 'transform';
-track.style.transformStyle = 'preserve-3d'; // Chống xé hình 
-while (viewport.firstChild) track.appendChild(viewport.firstChild);
-viewport.appendChild(track);
-viewport.style.overflow = 'hidden'; // Khóa chết cuộn mặc định của trình duyệt
-
-// 2. NHÂN BẢN 3 SET (Logic nguyên bản)
 const originalLength = track.children.length;
 track.innerHTML += track.innerHTML + track.innerHTML;
-const images = track.querySelectorAll('.gallery-img');
+const images = track.querySelectorAll('.gallery-img'), colorProgress = new Array(originalLength).fill(0);
 
-// 3. BIẾN TRẠNG THÁI (Toàn bộ là số thập phân Float)
-let w = 0, os = 0, setW = 0;
-let currentX = 0; // Vị trí hiển thị thực tế
-let targetX = 0;  // Vị trí người dùng muốn tới
-let isDragging = false, dragged = false;
-let startClientX = 0, startTargetX = 0;
-let lastActiveIndex = -1;
+let w=0, os=0, setW=0, currentX=0, targetX=0, isDragging=false, dragged=false, startClientX=0, startTargetX=0, lastActiveIndex=-1;
 
 function measure() {
-    if (!images[0]) return;
-    const style = window.getComputedStyle(images[0]);
-    w = images[0].getBoundingClientRect().width + parseFloat(style.marginRight || 0);
-    os = (viewport.getBoundingClientRect().width - images[0].getBoundingClientRect().width) / 2;
-    setW = originalLength * w;
+ if(!images[0]) return;
+ const style = window.getComputedStyle(images[0]), rect = images[0].getBoundingClientRect();
+ w = rect.width + parseFloat(style.marginRight || 0);
+ os = (viewport.getBoundingClientRect().width - rect.width) / 2;
+ setW = originalLength * w;
 }
 
-// 4. TRÁI TIM CỦA HỆ THỐNG: Vòng lặp Render 60 FPS
 function renderLoop() {
-    // A. Kéo mượt (Lerp) kết hợp "Phanh ABS / Idling Stop"
-    if (isDragging) {
-        currentX = targetX; // Bám dính 1:1 khi đang giữ chuột
-    } else {
-        const diff = targetX - currentX;
-        if (Math.abs(diff) < 0.1) {
-            currentX = targetX; // Tắt máy ngưng tính toán khi khoảng cách quá nhỏ
-        } else {
-            currentX += diff * 0.08; // Trượt đà siêu mượt
-        }
-    }
+ if(isDragging) currentX = targetX;
+ else { const diff = targetX - currentX; Math.abs(diff) < 0.1 ? currentX = targetX : currentX += diff * 0.08; }
 
-    // B. Dịch chuyển tức thời (Teleport) khi chạm mép vòng lặp
-    // Đệ nới rộng biên độ thêm (w/2) để lúc teleport không bị chớp ảnh
-    if (currentX < setW - os - (w/2)) {
-        currentX += setW; targetX += setW; startTargetX += setW;
-    } else if (currentX > setW * 2 - os + (w/2)) {
-        currentX -= setW; targetX -= setW; startTargetX -= setW;
-    }
+ if(currentX < setW - os - (w/2)) { currentX += setW; targetX += setW; startTargetX += setW; }
+ else if(currentX > setW * 2 - os + (w/2)) { currentX -= setW; targetX -= setW; startTargetX -= setW; }
+ track.style.transform = `translate3d(${-currentX}px, 0, 0)`;
 
-    // C. Ra lệnh cho Card đồ họa vẽ
-    track.style.transform = `translate3d(${-currentX}px, 0, 0)`;
+ let activeIndex = Math.round((currentX + os) / w), realIndex = (activeIndex % originalLength + originalLength) % originalLength;
+ for(let i=0; i<originalLength; i++) colorProgress[i] += ((i === realIndex ? 1 : 0) - colorProgress[i]) * 0.1;
 
-    // D. Cập nhật màu (Chỉ cập nhật khi thực sự sang tấm mới để chống lag)
-    let activeIndex = Math.round((currentX + os) / w);
-    let realIndex = (activeIndex % originalLength + originalLength) % originalLength;
-    
-    if (realIndex !== lastActiveIndex) {
-        images.forEach((img, i) => {
-            if (i % originalLength === realIndex) img.classList.add('active-center');
-            else img.classList.remove('active-center');
-        });
-        lastActiveIndex = realIndex;
-    }
+ images.forEach((img, i) => {
+  let grayValue = (1 - colorProgress[i % originalLength]) * 100;
+  img.style.filter = img.style.WebkitFilter = `grayscale(${grayValue}%)`;
+ });
 
-    requestAnimationFrame(renderLoop);
+ if(realIndex !== lastActiveIndex) {
+  images.forEach((img, i) => i % originalLength === realIndex ? img.classList.add('active-center') : img.classList.remove('active-center'));
+  lastActiveIndex = realIndex;
+ }
+ requestAnimationFrame(renderLoop);
 }
 
-// Khởi chạy vòng lặp
-measure();
-targetX = currentX = originalLength * w - os; // Bắt đầu ở trung tâm
-renderLoop();
+measure(); targetX = currentX = originalLength * w - os; renderLoop();
 
-// 5. XỬ LÝ SỰ KIỆN KÉO THẢ (Hỗ trợ cả Chuột & Cảm ứng)
-const onDown = e => {
-    isDragging = true; dragged = false;
-    startClientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    startTargetX = targetX = currentX; // Thắng gấp xe lại ngay vị trí đang trượt
-    viewport.style.cursor = 'grabbing';
-};
+const getX = e => e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+const onDown = e => { isDragging=true; dragged=false; startClientX=getX(e); startTargetX=targetX=currentX; viewport.style.cursor='grabbing'; };
+const onMove = e => { if(!isDragging) return; const d = startClientX - getX(e); if(Math.abs(d) > 5) dragged=true; targetX = startTargetX + d; };
+const onUp = () => { if(!isDragging) return; isDragging=false; viewport.style.cursor=''; const d = targetX - startTargetX; let N = Math.round((targetX + os) / w); if(d > 35) N+=1; else if(d < -35) N-=1; targetX = N * w - os; };
 
-const onMove = e => {
-    if (!isDragging) return;
-    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    const d = startClientX - clientX;
-    if (Math.abs(d) > 5) dragged = true;
-    targetX = startTargetX + d; // Di chuyển mục tiêu theo tay
-};
+viewport.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
+viewport.addEventListener('touchstart', onDown, {passive:true}); viewport.addEventListener('touchmove', onMove, {passive:true}); 
+viewport.addEventListener('touchend', onUp); viewport.addEventListener('touchcancel', onUp);
+viewport.addEventListener('click', e => { if(dragged){ e.preventDefault(); e.stopPropagation(); } }, true);
 
-const onUp = () => {
-    if (!isDragging) return;
-    isDragging = false;
-    viewport.style.cursor = '';
-    
-    // Thuật toán bám dính (Snap) vào tấm gần nhất khi buông tay
-    const d = targetX - startTargetX;
-    let N = Math.round((targetX + os) / w);
-    if (d > 35) N += 1; else if (d < -35) N -= 1;
-    targetX = N * w - os;
-};
+window.slideNext = () => targetX = Math.round((targetX + os) / w + 1) * w - os;
+window.slidePrev = () => targetX = Math.round((targetX + os) / w - 1) * w - os;
 
-viewport.addEventListener('mousedown', onDown);
-window.addEventListener('mousemove', onMove);
-window.addEventListener('mouseup', onUp);
-
-viewport.addEventListener('touchstart', onDown, { passive: true });
-viewport.addEventListener('touchmove', onMove, { passive: true });
-viewport.addEventListener('touchend', onUp);
-
-viewport.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopPropagation(); } }, true);
-
-// 6. XỬ LÝ NÚT BẤM NEXT/PREV
-window.slideNext = () => { targetX = Math.round((targetX + os) / w + 1) * w - os; };
-window.slidePrev = () => { targetX = Math.round((targetX + os) / w - 1) * w - os; };
-
-// 7. XỬ LÝ CO KÉO MÀN HÌNH CHỐNG VỠ GIAO DIỆN (ĐÃ FIX LỖI CHẠY VÒNG VÒNG)
 let resizeTimer;
 window.addEventListener('resize', () => {
-    // 1. Đo lường ngay lập tức không độ trễ
-    measure();
-    
-    // 2. Ép tọa độ đóng đinh vào tấm ảnh đang xem (ở giữa màn hình)
-    targetX = currentX = (originalLength + lastActiveIndex) * w - os;
-    
-    // 3. Vẫn giữ lại Timer để chốt sổ 1 lần cuối cho chắc cốp khi nhả chuột
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        measure();
-        targetX = currentX = (originalLength + lastActiveIndex) * w - os;
-    }, 150);
+ const anchor = Math.max(0, lastActiveIndex);
+ measure(); targetX = currentX = (originalLength + anchor) * w - os;
+ clearTimeout(resizeTimer);
+ resizeTimer = setTimeout(() => { measure(); targetX = currentX = (originalLength + anchor) * w - os; }, 150);
 });
 </script>
-
 <!--SMALL SCREEN JS-->
 <script src="scramble.js"></script>
 <script src="small-screen-btn.js"></script>
