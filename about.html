@@ -162,9 +162,17 @@ function measure() {
 
 // 4. TRÁI TIM CỦA HỆ THỐNG: Vòng lặp Render 60 FPS
 function renderLoop() {
-    // A. Kéo mượt (Lerp) khi thả tay, bám dính 1:1 khi đang giữ chuột
-    if (!isDragging) currentX += (targetX - currentX) * 0.08; // Hệ số 0.08 tạo độ trượt đà siêu mượt
-    else currentX = targetX; 
+    // A. Kéo mượt (Lerp) kết hợp "Phanh ABS / Idling Stop" của huynh
+    if (isDragging) {
+        currentX = targetX; // Bám dính 1:1 khi đang giữ chuột
+    } else {
+        const diff = targetX - currentX;
+        if (Math.abs(diff) < 0.1) {
+            currentX = targetX; // Tắt máy ngưng tính toán khi khoảng cách quá nhỏ
+        } else {
+            currentX += diff * 0.08; // Trượt đà siêu mượt
+        }
+    }
 
     // B. Dịch chuyển tức thời (Teleport) khi chạm mép vòng lặp
     // Đệ nới rộng biên độ thêm (w/2) để lúc teleport không bị chớp ảnh
