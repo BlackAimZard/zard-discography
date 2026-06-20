@@ -162,7 +162,7 @@ function measure() {
 
 // 4. TRÁI TIM CỦA HỆ THỐNG: Vòng lặp Render 60 FPS
 function renderLoop() {
-    // A. Kéo mượt (Lerp) kết hợp "Phanh ABS / Idling Stop" của huynh
+    // A. Kéo mượt (Lerp) kết hợp "Phanh ABS / Idling Stop"
     if (isDragging) {
         currentX = targetX; // Bám dính 1:1 khi đang giữ chuột
     } else {
@@ -247,14 +247,20 @@ viewport.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.s
 window.slideNext = () => { targetX = Math.round((targetX + os) / w + 1) * w - os; };
 window.slidePrev = () => { targetX = Math.round((targetX + os) / w - 1) * w - os; };
 
-// 7. XỬ LÝ CO KÉO MÀN HÌNH CHỐNG VỠ GIAO DIỆN
+// 7. XỬ LÝ CO KÉO MÀN HÌNH CHỐNG VỠ GIAO DIỆN (ĐÃ FIX LỖI CHẠY VÒNG VÒNG)
 let resizeTimer;
 window.addEventListener('resize', () => {
+    // 1. Đo lường ngay lập tức không độ trễ
+    measure();
+    
+    // 2. Ép tọa độ đóng đinh vào tấm ảnh đang xem (ở giữa màn hình)
+    targetX = currentX = (originalLength + lastActiveIndex) * w - os;
+    
+    // 3. Vẫn giữ lại Timer để chốt sổ 1 lần cuối cho chắc cốp khi nhả chuột
     clearTimeout(resizeTimer);
-    let currentReal = lastActiveIndex; // Ghi nhớ tấm ảnh đang xem
     resizeTimer = setTimeout(() => {
         measure();
-        targetX = currentX = (originalLength + currentReal) * w - os; // Ép về lại tâm
+        targetX = currentX = (originalLength + lastActiveIndex) * w - os;
     }, 150);
 });
 </script>
