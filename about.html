@@ -147,7 +147,7 @@ const getX=e=>e.touches?e.touches[0].clientX:e.clientX;
 const off=()=>{if(btnPrev&&btnNext){btnPrev.classList.remove('light-up');btnNext.classList.remove('light-up');}};
 const onDown=e=>{isDragging=true;dragged=false;startClientX=getX(e);startTargetX=targetX=currentX;viewport.style.cursor='grabbing';clearTimeout(lightTimer);off();wakeUp();};
 const onMove=e=>{if(!isDragging)return;const d=startClientX-getX(e);if(Math.abs(d)>5)dragged=true;targetX=startTargetX+d;if(btnPrev&&btnNext){btnNext.classList.toggle('light-up',d>10);btnPrev.classList.toggle('light-up',d<-10);}wakeUp();};
-const onUp=()=>{if(!isDragging)return;isDragging=false;viewport.style.cursor='';clearTimeout(lightTimer);lightTimer=setTimeout(off,1000);const d=targetX-startTargetX;let N=Math.round((targetX+os)/w);targetX=(d>50?N+1:d<-50?N-1:N)*w-os;wakeUp();};
+const onUp=()=>{if(!isDragging)return;isDragging=false;viewport.style.cursor='';clearTimeout(lightTimer);lightTimer=setTimeout(off,1000);const d=targetX-startTargetX;let startN=Math.round((startTargetX+os)/w),N=Math.round((targetX+os)/w);if(N===startN){if(d>50)N+=1;else if(d<-50)N-=1;}targetX=N*w-os;wakeUp();};
 viewport.addEventListener('mousedown',onDown);window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
 viewport.addEventListener('touchstart',onDown,{passive:true});viewport.addEventListener('touchmove',onMove,{passive:true});
 viewport.addEventListener('touchend',onUp);viewport.addEventListener('touchcancel',onUp);
