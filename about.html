@@ -150,14 +150,25 @@ const renderLoop = () => {
  let colorAnimating = false; 
 
  for(let i=0; i<originalLength; i++) {
-  let diff = (i === realIndex ? 1 : 0) - colorProgress[i];
-  colorProgress[i] += diff * 0.1;
-  if(Math.abs(diff) > 0.01) colorAnimating = true; 
+  let targetC = (i === realIndex ? 1 : 0);
+  let diff = targetC - colorProgress[i];
+  if(Math.abs(diff) > 0.005) { 
+      colorProgress[i] += diff * 0.1; 
+      colorAnimating = true; 
+  } else { 
+      colorProgress[i] = targetC; 
+  }
  }
 
  images.forEach((img, i) => {
   let m = i % originalLength;
-  img.style.filter = img.style.WebkitFilter = `grayscale(${(1 - colorProgress[m]) * 100}%)`;
+  let gv = Math.round((1 - colorProgress[m]) * 100);
+  let val = `grayscale(${gv}%)`;
+  
+  if(img.dataset.gv !== val) {
+     img.style.filter = img.style.WebkitFilter = val;
+     img.dataset.gv = val;
+  }
   if(classChanged) img.classList.toggle('active-center', m === realIndex);
  });
 
@@ -184,8 +195,15 @@ window.slideNext = () => slide(1);
 window.slidePrev = () => slide(-1);
 
 window.addEventListener('resize', () => {
- const set = () => { measure(); targetX = currentX = (originalLength + Math.max(0, lastActiveIndex)) * w - os; wakeUp(); };
- set(); clearTimeout(resizeTimer); resizeTimer = setTimeout(set, 150);
+ const set = () => { 
+     let oldW = w; 
+     measure(); 
+     if(w !== oldW && oldW > 0) {
+         targetX = currentX = (originalLength + Math.max(0, lastActiveIndex)) * w - os; 
+         wakeUp();
+     }
+ };
+ clearTimeout(resizeTimer); resizeTimer = setTimeout(set, 150);
 });
 </script>
 
