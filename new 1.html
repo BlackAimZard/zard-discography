@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đấu Trường Slick Carousel</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+<style>
+  body { background-color: #000; color: #fff; padding-top: 100px; text-align: center; font-family: sans-serif; }
+  .slider-wrapper { max-width: 900px; margin: 0 auto; }
+  
+  /* Reset lại ảnh cho giống file của đại ca */
+  .gallery-img { 
+    width: 300px; height: 175px; object-fit: cover; 
+    filter: grayscale(100%); transition: filter 0.3s ease; 
+    margin: 0 10px; /* Ở Slick phải set margin thẳng vào đây hoặc padding vào thẻ bọc */
+  }
+  
+  /* Bùa cho ảnh đứng giữa sáng màu */
+  .slick-center .gallery-img { filter: grayscale(0%); }
+</style>
+</head>
+<body>
+
+  <h2>SLICK CAROUSEL (Công nghiệp)</h2>
+  <br><br>
+
+  <div class="slider-wrapper">
+    <div class="my-slick-slider">
+      <div><img src="photo/thumb/01.jpg" class="gallery-img"></div>
+      <div><img src="photo/thumb/02.jpg" class="gallery-img"></div>
+      <div><img src="photo/thumb/03.jpg" class="gallery-img"></div>
+      <div><img src="photo/thumb/04.jpg" class="gallery-img"></div>
+      <div><img src="photo/thumb/05.jpg" class="gallery-img"></div>
+      <div><img src="photo/thumb/06.jpg" class="gallery-img"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('.my-slick-slider').slick({
+        centerMode: true,      /* Bật chế độ focus ảnh giữa */
+        centerPadding: '0px',
+        slidesToShow: 3,       /* Hiện 3 ảnh 1 lúc */
+        infinite: true,        /* Vòng lặp vô tận */
+        arrows: true,          /* Hiện mũi tên Next/Prev */
+        swipeToSlide: true     /* Cho phép quẹt tay tự do */
+      });
+    });
+  </script>
+
+</body>
+</html>
