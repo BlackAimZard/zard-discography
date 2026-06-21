@@ -29,12 +29,6 @@ img { border: 0; display: block; }
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
 
-/* SMALL SCREEN FIX */
-@media screen and (max-width: 600px) { 
-#title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; } 
-.gallery-img { width: clamp(180px, 60vw, 300px); height: auto !important; aspect-ratio: 300 / 175; } }
-
 /* ANIMATION FIX */
 #scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
@@ -54,6 +48,12 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
 .nav-arrow.slick-disabled { opacity: 0.5; cursor: default; } 
+
+/* SMALL SCREEN FIX */
+@media screen and (max-width: 600px) { 
+#title-text, #scramble { font-size: 36px !important; } 
+#content-text { font-size: 16px !important; } 
+.gallery-img { width: clamp(180px, 60vw, 300px); height: auto !important; aspect-ratio: 300 / 175; } }
 </style>
 </head>
 
@@ -84,7 +84,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <tr><td style="height: 120px; padding: 0 20px;"></td></tr>
 <!--PHOTO-->
 <tr>
-<td class="slider-cell" align="left" valign="top" style="padding: 0;">
+<td class="slider-cell" align="left" valign="top" style="padding: 0 20px;"">
 <div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
 <div><img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="photo/01.jpg"></div>
 <div><img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="photo/02.jpg"></div>
@@ -127,12 +127,11 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <!--SLICK SETTING-->
 <script src="js/libs/jquery.min.js"></script>
 <script src="js/libs/slick.min.js"></script>
-<script src="js/libs/jquery.min.js"></script>
-<script src="js/libs/slick.min.js"></script>
 <script>
 $(document).ready(function(){
     $('#slider-track').slick({
         centerMode: true,
+		centerPadding: '0px',
         variableWidth: true,
         infinite: true,
         slidesToShow: 1,
