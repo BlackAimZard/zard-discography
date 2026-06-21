@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,6 +7,9 @@
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
 <title>About</title>
+
+<link rel="stylesheet" type="text/css" href="assets/libs/slick.css">
+
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
@@ -26,29 +29,31 @@ img { border: 0; display: block; }
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
 
-/* SMALL SCREEN FIX */
-@media screen and (max-width: 600px) { 
-#title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; } 
-.gallery-img { width: clamp(180px, 60vw, 300px) !important; height: auto !important; aspect-ratio: 300 / 175; } }
-
 /* ANIMATION FIX */
 #scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
 /* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
+.scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
-/* IMG */
-.gallery-img { display: inline-block; width: 300px; height: 175px; margin-right: 15px; cursor: pointer;
-filter: grayscale(100%); -webkit-filter: grayscale(100%); flex-shrink: 0; vertical-align: top; 
+/* PHOTO GALLERY */
+.gallery-img { display: block; width: 100%; height: 175px; cursor: pointer; filter: grayscale(100%); 
+-webkit-filter: grayscale(100%); transition: filter 0.4s ease; object-fit: cover;
 user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+.slick-slide { padding: 0 8px;}
+.is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
 .nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
-.nav-arrow.light-up { color: #fff !important; }
+.nav-arrow.slick-disabled { opacity: 0.5; cursor: default; } 
+
+/* SMALL SCREEN FIX */
+@media screen and (max-width: 600px) { 
+#title-text, #scramble { font-size: 36px !important; } 
+#content-text { font-size: 16px !important; } 
+.gallery-img { height: auto !important; aspect-ratio: 300 / 175; } }
 </style>
 </head>
 
@@ -56,44 +61,45 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-<td align="center" valign="middle" style="padding-top: 50px; padding-bottom: 100px;">
+<td align="center" valign="middle" style="padding: 50px 20px 100px 20px;">
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
 <!--TITLE-->
 <tr>
-<td align="center" valign="bottom" style="padding: 0 20px;"> 
+<td align="center" valign="bottom"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
-<tr><td style="height: 30px; padding: 0 20px;"></td></tr>
+<tr><td style="height: 30px;"></td></tr>
 <!--TEXT-->
 <tr>
-<td align="center" valign="top" style="padding: 0 20px;">
+<td align="center" valign="top">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
 <!--SPACE-->
-<tr><td style="height: 120px; padding: 0 20px;"></td></tr>
-<!--PHOTO SLIDE-->
+<tr><td style="height: 120px;"></td></tr>
+<!--PHOTO-->
 <tr>
-<td class="slider-cell" align="left" valign="top" style="padding: 0 20px 0 20px;">
-<div id="slider-track" class="scroll-wrapper" style="width: 100%; display: flex; text-align: left; overflow-anchor: none; overflow-x: hidden; touch-action: pan-y;">
-<img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/01.jpg')">
-<img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/02.jpg')">
-<img src="photo/thumb/03.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/03.jpg')">
-<img src="photo/thumb/04.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/04.jpg')">
-<img src="photo/thumb/05.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/05.jpg')">
-<img src="photo/thumb/06.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/06.jpg')">
-<img src="photo/thumb/07.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/07.jpg')">
-<img src="photo/thumb/08.jpg" class="gallery-img" draggable="false" onclick="openLightbox('photo/08.jpg')">
+<td class="slider-cell" align="left" valign="top">
+<div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
+<div><img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="photo/01.jpg"></div>
+<div><img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="photo/02.jpg"></div>
+<div><img src="photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="photo/03.jpg"></div>
+<div><img src="photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="photo/04.jpg"></div>
+<div><img src="photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="photo/05.jpg"></div>
+<div><img src="photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="photo/06.jpg"></div>
+<div><img src="photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="photo/07.jpg"></div>
+<div><img src="photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="photo/08.jpg"></div>
 </div>
 </td>
 </tr>
+<!--NARROW-->
 <tr>
-<td align="center" valign="top" style="padding-top: 10px;">
+<td align="center" valign="top" style="padding-top: 20px;">
 <div style="display: flex; justify-content: center; gap: 120px; user-select: none;">
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -111,7 +117,6 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 </tbody>
 </table>
-
 <!--IMG LIGHT BOX-->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
@@ -119,144 +124,53 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
+<!--SLICK SETTING-->
+<script src="assets/libs/jquery.min.js"></script>
+<script src="assets/libs/slick.min.js"></script>
 
-<!--NEXT-PREV-->
 <script>
-// ==========================================
-// SLIDER CONFIGURATION
-// ==========================================
-const SliderConfig = {
-    trackId: 'slider-track',
-    prevBtnId: 'btn-prev',
-    nextBtnId: 'btn-next',
-    imgClass: '.gallery-img',
-    activeClass: 'active-center', 
+$(document).ready(function(){
+// COLOR FIX
+const applyColor = (slick, index) => {
+let imgId = $(slick.$slides[index]).find('.gallery-img').attr('data-lightbox');
+slick.$slider.find('.slick-slide').removeClass('is-colored')
+.has(`.gallery-img[data-lightbox="${imgId}"]`).addClass('is-colored'); };
+$('#slider-track')
+.on('init', (e, slick) => { slick.$slider.css('opacity', '1'); applyColor(slick, 0); })
+.on('beforeChange', (e, slick, currentSlide, nextSlide) => { applyColor(slick, nextSlide); });
+// SLICK CONFIG
+$('#slider-track').slick({
+centerMode: true,
+centerPadding: '120px',
+slidesToShow: 1,
+infinite: true,
+speed: 400,
+cssEase: 'ease-out',
+prevArrow: $('#btn-prev'),
+nextArrow: $('#btn-next'),
+//SMALL SCREEN
+responsive: [ {
+breakpoint: 600,
+settings: {
+centerMode: true,
+centerPadding: '60px',
+slidesToShow: 1 
+} 
+} ]
+});
 
-    slideFriction: 0.08, 
-    colorFriction: 0.1,
-
-    dragTolerance: 5,
-    swipeDistance: 50,
-
-    arrowLightDelay: 1000,
-    arrowLightDistance: 10,
-
-    autoCenterOnResize: true,
-    centerOnClick: true       
-};
-
-// ==========================================
-// CORE ENGINE (DO NOT MODIFY)
-// ==========================================
-(function() {
-    const c=SliderConfig, vp=document.getElementById(c.trackId);
-    if (!vp) return; 
-
-    const tr=document.createElement('div'), bP=document.getElementById(c.prevBtnId), bN=document.getElementById(c.nextBtnId);
-    tr.style.cssText='display:flex;transform-style:preserve-3d;';
-    while(vp.firstChild) tr.appendChild(vp.firstChild);
-    vp.appendChild(tr); vp.style.overflow='hidden';
-    
-    const oL=tr.children.length;
-    
-    // DOM Optimization: DocumentFragment & Lazy Loading
-    const frag1 = document.createDocumentFragment();
-    const frag2 = document.createDocumentFragment();
-    const originalItems = Array.from(tr.children);
-
-    originalItems.forEach(item => {
-        let targetImg = item.matches(c.imgClass) ? item : item.querySelector(c.imgClass);
-        if (targetImg && !targetImg.hasAttribute('loading')) targetImg.setAttribute('loading', 'lazy');
-        
-        frag1.appendChild(item.cloneNode(true));
-        frag2.appendChild(item.cloneNode(true));
-    });
-    tr.appendChild(frag1);
-    tr.appendChild(frag2);
-    
-    // Memory Optimization: Big O(1) Physical Index Allocation
-    const aN = tr.children;
-    for(let i=0; i<aN.length; i++) aN[i].dataset.pidx = i;
-    
-    const img=tr.querySelectorAll(c.imgClass), cP=new Array(oL).fill(0);
-    let w=0,os=0,sW=0,cX=0,tX=0,isD=false,dg=false,sCX=0,sTX=0,lAI=-1,isA=false,lT;
-
-    const measure=()=>{if(!img[0])return;const r=img[0].getBoundingClientRect();w=r.width+parseFloat(window.getComputedStyle(img[0]).marginRight||0);os=(vp.getBoundingClientRect().width-r.width)/2;sW=oL*w;};
-    const wakeUp=()=>{if(!isA){isA=true;loop();}};
-
-    const loop=()=>{
-        if(isD)cX=tX;else{const d=tX-cX;cX+=Math.abs(d)<0.1?d:d*c.slideFriction;}
-        while(cX<sW-os-w/2){cX+=sW;tX+=sW;sTX+=sW;} while(cX>sW*2-os+w/2){cX-=sW;tX-=sW;sTX-=sW;}
-        tr.style.transform=`translate3d(${-cX}px,0,0)`;
-        let rI=((Math.round((cX+os)/w)%oL)+oL)%oL, cC=rI!==lAI, cA=false;
-        for(let i=0;i<oL;i++){let tC=i===rI?1:0,d=tC-cP[i];if(Math.abs(d)>0.005){cP[i]+=d*c.colorFriction;cA=true;}else cP[i]=tC;}
-        img.forEach((ig,i)=>{let m=i%oL,gv=Math.round((1-cP[m])*100),v=`grayscale(${gv}%)`;if(ig.dataset.gv!==v){ig.style.filter=ig.style.WebkitFilter=v;ig.dataset.gv=v;}if(cC)ig.classList.toggle(c.activeClass,m===rI);});
-        if(cC)lAI=rI;
-        if(isD||Math.abs(tX-cX)>=0.1||cA)requestAnimationFrame(loop);else isA=false;
-    };
-
-    measure(); tX=cX=oL*w-os; wakeUp();
-    
-    const gX=e=>e.touches?e.touches[0].clientX:e.clientX;
-    const off=()=>{if(bP&&bN){bP.classList.remove('light-up');bN.classList.remove('light-up');}};
-    const oD=e=>{isD=true;dg=false;sCX=gX(e);sTX=tX=cX;vp.style.cursor='grabbing';clearTimeout(lT);off();wakeUp();};
-    const oM=e=>{if(!isD)return;const d=sCX-gX(e);if(Math.abs(d)>c.dragTolerance)dg=true;tX=sTX+d;if(bP&&bN){bN.classList.toggle('light-up',d>c.arrowLightDistance);bP.classList.toggle('light-up',d<-c.arrowLightDistance);}wakeUp();};
-    const oU=()=>{if(!isD)return;isD=false;vp.style.cursor='';clearTimeout(lT);lT=setTimeout(off,c.arrowLightDelay);const d=tX-sTX;let sN=Math.round((sTX+os)/w),N=Math.round((tX+os)/w);if(N===sN){if(d>c.swipeDistance)N+=1;else if(d<-c.swipeDistance)N-=1;}tX=N*w-os;wakeUp();};
-
-    vp.addEventListener('mousedown',oD);window.addEventListener('mousemove',oM);window.addEventListener('mouseup',oU);
-    vp.addEventListener('touchstart',oD,{passive:true});vp.addEventListener('touchmove',oM,{passive:true});
-    vp.addEventListener('touchend',oU);vp.addEventListener('touchcancel',oU);
-
-    // Event Capturing: Center on click with O(1) Implicit Coercion
-    vp.addEventListener('click', e => {
-        if(dg){ e.preventDefault(); e.stopPropagation(); return; }
-        if(c.centerOnClick) {
-            let sn = e.target;
-            while(sn && sn.parentNode !== tr) {
-                if(sn === vp || sn === document.body) return;
-                sn = sn.parentNode;
-            }
-            if(!sn) return;
-            let tg = sn.matches(c.imgClass) ? sn : sn.querySelector(c.imgClass);
-            if(tg && !tg.classList.contains(c.activeClass)){
-                e.preventDefault(); e.stopPropagation(); 
-                tX = (+sn.dataset.pidx) * w - os; // <--- Cảnh giới tối cao: Ép kiểu siêu tốc bằng dấu (+)
-                wakeUp();
-            }
-        }
-    }, true);
-
-    if(bP) bP.addEventListener('click', ()=>{off();tX=Math.round((tX+os)/w-1)*w-os;wakeUp();});
-    if(bN) bN.addEventListener('click', ()=>{off();tX=Math.round((tX+os)/w+1)*w-os;wakeUp();});
-
-    // Resize Observer
-    if(c.autoCenterOnResize){
-        const ro = new ResizeObserver(()=>{measure();tX=cX=(oL+Math.max(0,lAI))*w-os;tr.style.transform=`translate3d(${-cX}px,0,0)`;wakeUp();});
-        ro.observe(vp);
-    }
-
-    // Fast-forward on Tab Switch
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            cX = tX; 
-            let rI = ((Math.round((cX+os)/w)%oL)+oL)%oL;
-            for(let i=0; i<oL; i++) cP[i] = (i === rI) ? 1 : 0; 
-            
-            tr.style.transform = `translate3d(${-cX}px,0,0)`;
-            img.forEach((ig,i) => {
-                let m = i%oL, v = `grayscale(${m===rI ? 0 : 100}%)`;
-                if(ig.dataset.gv !== v){ ig.style.filter = ig.style.WebkitFilter = v; ig.dataset.gv = v; }
-                ig.classList.toggle(c.activeClass, m === rI);
-            });
-            lAI = rI;
-        }
-    });
-})();
+$('#slider-track').on('click', '.slick-slide', function(e) {
+if ($(this).hasClass('slick-center')) {
+let imageSrc = $(this).find('.gallery-img').attr('data-lightbox');
+if (imageSrc) { openLightbox(imageSrc); } }
+else { let slideIndex = parseInt($(this).attr('data-slick-index'), 10);
+$('#slider-track').slick('slickGoTo', slideIndex); } });
+});
 </script>
 
-<!--SMALL SCREEN JS-->
-<script src="scramble.js"></script>
-<script src="small-screen-btn.js"></script>
+<!--JS IMPORT-->
+<script src="assets/js/scramble.js"></script>
+<script src="assets/js/small-screen-btn.js"></script>
 
 </body>
 </html>
