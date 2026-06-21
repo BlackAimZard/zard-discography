@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,15 +8,15 @@
 <meta name="theme-color" content="#000000">
 <title>About</title>
 
-<link rel="stylesheet" type="text/css" href="js/libs/slick.css">
+<link rel="stylesheet" type="text/css" href="assets/libs/slick.css">
 
 <style type="text/css">
-/* GITHUB FONTS IMPORT */
-@font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('Trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
+/* FONTS IMPORT */
+@font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; }
-body { font-size: 16px; font-family: "Trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
+body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -33,14 +33,14 @@ a:hover { color: #ff0000; text-decoration: underline; }
 #scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
 /* SCROLL WRAPPER */
-.scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
+.scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
 /* PHOTO GALLERY */
-.gallery-img { display: block; width: 300px; height: 175px; cursor: pointer;
-filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.4s ease; object-fit: cover;
+.gallery-img { display: block; width: 100%; height: 175px; cursor: pointer; filter: grayscale(100%); 
+-webkit-filter: grayscale(100%); transition: filter 0.4s ease; object-fit: cover;
 user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
-.slick-slide { padding: 0 8px; }
+.slick-slide { padding: 0 8px;}
 .slick-center .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
@@ -53,7 +53,7 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
 #content-text { font-size: 16px !important; } 
-.gallery-img { width: clamp(180px, 60vw, 300px); height: auto !important; aspect-ratio: 300 / 175; } }
+.gallery-img { height: auto !important; aspect-ratio: 300 / 175; } }
 </style>
 </head>
 
@@ -61,30 +61,30 @@ user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-s
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-<td align="center" valign="middle" style="padding-top: 50px; padding-bottom: 100px;">
+<td align="center" valign="middle" style="padding: 50px 20px 100px 20px;">
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
 <!--TITLE-->
 <tr>
-<td align="center" valign="bottom" style="padding: 0 20px;"> 
+<td align="center" valign="bottom"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACE-->
-<tr><td style="height: 30px; padding: 0 20px;"></td></tr>
+<tr><td style="height: 30px;"></td></tr>
 <!--TEXT-->
 <tr>
-<td align="center" valign="top" style="padding: 0 20px;">
+<td align="center" valign="top">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
 <!--SPACE-->
-<tr><td style="height: 120px; padding: 0 20px;"></td></tr>
+<tr><td style="height: 120px;"></td></tr>
 <!--PHOTO-->
 <tr>
-<td class="slider-cell" align="left" valign="top" style="padding: 0 20px;"">
+<td class="slider-cell" align="left" valign="top">
 <div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
 <div><img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="photo/01.jpg"></div>
 <div><img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="photo/02.jpg"></div>
@@ -125,46 +125,49 @@ About <span id="scramble" style="color: #fff;"></span></span>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
 <!--SLICK SETTING-->
-<script src="js/libs/jquery.min.js"></script>
-<script src="js/libs/slick.min.js"></script>
+<script src="assets/libs/jquery.min.js"></script>
+<script src="assets/libs/slick.min.js"></script>
+
 <script>
 $(document).ready(function(){
-    $('#slider-track').slick({
-        centerMode: true,
-		centerPadding: '0px',
-        variableWidth: true,
-        infinite: true,
-        slidesToShow: 1,
-        swipeToSlide: true,
-        focusOnSelect: false,
-        prevArrow: $('#btn-prev'),
-        nextArrow: $('#btn-next')
+    $('#slider-track').on('init', function() {
+        $(this).css('opacity', '1');
     });
 
-    $('#slider-track').css('opacity', '1');
+    $('#slider-track').slick({
+        centerMode: true,
+        centerPadding: '120px',
+        slidesToShow: 1,
+        infinite: true,
+        prevArrow: $('#btn-prev'),
+        nextArrow: $('#btn-next'),
+        responsive: [ {
+            breakpoint: 600,
+            settings: {
+                centerMode: true,
+                centerPadding: '60px',
+                slidesToShow: 1 
+            } 
+        } ]
+    });
 
-    // Tự tay xử lý Click thay vì giao cho Slick
     $('#slider-track').on('click', '.slick-slide', function(e) {
-        
-        // Kiểm tra xem slide được bấm có đang ở chính giữa không
         if ($(this).hasClass('slick-center')) {
-            // NẾU ĐANG Ở GIỮA: Mở lightbox
             let imageSrc = $(this).find('.gallery-img').attr('data-lightbox');
             if (imageSrc) { 
                 openLightbox(imageSrc); 
             } 
         } else {
-            // NẾU Ở 2 BÊN: Bắt Slick lướt tới vị trí của ảnh đó
-            let slideIndex = $(this).attr('data-slick-index');
-            $('#slider-track').slick('slickGoTo', slideIndex);
+            let slideIndex = parseInt($(this).attr('data-slick-index'), 10);
+            $('#slider-track').slick('slickGoTo', slideIndex); 
         }
-        
     });
 });
 </script>
 
-<script src="js/scramble.js"></script>
-<script src="js/small-screen-btn.js"></script>
+<!--JS IMPORT-->
+<script src="assets/js/scramble.js"></script>
+<script src="assets/js/small-screen-btn.js"></script>
 
 </body>
 </html>
