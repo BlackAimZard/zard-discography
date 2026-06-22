@@ -84,14 +84,14 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <td class="slider-cell" align="left" valign="top">
 <div class="embla" id="embla-slider">
 <div class="embla__container">
-<div class="embla__slide" data-info="Tokyo, 1991"><img src="assets/photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/01.jpg"></div>
-<div class="embla__slide" data-info="Kanagawa, 1993"><img src="assets/photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/02.jpg"></div>
-<div class="embla__slide" data-info="1995"><img src="assets/photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/03.jpg"></div>
-<div class="embla__slide" data-info="1997"><img src="assets/photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/04.jpg"></div>
-<div class="embla__slide" data-info="1999"><img src="assets/photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/05.jpg"></div>
-<div class="embla__slide" data-info="2002"><img src="assets/photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/06.jpg"></div>
-<div class="embla__slide" data-info="2005"><img src="assets/photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/07.jpg"></div>
-<div class="embla__slide" data-info="2007"><img src="assets/photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/08.jpg"></div>
+<div class="embla__slide" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/01.jpg"></div>
+<div class="embla__slide" data-caption="Kanagawa, 1993"><img src="assets/photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/02.jpg"></div>
+<div class="embla__slide" data-caption="1995"><img src="assets/photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/03.jpg"></div>
+<div class="embla__slide" data-caption="1997"><img src="assets/photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/04.jpg"></div>
+<div class="embla__slide" data-caption="1999"><img src="assets/photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/05.jpg"></div>
+<div class="embla__slide" data-caption="2002"><img src="assets/photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/06.jpg"></div>
+<div class="embla__slide" data-caption="2005"><img src="assets/photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/07.jpg"></div>
+<div class="embla__slide" data-caption="2007"><img src="assets/photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/08.jpg"></div>
 </div>
 </div>
 </td>
@@ -103,7 +103,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
 
-<span id="slide-info" style="display: inline-block; height: 36px; line-height: 36px; width: 200px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
+<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 200px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
 
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -147,38 +147,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // TUYỆT KỸ ÉP TỐC ĐỘ BÀN THỜ (BỎ SETTLE, XÀI SELECT)
-    let infoTimeout = null;
-    const infoNode = document.getElementById('slide-info');
+    const captionNode = document.getElementById('slide-caption');
+    let captionTimeout = null;
 
-    const showTextFast = () => {
-        clearTimeout(infoTimeout);
-        infoNode.style.opacity = '0'; // Vừa bấm là giấu chữ ngay
+    // TUYỆT KỸ CHỐT DATA Ở THẺ DIV (Nhanh và trực diện nhất)
+    const showCaptionFast = () => {
+        clearTimeout(captionTimeout);
+        captionNode.style.opacity = '0'; // Giấu ngay lập tức khi vuốt
         
-        // Đợi đúng 300ms (thời gian ảnh đang trượt) là bung chữ lên liền!
-        infoTimeout = setTimeout(() => {
-            const selectedIndex = emblaApi.selectedScrollSnap();
-            const currentSlide = slides[selectedIndex];
-            infoNode.textContent = currentSlide.getAttribute('data-info') || '';
-            infoNode.style.opacity = '1'; 
-        }, 300); // Con số 300ms này là mốc thời gian hoàn hảo nhất
+        captionTimeout = setTimeout(() => {
+            const currentSlide = slides[emblaApi.selectedScrollSnap()];
+            
+            // Gõ cửa thằng Quản Lý Div đòi data luôn, không cần querySelector đi tìm Img nữa!
+            captionNode.textContent = currentSlide.getAttribute('data-caption') || '';
+            captionNode.style.opacity = '1'; 
+        }, 300); 
     };
 
-    // Ép vào Select: Không thèm chờ ảnh dừng hẳn nữa!
-    emblaApi.on('select', () => {
-        applyColor();
-        showTextFast();
-    });
-
-    // Trạng thái khởi tạo trang ban đầu
+    // Vừa load trang là hiện chữ ngay
     emblaApi.on('init', () => { 
         emblaNode.classList.add('is-ready'); 
         applyColor(); 
         
-        // Vừa vào trang là đập chữ lên luôn, không delay
         const firstSlide = slides[emblaApi.selectedScrollSnap()];
-        infoNode.textContent = firstSlide.getAttribute('data-info') || '';
-        infoNode.style.opacity = '1';
+        captionNode.textContent = firstSlide.getAttribute('data-caption') || '';
+        captionNode.style.opacity = '1';
+    });
+        
+    // Chuyển slide là chạy logic 300ms
+    emblaApi.on('select', () => {
+        applyColor();
+        showCaptionFast();
     });
 
     // CLICK & TOUCH LOGIC
