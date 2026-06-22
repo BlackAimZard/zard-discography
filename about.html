@@ -158,8 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // CLICK & TOUCH
     emblaNode.addEventListener('click', (e) => {
-		if (!emblaApi.clickAllowed()) return;
-		
         const slide = e.target.closest('.embla__slide');
         if (!slide) return;
         
