@@ -7,9 +7,6 @@
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
 <title>About</title>
-
-<link rel="stylesheet" type="text/css" href="assets/libs/slick.css">
-
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
@@ -36,24 +33,29 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
+/* EMBLA CAROUSEL */
+.embla { overflow: hidden; width: 100%; opacity: 0; transition: opacity 0.4s ease-in; }
+.embla.is-ready { opacity: 1; }
+.embla__container { display: flex; touch-action: pan-y; margin: 0 -10px; }
+.embla__slide { flex: 0 0 auto; min-width: 0; padding: 0 10px; }
+
 /* PHOTO GALLERY */
-.gallery-img { display: block; width: 100%; height: 175px; cursor: pointer; filter: grayscale(100%); 
--webkit-filter: grayscale(100%); transition: filter 0.8s ease; object-fit: cover;
-user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
-.slick-slide { padding: 0 8px;}
-.is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
+.gallery-img { display: block; width: 344px; height: 175px; cursor: pointer; object-fit: cover; 
+filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.8s ease; 
+user-select: none; -webkit-user-select: none; -webkit-user-drag: none; 
+-webkit-tap-highlight-color: transparent; }
+.is-colored .gallery-img { filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
 .nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
-.nav-arrow.slick-disabled { opacity: 0.5; cursor: default; } 
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
 #content-text { font-size: 16px !important; } 
-.gallery-img { height: auto !important; max-width: 344px; margin: 0 auto; aspect-ratio: 16 / 10;  } }
+.gallery-img { width: clamp(180px, 60vw, 300px) !important; height: auto !important; aspect-ratio: 16 / 10; } }
 </style>
 </head>
 
@@ -85,15 +87,17 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!--PHOTO-->
 <tr>
 <td class="slider-cell" align="left" valign="top">
-<div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
-<div><img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="photo/01.jpg"></div>
-<div><img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="photo/02.jpg"></div>
-<div><img src="photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="photo/03.jpg"></div>
-<div><img src="photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="photo/04.jpg"></div>
-<div><img src="photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="photo/05.jpg"></div>
-<div><img src="photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="photo/06.jpg"></div>
-<div><img src="photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="photo/07.jpg"></div>
-<div><img src="photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="photo/08.jpg"></div>
+<div class="embla" id="embla-slider">
+<div class="embla__container">
+<div class="embla__slide"><img src="photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="photo/01.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="photo/02.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="photo/03.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="photo/04.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="photo/05.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="photo/06.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="photo/07.jpg"></div>
+<div class="embla__slide"><img src="photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="photo/08.jpg"></div>
+</div>
 </div>
 </td>
 </tr>
@@ -124,79 +128,52 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-<!--SLICK SETTING-->
-<script src="assets/libs/jquery.min.js"></script>
-<script src="assets/libs/slick.min.js"></script>
+
+<!--EMBLA CAROUSEL SETTING-->
+
+<script src="assets/libs/embla-carousel.umd.js"></script>
 
 <script>
-$(document).ready(function(){
+document.addEventListener('DOMContentLoaded', () => {
+    const emblaNode = document.getElementById('embla-slider');
+    
+    // INIT ENGINE
+    const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: false, dragFree: false });
 
-    // 1. COLOR FIX
-    const applyColor = (slick, index) => {
-        let imgId = $(slick.$slides[index]).find('.gallery-img').attr('data-lightbox');
-        slick.$slider.find('.slick-slide').removeClass('is-colored')
-                     .has(`.gallery-img[data-lightbox="${imgId}"]`).addClass('is-colored');
+    // NAV BUTTONS
+    document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
+    document.getElementById('btn-next').addEventListener('click', () => emblaApi.scrollNext());
+
+    // COLOR LOGIC
+    const slides = emblaApi.slideNodes();
+    const applyColor = () => {
+        const selected = emblaApi.selectedScrollSnap();
+        slides.forEach((slide, i) => {
+            i === selected ? slide.classList.add('is-colored') : slide.classList.remove('is-colored');
+        });
     };
 
-    $('#slider-track')
-        .on('init', (e, slick) => {
-            slick.$slider.css('opacity', '1');
-            applyColor(slick, 0);
-        })
-        .on('beforeChange', (e, slick, currentSlide, nextSlide) => {
-            applyColor(slick, nextSlide);
-        });
+    emblaApi.on('init', () => { emblaNode.classList.add('is-ready'); applyColor(); });
+    emblaApi.on('select', applyColor);
 
-    // 2. SLICK CONFIG
-    $('#slider-track').slick({
-        centerMode: true,
-        centerPadding: '120px',
-        slidesToShow: 1,
-        infinite: true,
-        speed: 400,
-        cssEase: 'ease-out',
-		swipeToSlide: true,
-		touchThreshold: 15,
-        prevArrow: $('#btn-prev'),
-        nextArrow: $('#btn-next'),
-        responsive: [ {
-            breakpoint: 600,
-            settings: {
-                centerMode: true,
-                centerPadding: '50px',
-                slidesToShow: 1 
-            } 
-        } ]
+    // CLICK & TOUCH
+    emblaNode.addEventListener('click', (e) => {
+		if (!emblaApi.clickAllowed()) return;
+		
+        const slide = e.target.closest('.embla__slide');
+        if (!slide) return;
+        
+        const index = slides.indexOf(slide);
+        if (index === emblaApi.selectedScrollSnap()) {
+            const img = slide.querySelector('.gallery-img');
+            if (img) openLightbox(img.getAttribute('data-lightbox'));
+        } else {
+            emblaApi.scrollTo(index);
+        }
     });
-
-    // 3. TOUCH & CLICK LOGIC
-    let isDragging = false;
-    
-    $('#slider-track')
-        .on('mousedown touchstart', function() {
-            isDragging = false;
-        })
-        .on('mousemove touchmove', function() {
-            isDragging = true;
-        })
-        .on('click', '.slick-slide', function(e) {
-            if (isDragging) return;
-
-            if (!$(e.target).hasClass('gallery-img')) return;
-
-            if ($(this).hasClass('slick-center')) {
-                let imageSrc = $(this).find('.gallery-img').attr('data-lightbox');
-                if (imageSrc) openLightbox(imageSrc); 
-            } else {
-                let slideIndex = parseInt($(this).attr('data-slick-index'), 10);
-                $('#slider-track').slick('slickGoTo', slideIndex); 
-            } 
-        });
-
 });
 </script>
 
-<!--JS IMPORT-->
 <script src="assets/js/scramble.js"></script>
 <script src="assets/js/small-screen-btn.js"></script>
 
