@@ -156,15 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
     emblaApi.on('init', () => { emblaNode.classList.add('is-ready'); applyColor(); });
     emblaApi.on('select', applyColor);
 
-    // CLICK & TOUCH
+    // CLICK & TOUCH LOGIC
     emblaNode.addEventListener('click', (e) => {
+		if (!e.target.classList.contains('gallery-img')) return;
+		
         const slide = e.target.closest('.embla__slide');
         if (!slide) return;
         
         const index = slides.indexOf(slide);
         if (index === emblaApi.selectedScrollSnap()) {
-            const img = slide.querySelector('.gallery-img');
-            if (img) openLightbox(img.getAttribute('data-lightbox'));
+            openLightbox(e.target.getAttribute('data-lightbox'));
         } else {
             emblaApi.scrollTo(index);
         }
