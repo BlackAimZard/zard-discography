@@ -51,10 +51,11 @@ user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-t
 .nav-arrow:active { color: #fff; transition: none; }
 
 /* SMALL SCREEN FIX */
+@media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; } 
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
+#content-text { font-size: 16px !important; }
+.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } } /*slide full width */
 </style>
 </head>
 
@@ -62,7 +63,7 @@ user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-t
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-<td align="center" valign="middle" style="padding: 50px 20px 100px 20px;">
+<td class="main-wrapper" align="center" valign="middle" style="padding: 50px 0 100px 0;">
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
