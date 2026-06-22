@@ -67,47 +67,44 @@ user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-t
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
-<!--TITLE-->
 <tr>
 <td align="center" valign="bottom"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
-<!--SPACE-->
 <tr><td style="height: 30px;"></td></tr>
-<!--TEXT-->
 <tr>
 <td align="center" valign="top">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
-<!--SPACE-->
 <tr><td style="height: 120px;"></td></tr>
-<!--PHOTO-->
 <tr>
 <td class="slider-cell" align="left" valign="top">
 <div class="embla" id="embla-slider">
 <div class="embla__container">
-<div class="embla__slide"><img src="assets/photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/01.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/02.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/03.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/04.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/05.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/06.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/07.jpg"></div>
-<div class="embla__slide"><img src="assets/photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/08.jpg"></div>
+<div class="embla__slide" data-info="Tokyo, 1991"><img src="assets/photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/01.jpg"></div>
+<div class="embla__slide" data-info="Kanagawa, 1993"><img src="assets/photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/02.jpg"></div>
+<div class="embla__slide" data-info="1995"><img src="assets/photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/03.jpg"></div>
+<div class="embla__slide" data-info="1997"><img src="assets/photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/04.jpg"></div>
+<div class="embla__slide" data-info="1999"><img src="assets/photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/05.jpg"></div>
+<div class="embla__slide" data-info="2002"><img src="assets/photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/06.jpg"></div>
+<div class="embla__slide" data-info="2005"><img src="assets/photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/07.jpg"></div>
+<div class="embla__slide" data-info="2007"><img src="assets/photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/08.jpg"></div>
 </div>
 </div>
 </td>
 </tr>
-<!--NARROW-->
 <tr>
 <td align="center" valign="top" style="padding-top: 20px;">
-<div style="display: flex; justify-content: center; gap: 120px; user-select: none;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
+
+<span id="slide-info" style="display: inline-block; height: 36px; line-height: 36px; width: 200px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
+
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
@@ -121,15 +118,12 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 </tbody>
 </table>
-<!--IMG LIGHT BOX-->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
 </div>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-
-<!--EMBLA CAROUSEL SETTING-->
 
 <script src="assets/libs/embla-carousel.umd.js"></script>
 
@@ -153,13 +147,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    emblaApi.on('init', () => { emblaNode.classList.add('is-ready'); applyColor(); });
-    emblaApi.on('select', applyColor);
+    // TUYỆT KỸ ÉP TỐC ĐỘ BÀN THỜ (BỎ SETTLE, XÀI SELECT)
+    let infoTimeout = null;
+    const infoNode = document.getElementById('slide-info');
+
+    const showTextFast = () => {
+        clearTimeout(infoTimeout);
+        infoNode.style.opacity = '0'; // Vừa bấm là giấu chữ ngay
+        
+        // Đợi đúng 300ms (thời gian ảnh đang trượt) là bung chữ lên liền!
+        infoTimeout = setTimeout(() => {
+            const selectedIndex = emblaApi.selectedScrollSnap();
+            const currentSlide = slides[selectedIndex];
+            infoNode.textContent = currentSlide.getAttribute('data-info') || '';
+            infoNode.style.opacity = '1'; 
+        }, 300); // Con số 300ms này là mốc thời gian hoàn hảo nhất
+    };
+
+    // Ép vào Select: Không thèm chờ ảnh dừng hẳn nữa!
+    emblaApi.on('select', () => {
+        applyColor();
+        showTextFast();
+    });
+
+    // Trạng thái khởi tạo trang ban đầu
+    emblaApi.on('init', () => { 
+        emblaNode.classList.add('is-ready'); 
+        applyColor(); 
+        
+        // Vừa vào trang là đập chữ lên luôn, không delay
+        const firstSlide = slides[emblaApi.selectedScrollSnap()];
+        infoNode.textContent = firstSlide.getAttribute('data-info') || '';
+        infoNode.style.opacity = '1';
+    });
 
     // CLICK & TOUCH LOGIC
     emblaNode.addEventListener('click', (e) => {
-		if (!e.target.classList.contains('gallery-img')) return;
-		
+        if (!e.target.classList.contains('gallery-img')) return;
+        
         const slide = e.target.closest('.embla__slide');
         if (!slide) return;
         
@@ -172,8 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
-<!--JS IMPORT-->
 <script src="assets/js/scramble.js"></script>
 <script src="assets/js/small-screen-btn.js"></script>
 
