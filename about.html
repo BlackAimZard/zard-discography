@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const emblaNode = document.getElementById('embla-slider');
     
     // INIT ENGINE
-    const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: false, dragFree: false });
+    const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
 
     // NAV BUTTONS
     document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
