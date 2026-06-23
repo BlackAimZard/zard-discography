@@ -37,7 +37,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
 /* SLICK */
-.slick-slider .slick-track, .slick-slider .slick-list { will-change: transform; }
+
 .slick-slide { padding: 0 10px; outline: none !important; transform: translateZ(0); will-change: transform; }
 
 /* PHOTO GALLERY */
@@ -90,10 +90,10 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <tr>
 <td class="slider-cell" align="left" valign="top">
 <div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
-    <div data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
-    <div data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
-    <div data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
-    <div data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
+<div data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
+<div data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
+<div data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
+<div data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
 </div>
 </td>
 </tr>
@@ -174,7 +174,7 @@ $(document).ready(function(){
         centerPadding: '104px',
         slidesToShow: 1,
         infinite: true,
-        speed: 400,
+        speed: 200,
         cssEase: 'ease-out',
         prevArrow: $('#btn-prev'),
         nextArrow: $('#btn-next'),
