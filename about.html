@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <title>About</title>
 
-<link rel="stylesheet" type="text/css" href="assets/libs/flickity.css">
+<link rel="stylesheet" type="text/css" href="assets/libs/slick.css">
 
 <style type="text/css">
 /* FONTS IMPORT */
@@ -36,19 +36,21 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
-/* FLICKITY SETUP */
-.carousel-cell { width: 65%; margin-right: 20px; }
-.carousel-cell .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; cursor: pointer;
+/* SLICK */
+.slick-slider .slick-track, .slick-slider .slick-list { will-change: transform; }
+.slick-slide { padding: 0 10px; outline: none !important; transform: translateZ(0); will-change: transform; }
+
+/* PHOTO GALLERY */
+.gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; cursor: pointer;
 filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.8s ease; object-fit: cover;
 user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
-.carousel-cell.is-selected .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
-.flickity-viewport { outline: none !important; }
+.is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
 .nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
-.nav-arrow.is-disabled { opacity: 0.5; cursor: default; } /* Class disable riêng nếu xài ko lặp */
+.nav-arrow.slick-disabled { opacity: 0.5; cursor: default; } 
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
@@ -88,10 +90,10 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <tr>
 <td class="slider-cell" align="left" valign="top">
 <div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
-    <div class="carousel-cell" data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
-    <div class="carousel-cell" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
-    <div class="carousel-cell" data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
-    <div class="carousel-cell" data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
+    <div data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
+    <div data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
+    <div data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
+    <div data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
 </div>
 </td>
 </tr>
@@ -126,72 +128,90 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-<!--FLICKITY SETTING-->
-<script src="assets/libs/flickity.pkgd.min.js"></script>
+<!--SLICK SETTING-->
+<script src="assets/libs/jquery.min.js"></script>
+<script src="assets/libs/slick.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const sliderTrack = document.getElementById('slider-track');
-    const captionNode = document.getElementById('slide-caption');
-    const btnPrev = document.getElementById('btn-prev');
-    const btnNext = document.getElementById('btn-next');
+$(document).ready(function(){
+
+    const captionNode = $('#slide-caption');
     let captionTimeout = null;
 
-    // 1. KHỞI TẠO FLICKITY
-    const flkty = new Flickity(sliderTrack, {
-        cellAlign: 'center',    // Căn giữa như centerMode
-        contain: true,
-        wrapAround: true,       // Lặp vô tận (Infinite loop)
-        prevNextButtons: false, // Tắt mũi tên mặc định của nó
-        pageDots: false,        // Tắt dấu chấm
-        selectedAttraction: 0.02, // Chỉnh độ "rít" của vật lý (càng nhỏ càng trôi mượt)
-        friction: 0.28            // Chỉnh lực ma sát
-    });
+    // COLOR AND CAPTION LOGIC
+    const applySlideEffects = (slick, index, isInit = false) => {
+        let imgId = $(slick.$slides[index]).find('.gallery-img').attr('data-lightbox');
+        slick.$slider.find('.slick-slide').removeClass('is-colored')
+                     .has(`.gallery-img[data-lightbox="${imgId}"]`).addClass('is-colored');
 
-    // Hiện slider mượt mà sau khi init xong
-    sliderTrack.style.opacity = '1';
-
-    // 2. KẾT NỐI MŨI TÊN CUSTOM
-    btnPrev.addEventListener('click', () => flkty.previous());
-    btnNext.addEventListener('click', () => flkty.next());
-
-    // 3. LOGIC CAPTION FADE IN/OUT
-    const updateCaption = (isInit = false) => {
-        let currentCell = flkty.selectedElement;
-        let newCaption = currentCell.getAttribute('data-caption') || '';
+        let newCaption = $(slick.$slides[index]).attr('data-caption') || '';
 
         if (isInit) {
-            captionNode.textContent = newCaption;
-            captionNode.style.opacity = '1';
+            captionNode.text(newCaption).css('opacity', '1');
         } else {
             clearTimeout(captionTimeout);
-            captionNode.style.opacity = '0';
+            captionNode.css('opacity', '0');
+            
             captionTimeout = setTimeout(() => {
-                captionNode.textContent = newCaption;
-                captionNode.style.opacity = '1';
+                captionNode.text(newCaption).css('opacity', '1');
             }, 300);
         }
     };
 
-    // Gọi lần đầu lúc load web
-    updateCaption(true);
-    
-    // Gọi mỗi khi slide chuyển động
-    flkty.on('select', () => updateCaption(false));
+    // SLICK EVENTS
+    $('#slider-track')
+        .on('init', (e, slick) => {
+            slick.$slider.css('opacity', '1');
+            applySlideEffects(slick, 0, true);
+        })
+        .on('beforeChange', (e, slick, currentSlide, nextSlide) => {
+            applySlideEffects(slick, nextSlide, false);
+        });
 
-    // 4. LOGIC CLICK THẦN THÁNH (Tự biết lúc nào là kéo, lúc nào là click)
-    flkty.on('staticClick', function(event, pointer, cellElement, cellIndex) {
-        if (!cellElement) return; // Bấm ra ngoài không tính
-
-        // Nếu bấm đúng vào ảnh đang ở giữa -> Mở Lightbox
-        if (cellIndex === flkty.selectedIndex) {
-            let imageSrc = cellElement.querySelector('.gallery-img').getAttribute('data-lightbox');
-            if (imageSrc) openLightbox(imageSrc);
-        } else {
-            // Nếu bấm vào ảnh ở rìa -> Cuộn tới ảnh đó
-            flkty.select(cellIndex);
-        }
+    // SLICK CONFIG
+    $('#slider-track').slick({
+        centerMode: true,
+        centerPadding: '104px',
+        slidesToShow: 1,
+        infinite: true,
+        speed: 400,
+        cssEase: 'ease-out',
+        prevArrow: $('#btn-prev'),
+        nextArrow: $('#btn-next'),
+        responsive: [ {
+            breakpoint: 600,
+            settings: {
+                centerMode: true,
+                centerPadding: '50px',
+                slidesToShow: 1 
+            } 
+        } ]
     });
+
+    // TOUCH & CLICK LOGIC
+    let isDragging = false;
+    
+    $('#slider-track')
+        .on('mousedown touchstart', function() {
+            isDragging = false;
+        })
+        .on('mousemove touchmove', function() {
+            isDragging = true;
+        })
+        .on('click', '.slick-slide', function(e) {
+            if (isDragging) return;
+
+            if (!$(e.target).hasClass('gallery-img')) return;
+
+            if ($(this).hasClass('slick-center')) {
+                let imageSrc = $(this).find('.gallery-img').attr('data-lightbox');
+                if (imageSrc) openLightbox(imageSrc); 
+            } else {
+                let slideIndex = parseInt($(this).attr('data-slick-index'), 10);
+                $('#slider-track').slick('slickGoTo', slideIndex); 
+            } 
+        });
+
 });
 </script>
 
