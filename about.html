@@ -7,6 +7,9 @@
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
 <title>About</title>
+
+<link rel="stylesheet" type="text/css" href="assets/libs/slick.css">
+
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
@@ -33,29 +36,29 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
-/* EMBLA CAROUSEL */
-.embla { --slide-size: 60%; --slide-spacing: 10px; overflow: hidden; width: 100%; opacity: 0; transition: opacity 0.4s ease-in; }
-.embla.is-ready { opacity: 1; }
-.embla__container { display: flex; touch-action: pan-y; margin: 0 calc(var(--slide-spacing) * -1); }
-.embla__slide { flex: 0 0 var(--slide-size); min-width: 0; padding: 0 var(--slide-spacing); }
+/* SLICK */
+.slick-slide { padding: 0 8px;}
+.slick-slide { -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translateZ(0); transform: translateZ(0); }
+.slick-slide img { -webkit-transform: translateZ(0); transform: translateZ(0); }
 
 /* PHOTO GALLERY */
-.gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; cursor: pointer; object-fit: cover; 
-filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.8s ease; 
-user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+.gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; cursor: pointer;
+filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.8s ease; object-fit: cover;
+user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
 .is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
 .nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
+.nav-arrow.slick-disabled { opacity: 0.5; cursor: default; } 
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; }
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } } /*slide full width */
+#content-text { font-size: 16px !important; } 
+#slider-track { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 </style>
 </head>
 
@@ -67,44 +70,42 @@ user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-t
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
+<!--TITLE-->
 <tr>
 <td align="center" valign="bottom"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
+<!--SPACE-->
 <tr><td style="height: 30px;"></td></tr>
+<!--TEXT-->
 <tr>
 <td align="center" valign="top">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
+<!--SPACE-->
 <tr><td style="height: 120px;"></td></tr>
+<!--PHOTO-->
 <tr>
 <td class="slider-cell" align="left" valign="top">
-<div class="embla" id="embla-slider">
-<div class="embla__container">
-<div class="embla__slide" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/01.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/01.jpg"></div>
-<div class="embla__slide" data-caption="Kanagawa, 1993"><img src="assets/photo/thumb/02.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/02.jpg"></div>
-<div class="embla__slide" data-caption="1995"><img src="assets/photo/thumb/03.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/03.jpg"></div>
-<div class="embla__slide" data-caption="1997"><img src="assets/photo/thumb/04.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/04.jpg"></div>
-<div class="embla__slide" data-caption="1999"><img src="assets/photo/thumb/05.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/05.jpg"></div>
-<div class="embla__slide" data-caption="2002"><img src="assets/photo/thumb/06.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/06.jpg"></div>
-<div class="embla__slide" data-caption="2005"><img src="assets/photo/thumb/07.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/07.jpg"></div>
-<div class="embla__slide" data-caption="2007"><img src="assets/photo/thumb/08.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/08.jpg"></div>
-</div>
+<div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
+<div><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
+<div><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
+<div><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
+<div><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
+
 </div>
 </td>
 </tr>
+<!--NARROW-->
 <tr>
 <td align="center" valign="top" style="padding-top: 20px;">
-<div style="display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
+<div style="display: flex; justify-content: center; gap: 120px; user-select: none;">
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-
-<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 200px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
-
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
@@ -118,84 +119,84 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 </tbody>
 </table>
+<!--IMG LIGHT BOX-->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
 </div>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-
-<script src="assets/libs/embla-carousel.umd.js"></script>
+<!--SLICK SETTING-->
+<script src="assets/libs/jquery.min.js"></script>
+<script src="assets/libs/slick.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const emblaNode = document.getElementById('embla-slider');
-    
-    // INIT ENGINE
-    const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
+$(document).ready(function(){
 
-    // NAV BUTTONS
-    document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
-    document.getElementById('btn-next').addEventListener('click', () => emblaApi.scrollNext());
+    // 1. COLOR FIX
+    const applyColor = (slick, index) => {
+        let imgId = $(slick.$slides[index]).find('.gallery-img').attr('data-lightbox');
+        slick.$slider.find('.slick-slide').removeClass('is-colored')
+                     .has(`.gallery-img[data-lightbox="${imgId}"]`).addClass('is-colored');
+    };
 
-    // COLOR LOGIC
-    const slides = emblaApi.slideNodes();
-    const applyColor = () => {
-        const selected = emblaApi.selectedScrollSnap();
-        slides.forEach((slide, i) => {
-            i === selected ? slide.classList.add('is-colored') : slide.classList.remove('is-colored');
+    $('#slider-track')
+        .on('init', (e, slick) => {
+            slick.$slider.css('opacity', '1');
+            applyColor(slick, 0);
+        })
+        .on('beforeChange', (e, slick, currentSlide, nextSlide) => {
+            applyColor(slick, nextSlide);
         });
-    };
 
-    const captionNode = document.getElementById('slide-caption');
-    let captionTimeout = null;
-
-    // TUYỆT KỸ CHỐT DATA Ở THẺ DIV (Nhanh và trực diện nhất)
-    const showCaptionFast = () => {
-        clearTimeout(captionTimeout);
-        captionNode.style.opacity = '0'; // Giấu ngay lập tức khi vuốt
-        
-        captionTimeout = setTimeout(() => {
-            const currentSlide = slides[emblaApi.selectedScrollSnap()];
-            
-            // Gõ cửa thằng Quản Lý Div đòi data luôn, không cần querySelector đi tìm Img nữa!
-            captionNode.textContent = currentSlide.getAttribute('data-caption') || '';
-            captionNode.style.opacity = '1'; 
-        }, 300); 
-    };
-
-    // Vừa load trang là hiện chữ ngay
-    emblaApi.on('init', () => { 
-        emblaNode.classList.add('is-ready'); 
-        applyColor(); 
-        
-        const firstSlide = slides[emblaApi.selectedScrollSnap()];
-        captionNode.textContent = firstSlide.getAttribute('data-caption') || '';
-        captionNode.style.opacity = '1';
-    });
-        
-    // Chuyển slide là chạy logic 300ms
-    emblaApi.on('select', () => {
-        applyColor();
-        showCaptionFast();
+    // 2. SLICK CONFIG
+    $('#slider-track').slick({
+        centerMode: true,
+        centerPadding: '110px',
+        slidesToShow: 1,
+        infinite: true,
+        speed: 400,
+        cssEase: 'ease-out',
+        prevArrow: $('#btn-prev'),
+        nextArrow: $('#btn-next'),
+        responsive: [ {
+            breakpoint: 600,
+            settings: {
+                centerMode: true,
+                centerPadding: '50px',
+                slidesToShow: 1 
+            } 
+        } ]
     });
 
-    // CLICK & TOUCH LOGIC
-    emblaNode.addEventListener('click', (e) => {
-        if (!e.target.classList.contains('gallery-img')) return;
-        
-        const slide = e.target.closest('.embla__slide');
-        if (!slide) return;
-        
-        const index = slides.indexOf(slide);
-        if (index === emblaApi.selectedScrollSnap()) {
-            openLightbox(e.target.getAttribute('data-lightbox'));
-        } else {
-            emblaApi.scrollTo(index);
-        }
-    });
+    // 3. TOUCH & CLICK LOGIC
+    let isDragging = false;
+    
+    $('#slider-track')
+        .on('mousedown touchstart', function() {
+            isDragging = false;
+        })
+        .on('mousemove touchmove', function() {
+            isDragging = true;
+        })
+        .on('click', '.slick-slide', function(e) {
+            if (isDragging) return;
+
+            if (!$(e.target).hasClass('gallery-img')) return;
+
+            if ($(this).hasClass('slick-center')) {
+                let imageSrc = $(this).find('.gallery-img').attr('data-lightbox');
+                if (imageSrc) openLightbox(imageSrc); 
+            } else {
+                let slideIndex = parseInt($(this).attr('data-slick-index'), 10);
+                $('#slider-track').slick('slickGoTo', slideIndex); 
+            } 
+        });
+
 });
 </script>
+
+<!--JS IMPORT-->
 <script src="assets/js/scramble.js"></script>
 <script src="assets/js/small-screen-btn.js"></script>
 
