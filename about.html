@@ -37,9 +37,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
 /* SLICK */
-.slick-slide { padding: 0 10px;}
-.slick-slide { -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transform: translateZ(0); transform: translateZ(0); }
-.slick-slide img { -webkit-transform: translateZ(0); transform: translateZ(0); }
+.slick-slide { padding: 0 10px; outline: none !important; transform: translateZ(0); 
+    will-change: transform; }
 
 /* PHOTO GALLERY */
 .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; cursor: pointer;
@@ -177,8 +176,6 @@ $(document).ready(function(){
         infinite: true,
         speed: 400,
         cssEase: 'ease-out',
-        swipeToSlide: true,
-        touchThreshold: 15,
         prevArrow: $('#btn-prev'),
         nextArrow: $('#btn-next'),
         responsive: [ {
