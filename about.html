@@ -36,10 +36,38 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* EMBLA CAROUSEL */
 .embla { width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.4s ease-in; }
 .embla.is-ready { opacity: 1; }
-.embla__container { display: flex; touch-action: pan-y; margin: 0; }
-.embla__slide { flex: 0 0 60%; min-width: 0; margin-right: 20px; aspect-ratio: 16 / 10; }
-.embla__slide .gallery-img { display: block; width: 100%; height: 100%; object-fit: cover; cursor: pointer;
-	filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
+
+.embla__container { 
+    display: flex; 
+    touch-action: pan-y; 
+    margin: 0; 
+    align-items: flex-start; /* 1. Đệ thêm cái này để các slide không bị stretch dọc một cách mất kiểm soát */
+}
+
+.embla__slide { 
+    flex: 0 0 60%; 
+    min-width: 0; 
+    margin-right: 20px; 
+    aspect-ratio: 16 / 10; 
+    position: relative; /* 2. Khóa khung tọa độ cho ảnh ở trong */
+    overflow: hidden;   /* 3. Đảm bảo ảnh không bao giờ tràn ra ngoài */
+}
+
+.embla__slide .gallery-img { 
+    position: absolute; /* 4. Rút ảnh khỏi luồng, ép nó nằm gọn trong khung slide */
+    top: 0;
+    left: 0;
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    cursor: pointer;
+    filter: grayscale(100%); 
+    transition: filter 0.8s ease; 
+    user-select: none; 
+    -webkit-user-drag: none; 
+}
+
 .embla__slide.is-selected .gallery-img { filter: grayscale(0%); }
 .is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
@@ -136,13 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // INIT ENGINE
     const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
-	
-	// BÙA CHỐNG "NGÁO CACHE" KHI BẤM BACK TRÊN MOBILE
-    window.addEventListener('pageshow', (event) => {
-        if (event.persisted) { // Nếu trang được phục hồi từ BFCache
-            emblaApi.reInit(); // Vụt roi bắt Embla tính toán lại từ đầu
-        }
-    });
 
     // NAV BUTTONS
     document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
