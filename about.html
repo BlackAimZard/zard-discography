@@ -136,6 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // INIT ENGINE
     const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
+	
+	// BÙA CHỐNG "NGÁO CACHE" KHI BẤM BACK TRÊN MOBILE
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) { // Nếu trang được phục hồi từ BFCache
+            emblaApi.reInit(); // Vụt roi bắt Embla tính toán lại từ đầu
+        }
+    });
 
     // NAV BUTTONS
     document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
