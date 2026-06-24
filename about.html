@@ -130,65 +130,63 @@ function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = 
 <script src="assets/libs/flickity.pkgd.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const sliderTrack = document.getElementById('slider-track');
     const captionNode = document.getElementById('slide-caption');
-    const btnPrev = document.getElementById('btn-prev');
-    const btnNext = document.getElementById('btn-next');
-    let captionTimeout = null;
+    let captionTimeout, lastCaption = '';
 
-    // 1. KHỞI TẠO FLICKITY
+    // 1. INIT FLICKITY
     const flkty = new Flickity(sliderTrack, {
-        cellAlign: 'center',    // Căn giữa như centerMode
+        cellAlign: 'center',
         contain: true,
-        wrapAround: true,       // Lặp vô tận (Infinite loop)
-        prevNextButtons: false, // Tắt mũi tên mặc định của nó
-        pageDots: false,        // Tắt dấu chấm
-        selectedAttraction: 0.02, // Chỉnh độ "rít" của vật lý (càng nhỏ càng trôi mượt)
-        friction: 0.28            // Chỉnh lực ma sát
+        wrapAround: true,
+        prevNextButtons: false,
+        pageDots: false,
+        selectedAttraction: 0.02,
+        friction: 0.28
     });
 
-    // Hiện slider mượt mà sau khi init xong
     sliderTrack.style.opacity = '1';
 
-    // 2. KẾT NỐI MŨI TÊN CUSTOM
-    btnPrev.addEventListener('click', () => flkty.previous());
-    btnNext.addEventListener('click', () => flkty.next());
+    // 2. CUSTOM ARROWS
+    document.getElementById('btn-prev').addEventListener('click', () => flkty.previous());
+    document.getElementById('btn-next').addEventListener('click', () => flkty.next());
 
-    // 3. LOGIC CAPTION FADE IN/OUT
+    // 3. CAPTION LOGIC
     const updateCaption = (isInit = false) => {
-        let currentCell = flkty.selectedElement;
-        let newCaption = currentCell.getAttribute('data-caption') || '';
+        const currentCell = flkty.selectedElement;
+        if (!currentCell) return;
+        
+        const newCaption = currentCell.getAttribute('data-caption') || '';
+        if (newCaption === lastCaption && !isInit) return;
+        
+        lastCaption = newCaption;
 
         if (isInit) {
             captionNode.textContent = newCaption;
             captionNode.style.opacity = '1';
-        } else {
-            clearTimeout(captionTimeout);
-            captionNode.style.opacity = '0';
-            captionTimeout = setTimeout(() => {
-                captionNode.textContent = newCaption;
-                captionNode.style.opacity = '1';
-            }, 300);
+            return;
         }
+
+        clearTimeout(captionTimeout);
+        captionNode.style.opacity = '0';
+        captionTimeout = setTimeout(() => {
+            captionNode.textContent = newCaption;
+            captionNode.style.opacity = '1';
+        }, 300);
     };
 
-    // Gọi lần đầu lúc load web
     updateCaption(true);
-    
-    // Gọi mỗi khi slide chuyển động
     flkty.on('select', () => updateCaption(false));
 
-    // 4. LOGIC CLICK THẦN THÁNH (Tự biết lúc nào là kéo, lúc nào là click)
-    flkty.on('staticClick', function(event, pointer, cellElement, cellIndex) {
-        if (!cellElement) return; // Bấm ra ngoài không tính
+    // 4. CLICK HANDLER
+    flkty.on('staticClick', (event, pointer, cellElement, cellIndex) => {
+        if (!cellElement) return;
 
-        // Nếu bấm đúng vào ảnh đang ở giữa -> Mở Lightbox
         if (cellIndex === flkty.selectedIndex) {
-            let imageSrc = cellElement.querySelector('.gallery-img').getAttribute('data-lightbox');
+            const imageSrc = cellElement.querySelector('.gallery-img').getAttribute('data-lightbox');
             if (imageSrc) openLightbox(imageSrc);
         } else {
-            // Nếu bấm vào ảnh ở rìa -> Cuộn tới ảnh đó
             flkty.select(cellIndex);
         }
     });
