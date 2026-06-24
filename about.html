@@ -7,6 +7,9 @@
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
 <title>About</title>
+
+<link rel="stylesheet" type="text/css" href="assets/libs/flickity.css">
+
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
@@ -33,30 +36,26 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .scroll-wrapper { width: 100%; padding-bottom: 5px; }
 .scroll-wrapper::-webkit-scrollbar { display: none !important; }
 
-/* EMBLA CAROUSEL */
-.embla { width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.4s ease-in; }
-.embla.is-ready { opacity: 1; }
-.embla__container { display: flex; touch-action: pan-y; margin: 0; }
-.embla__slide { flex: 0 0 60%; min-width: 0; margin-right: 20px; aspect-ratio: 16 / 10; }
-.embla__slide .gallery-img { display: block; width: 100%; height: 100%; object-fit: cover; cursor: pointer;
-	filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
-.embla__slide.is-selected .gallery-img { filter: grayscale(0%); }
-.embla__slide .gallery-img { display: block; width: 100%; height: 100%; object-fit: cover; cursor: pointer;
-    filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
-.embla__slide.is-selected .gallery-img { filter: grayscale(0%); }
-.is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
+/* FLICKITY SETUP */
+.carousel-cell { width: 60%; margin-right: 20px; }
+.carousel-cell .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; cursor: pointer;
+filter: grayscale(100%); -webkit-filter: grayscale(100%); transition: filter 0.8s ease; object-fit: cover;
+user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+.carousel-cell.is-selected .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
+.flickity-viewport { outline: none !important; }
 
 /* NAV ARROW BUTTONS */
 .nav-arrow { color: #888; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; }
 @media (hover: hover) and (pointer: fine) { .nav-arrow:hover { color: #fff; } }
 .nav-arrow:active { color: #fff; transition: none; }
+.nav-arrow.is-disabled { opacity: 0.5; cursor: default; } /* Class disable riêng nếu xài ko lặp */
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; }
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } } /*slide full width */
+#content-text { font-size: 16px !important; } 
+#slider-track { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 </style>
 </head>
 
@@ -75,7 +74,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
-<!--SPACER-->
+<!--SPACE-->
 <tr><td style="height: 30px;"></td></tr>
 <!--TEXT-->
 <tr>
@@ -83,18 +82,16 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
-<!--SPACER-->
+<!--SPACE-->
 <tr><td style="height: 120px;"></td></tr>
 <!--PHOTO-->
 <tr>
 <td class="slider-cell" align="left" valign="top">
-<div class="embla" id="embla-slider">
-<div class="embla__container">
-<div class="embla__slide" data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
-<div class="embla__slide" data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
-</div>
+<div id="slider-track" style="width: 100%; opacity: 0; transition: opacity 0.3s;">
+    <div class="carousel-cell" data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
+    <div class="carousel-cell" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
+    <div class="carousel-cell" data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
+    <div class="carousel-cell" data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
 </div>
 </td>
 </tr>
@@ -129,72 +126,65 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <script>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
-
-<!--EMBLA CAROUSEL SETTING-->
-<script src="assets/libs/embla-carousel.umd.js"></script>
+<!--FLICKITY SETTING-->
+<script src="assets/libs/flickity.pkgd.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const emblaNode = document.getElementById('embla-slider');
-    
-    // INIT ENGINE
-    const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
-
-    // NAV BUTTONS
-    document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
-    document.getElementById('btn-next').addEventListener('click', () => emblaApi.scrollNext());
-
-    // COLOR LOGIC
-    const slides = emblaApi.slideNodes();
-    const applyColor = () => {
-        const selected = emblaApi.selectedScrollSnap();
-        slides.forEach((slide, i) => {
-            i === selected ? slide.classList.add('is-colored') : slide.classList.remove('is-colored');
-        });
-    };
-
+    const sliderTrack = document.getElementById('slider-track');
     const captionNode = document.getElementById('slide-caption');
-    let captionTimeout = null;
+    let captionTimeout, lastCaption = '';
 
-    // PHOTO DATA CAPTION LOGIC
-    const showCaptionFast = () => {
+    // INIT FLICKITY (Defaults: Attraction 0.025, Friction 0.28)
+    const flkty = new Flickity(sliderTrack, {
+        cellAlign: 'center',
+        contain: true,
+        wrapAround: true,
+        prevNextButtons: false,
+        pageDots: false
+    });
+
+    sliderTrack.style.opacity = '1';
+
+    // CUSTOM ARROWS
+    document.getElementById('btn-prev').addEventListener('click', () => flkty.previous());
+    document.getElementById('btn-next').addEventListener('click', () => flkty.next());
+
+    // CAPTION LOGIC
+    const updateCaption = (isInit = false) => {
+        const currentCell = flkty.selectedElement;
+        if (!currentCell) return;
+        
+        const newCaption = currentCell.getAttribute('data-caption') || '';
+        if (newCaption === lastCaption && !isInit) return;
+        lastCaption = newCaption;
+
+        if (isInit) {
+            captionNode.textContent = newCaption;
+            captionNode.style.opacity = '1';
+            return;
+        }
+
         clearTimeout(captionTimeout);
         captionNode.style.opacity = '0';
-        
         captionTimeout = setTimeout(() => {
-            const currentSlide = slides[emblaApi.selectedScrollSnap()];
-            
-            captionNode.textContent = currentSlide.getAttribute('data-caption') || '';
-            captionNode.style.opacity = '1'; 
-        }, 300); 
+            captionNode.textContent = newCaption;
+            captionNode.style.opacity = '1';
+        }, 300);
     };
 
-    emblaApi.on('init', () => { 
-        emblaNode.classList.add('is-ready'); 
-        applyColor(); 
-        
-        const firstSlide = slides[emblaApi.selectedScrollSnap()];
-        captionNode.textContent = firstSlide.getAttribute('data-caption') || '';
-        captionNode.style.opacity = '1';
-    });
-        
-    emblaApi.on('select', () => {
-        applyColor();
-        showCaptionFast();
-    });
+    updateCaption(true);
+    flkty.on('select', () => updateCaption(false));
 
-    // CLICK & TOUCH LOGIC
-    emblaNode.addEventListener('click', (e) => {
-        if (!e.target.classList.contains('gallery-img')) return;
-        
-        const slide = e.target.closest('.embla__slide');
-        if (!slide) return;
-        
-        const index = slides.indexOf(slide);
-        if (index === emblaApi.selectedScrollSnap()) {
-            openLightbox(e.target.getAttribute('data-lightbox'));
+    // CLICK HANDLER
+    flkty.on('staticClick', (event, pointer, cellElement, cellIndex) => {
+        if (!cellElement) return;
+
+        if (cellIndex === flkty.selectedIndex) {
+            const imageSrc = cellElement.querySelector('.gallery-img').getAttribute('data-lightbox');
+            if (imageSrc) openLightbox(imageSrc);
         } else {
-            emblaApi.scrollTo(index);
+            flkty.select(cellIndex);
         }
     });
 });
