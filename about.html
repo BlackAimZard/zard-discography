@@ -135,31 +135,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const captionNode = document.getElementById('slide-caption');
     let captionTimeout, lastCaption = '';
 
-    // 1. INIT FLICKITY
+    // INIT FLICKITY (Defaults: Attraction 0.025, Friction 0.28)
     const flkty = new Flickity(sliderTrack, {
         cellAlign: 'center',
         contain: true,
         wrapAround: true,
         prevNextButtons: false,
-        pageDots: false,
-        selectedAttraction: 0.02,
-        friction: 0.28
+        pageDots: false
     });
 
     sliderTrack.style.opacity = '1';
 
-    // 2. CUSTOM ARROWS
+    // CUSTOM ARROWS
     document.getElementById('btn-prev').addEventListener('click', () => flkty.previous());
     document.getElementById('btn-next').addEventListener('click', () => flkty.next());
 
-    // 3. CAPTION LOGIC
+    // CAPTION LOGIC
     const updateCaption = (isInit = false) => {
         const currentCell = flkty.selectedElement;
         if (!currentCell) return;
         
         const newCaption = currentCell.getAttribute('data-caption') || '';
         if (newCaption === lastCaption && !isInit) return;
-        
         lastCaption = newCaption;
 
         if (isInit) {
@@ -179,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCaption(true);
     flkty.on('select', () => updateCaption(false));
 
-    // 4. CLICK HANDLER
+    // CLICK HANDLER
     flkty.on('staticClick', (event, pointer, cellElement, cellIndex) => {
         if (!cellElement) return;
 
