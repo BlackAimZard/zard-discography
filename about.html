@@ -37,7 +37,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .embla { width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.4s ease-in; }
 .embla.is-ready { opacity: 1; }
 .embla__container { display: flex; touch-action: pan-y; margin: 0; }
-.embla__slide { flex: 0 0 60%; min-width: 0; margin-right: 20px; }
+.embla__slide { flex: 0 0 64%; min-width: 0; margin-right: 20px; }
 .embla__slide .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; cursor: pointer;
 filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
 .is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
@@ -48,7 +48,7 @@ filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webki
 .nav-arrow:active { color: #fff; transition: none; }
 
 /* SMALL SCREEN FIX */
-@media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
+@media screen and (max-width: 700px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
 #content-text { font-size: 16px !important; }
@@ -62,7 +62,7 @@ filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webki
 <tr>
 <td class="main-wrapper" align="center" valign="middle" style="padding: 50px 0 100px 0;">
 <div class="scroll-wrapper">
-<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 650px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
 <!--TITLE-->
 <tr>
@@ -80,7 +80,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
 <!--SPACER-->
-<tr><td style="height: 120px;"></td></tr>
+<tr><td style="height: 100px;"></td></tr>
 <!--PHOTO-->
 <tr>
 <td class="slider-cell" align="left" valign="top">
