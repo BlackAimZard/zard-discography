@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 9</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -339,6 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- DATA & MAP LOGIC -->
+<!-- DATA & MAP LOGIC -->
 <script src="timeline-data.js"></script>
 
 <script>
@@ -352,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
-    /* 1. TOOLTIP SETUP */
+    /* TOOLTIP SETUP */
     const tooltip = document.getElementById('global-tooltip');
     const borderOuter = dragContainer.closest('.tl-border-outer');
     borderOuter.appendChild(tooltip);
@@ -360,12 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let activeHoveredNode = null;
 
-    /* 2. DEVICE INPUT TRACKER (MOUSE VS TOUCH) */
-    window.isUsingMouse = true;
-    document.addEventListener('touchstart', () => { window.isUsingMouse = false; }, {passive: true});
-    document.addEventListener('mousemove', () => { window.isUsingMouse = true; }, {passive: true});
-
-    /* 3. PANZOOM INITIALIZATION */
+    /* PANZOOM INITIALIZATION */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
     let defaultZoom = 0.5; 
@@ -380,10 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const contentHeight = zoomTarget.offsetHeight * defaultZoom;
-    pz.moveTo(0, (containerRect.height - contentHeight) / 2);
+    const startX = 0; 
+    const startY = (containerRect.height - contentHeight) / 2;
+    pz.moveTo(startX, startY);
 
+    /* LOCAL COORDINATES HELPER */
     function getLocalCoords(element, target) {
-        let x = 0, y = 0, curr = element;
+        let x = 0;
+        let y = 0;
+        let curr = element;
         while (curr && curr !== target) {
             x += curr.offsetLeft;
             y += curr.offsetTop;
@@ -392,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x, y };
     }
 
+    /* TOOLTIP RENDER ENGINE */
     function updateTooltipContent(node) {
         document.getElementById('tt-img').src = node.dataset.thumb;
         document.getElementById('tt-title').textContent = node.dataset.title;
@@ -437,51 +439,65 @@ document.addEventListener('DOMContentLoaded', () => {
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
 
-    /* 4. NODE INTERACTIONS (PC & MOBILE) */
-    const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
+    /* UNIFIED NODE INTERACTIONS (PC & MOBILE) */
+    const allTimelineNodes = document.querySelectorAll('.tl-node');
+    
+    allTimelineNodes.forEach(node => {
+        const hasData = node.hasAttribute('data-title');
 
-    allMusicNodes.forEach(node => {
-        node.addEventListener('mouseenter', () => {
-            if (window.isUsingMouse) {
+        node.addEventListener('pointerenter', (e) => {
+            /* PC: Di chuột vào là xóa Pin cũ đi (Giữ nguyên logic cực mượt của đại ca) */
+            if (e.pointerType === 'mouse') {
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
             }
-            activeHoveredNode = node;
-            updateTooltipContent(node);
-            updateMagneticTooltip();
+            
+            if (hasData) {
+                activeHoveredNode = node;
+                updateTooltipContent(node);
+                updateMagneticTooltip();
+            }
         });
 
-        node.addEventListener('mouseleave', () => { 
-            activeHoveredNode = null;
-            if (!node.classList.contains('force-hover')) {
-                tooltip.style.display = 'none'; 
+        node.addEventListener('pointerleave', (e) => {
+            if (hasData) {
+                activeHoveredNode = null;
+                if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
             }
         });
 
         node.addEventListener('click', (e) => {
-            if (!window.isUsingMouse) {
-                /* MOBILE TOUCH INTERACTION */
+            if (!hasData) {
+                e.preventDefault(); 
+                return; // Bỏ qua nếu bấm trúng ô trống
+            }
+
+            /* PHÂN BIỆT ĐIỆN THOẠI BẰNG POINTER-TYPE MỚI NHẤT */
+            const isTouch = e.pointerType === 'touch' || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            
+            if (isTouch) {
+                /* MOBILE: Chạm lần 1 ghim bảng, chạm lần 2 vô link */
                 if (!node.classList.contains('force-hover')) {
-                    e.preventDefault(); /* Chặn link lần 1 */
+                    e.preventDefault(); 
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                     node.classList.add('force-hover');
                     activeHoveredNode = node;
                     updateTooltipContent(node);
                     updateMagneticTooltip();
                 }
-                /* Chạm lần 2 thì bỏ qua e.preventDefault(), tự động bay sang Link */
             } else {
-                /* PC MOUSE INTERACTION */
+                /* PC: Bấm 1 cái vào link luôn */
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
             }
         });
     });
-
-    /* 5. SEARCH & FILTER ENGINE */
+    
+    /* SEARCH & FILTER LOGIC */
     const searchInput = document.getElementById('tl-search-box');
     const searchDropdown = document.getElementById('tl-search-dropdown');
     const filterBtns = document.querySelectorAll('.tl-filter-btn');
     const searchClearBtn = document.getElementById('tl-search-clear');
+    const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
 
     function runSearch() {
         const keyword = searchInput.value.toLowerCase().trim();
@@ -514,8 +530,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
+            /* CLEAN UP PREVIOUS PINNING */
             allMusicNodes.forEach(n => n.classList.remove('force-hover'));
 
+            /* UPDATE DROPDOWN */
             let dropdownHTML = '';
             matchedNodes.forEach(match => {
                 const node = match.node;
@@ -534,10 +552,12 @@ document.addEventListener('DOMContentLoaded', () => {
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
+            /* AUTO-PIN FIRST MATCH */
             const firstNode = matchedNodes[0].node;
             firstNode.classList.add('force-hover');
-            activeHoveredNode = firstNode;
+            activeHoveredNode = firstNode; 
             
+            /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
             const r = firstNode.getBoundingClientRect();
@@ -555,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTooltipContent(firstNode);
             updateMagneticTooltip();
 
+            /* DROPDOWN CLICK INTERACTION */
             searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -563,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const targetNode = allMusicNodes[this.getAttribute('data-index')];
                     allMusicNodes.forEach(n => n.classList.remove('force-hover'));
                     targetNode.classList.add('force-hover');
-                    activeHoveredNode = targetNode;
+                    activeHoveredNode = targetNode; 
                     
                     const t = pz.getTransform();
                     const cr = dragContainer.getBoundingClientRect();
@@ -580,6 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateTooltipContent(targetNode);
                     updateMagneticTooltip();
                     
+                    /* ẨN MENU KHI ĐÃ CHỌN XONG KẾT QUẢ */
                     searchDropdown.classList.remove('show');
                 });
             });
@@ -607,33 +629,20 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* 6. GLOBAL UI TOGGLES (CLICK OUTSIDE & FOCUS) */
+    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
+
+    /* DROPDOWN VISIBILITY TOGGLE (OUTSIDE CLICK & FOCUS) - GIỮ NGUYÊN BẢN GỐC CỦA ĐẠI CA */
     document.addEventListener('click', (e) => {
-        const isSearchInner = e.target.closest('.tl-search-inner');
-        if (!isSearchInner) {
+        if (!e.target.closest('.tl-search-inner')) {
             searchDropdown.classList.remove('show');
-        }
-        
-        // Nếu nhấp vào khoảng trống (bỏ qua search, filter, và node có dữ liệu) thì tắt bảng info
-        const isNode = e.target.closest('.tl-node[data-title]');
-        const isFilter = e.target.closest('.tl-filter-group');
-        const isTooltip = e.target.closest('.tl-global-tooltip');
-        
-        if (!isSearchInner && !isFilter && !isNode && !isTooltip) {
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-            tooltip.style.display = 'none';
         }
     });
 
-    searchInput.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Nhấn lại vào thanh search thì bung danh sách cũ ra (nếu có)
-        if (searchInput.value.trim().length >= 2 && searchDropdown.innerHTML.trim() !== '') {
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
             searchDropdown.classList.add('show');
         }
     });
-
-    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 });
 </script>
 
