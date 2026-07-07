@@ -47,7 +47,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .nav-arrow:active { color: #fff; transition: none; }
 
 /* TIMELINE MAP CONTAINER */
-.tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; }
+.tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 .tl-border-inner { padding: 0; border: none; }
 .tl-scroll-area { width: 100%; height: 500px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 
@@ -66,7 +66,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SEARCH BAR */
 .tl-search-inner { position: relative; width: 100%; max-width: 330px; }
-.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 15px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; }
+.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 15px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
+.tl-search-input::placeholder { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; font-size: 14px; font-weight: bold; cursor: pointer; display: none; user-select: none; font-family: sans-serif; }
 .tl-search-clear:hover { color: #fff; }
@@ -408,6 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetLeft = (local.x + node.offsetWidth) * t.scale + t.x + dl + 20;
             let targetTop = local.y * t.scale + t.y + dt - 15;
 
+            /* LIMIT BOUNDARIES */
+            if (targetLeft < 15) targetLeft = 15;
+            if (targetTop < 15) targetTop = 15;
+
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
             tooltip.style.display = 'block';
@@ -430,6 +435,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const local = getLocalCoords(forcedNode, zoomTarget);
             let targetLeft = (local.x + forcedNode.offsetWidth) * t.scale + t.x + dl + 20;
             let targetTop = local.y * t.scale + t.y + dt - 15;
+
+            /* LIMIT BOUNDARIES */
+            if (targetLeft < 15) targetLeft = 15;
+            if (targetTop < 15) targetTop = 15;
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
