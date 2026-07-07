@@ -618,22 +618,29 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* NATIVE HOVER & TOOLTIP PINNING */
+	/* NATIVE HOVER & MOBILE DOUBLE-TAP TO LINK */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
     
     allTimelineNodes.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
             if (e.isTrusted) { 
-                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+                document.querySelectorAll('.force-hover').forEach(n => {
+                    if (n !== node) n.classList.remove('force-hover');
+                });
             }
         });
         
         node.addEventListener('click', (e) => {
-            if (!node.classList.contains('force-hover')) {
-                e.preventDefault(); 
-                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-                node.classList.add('force-hover');
-                setTimeout(() => { node.dispatchEvent(new Event('mouseenter')); }, 10);
+            if (window.matchMedia("(hover: none)").matches) {
+                if (!node.classList.contains('force-hover')) {
+                    e.preventDefault(); 
+                    document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+                    node.classList.add('force-hover');
+                    setTimeout(() => { 
+                        node.dispatchEvent(new Event('mouseenter')); 
+                        updateMagneticTooltip();
+                    }, 10);
+                }
             }
         });
     });
