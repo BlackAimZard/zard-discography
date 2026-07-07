@@ -38,8 +38,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .embla.is-ready { opacity: 1; }
 .embla__container { display: flex; touch-action: pan-y; margin: 0; }
 .embla__slide { flex: 0 0 64%; min-width: 0; margin-right: 20px; }
-.embla__slide .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; cursor: pointer;
-filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
+.embla__slide .gallery-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; cursor: pointer; filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webkit-user-drag: none; }
 .is-colored .gallery-img { filter: grayscale(0%); -webkit-filter: grayscale(0%); }
 
 /* NAV ARROW BUTTONS */
@@ -52,135 +51,79 @@ filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webki
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
 #content-text { font-size: 16px !important; }
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } } /*slide full width */
+.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 
+/* TIMELINE MAP CONTAINER */
+.tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; }
+.tl-border-inner { padding: 0; border: none; }
+.tl-scroll-area { width: 100%; height: 500px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 
+/* HUD UI PANEL */
+.tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; }
+.tl-search-inner, .tl-filter-group { pointer-events: auto; } 
+.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: 'Times New Roman', serif; font-size: 12px; pointer-events: none; user-select: none; }
 
-/* ================= TIMELINE MAP MỚI ================= */
-.tl-border-outer { 
-    max-width: 650px; 
-    margin: 0 auto; 
-    border: 2px solid #555; /* Một viền duy nhất 2px chốt hạ */
-    box-sizing: border-box; 
-    /* Đã xóa padding: 1px để dính sát sàn sạt vào khung */
+/* FLAT GROUPED BUTTONS */
+.tl-filter-group { display: flex; border: 2px solid #555; background: #1c1c1c; box-sizing: border-box; height: 38px; }
+.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: 'Times New Roman', serif; font-size: 12px; cursor: pointer; padding: 0 10px; line-height: 34px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
+.tl-filter-btn:last-child { border-right: none; }
+.tl-filter-btn:hover { background: #333; color: #fff; }
+.tl-filter-btn.active { background: #d49a3a; color: #111; pointer-events: none; }
+.tl-node.is-filtered { display: none !important; }
+
+/* SEARCH BAR */
+.tl-search-inner { position: relative; width: 100%; max-width: 330px; }
+.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 12px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; }
+.tl-search-input:focus { border-color: #fff; }
+.tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; font-size: 20px; cursor: pointer; display: none; user-select: none; font-family: sans-serif; }
+.tl-search-clear:hover { color: #fff; }
+
+/* SEARCH DROPDOWN */
+.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.8); }
+.tl-dropdown.show { display: block; }
+.tl-dropdown-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #333; cursor: pointer; transition: background 0.1s; }
+.tl-dropdown-item:hover { background: #333; }
+.tl-di-left { display: flex; align-items: center; gap: 12px; }
+.tl-di-left img { width: 32px; height: 32px; object-fit: cover; border: 1px solid #444; }
+.tl-di-left span { color: #ddd; font-family: 'Times New Roman', serif; font-size: 12px; }
+.tl-di-right { color: #888; font-family: 'Times New Roman', serif; font-size: 12px; }
+.tl-node.is-searched { outline: 2px dashed #00ffff !important; outline-offset: 4px; z-index: 4; }
+.tl-dropdown::-webkit-scrollbar { width: 6px; }
+.tl-dropdown::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+
+/* HUD RESPONSIVE */
+@media screen and (max-width: 550px) {
+    .tl-hud-panel { flex-direction: column-reverse; } 
+    .tl-search-inner { max-width: 100%; }
 }
-.tl-border-inner { 
-    padding: 0; /* Xóa khoảng trắng */
-    border: none; /* Phế bỏ viền trong */
-}
-.tl-scroll-area { width: 100%; height: 380px; background-color: #191919; overflow: auto; cursor: grab; position: relative; box-sizing: border-box; -ms-overflow-style: none; scrollbar-width: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; overscroll-behavior: none; }
-.tl-scroll-area::-webkit-scrollbar { display: none; }
-.tl-scroll-area:active { cursor: grabbing; }
 
-/* Các cột lưới */
+/* GRID COLUMNS */
 .tl-grid { display: flex; gap: 50px; padding: 30px; min-width: max-content; }
 .tl-col { display: flex; flex-direction: column; align-items: center; width: 50px; }
 .tl-year-text { font-size: 16px; color: #aaa; font-family: 'Times New Roman', serif; margin-bottom: 20px; user-select: none; }
 .tl-nodes-container { display: flex; flex-direction: column; gap: 30px; position: relative; }
 .tl-nodes-container::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 2px; background-color: #555; z-index: 1; }
 
-/* Ô Vuông Node */
-.tl-node {
-    width: 50px;
-    height: 50px;
-    box-sizing: border-box;
-    border: 2px solid #555;
-    background-color: #292929;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    position: relative;
-    text-decoration: none;
-    color: transparent;
-    outline: 2px solid transparent;
-    transition: border-color 0.2s, outline-color 0.2s;
-}
+/* TIMELINE NODES */
+.tl-node { width: 50px; height: 50px; box-sizing: border-box; border: 2px solid #555; background-color: #292929; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; box-shadow: 0 0 0 2px transparent; }
+.tl-node:hover, .tl-node.force-hover { border-color: #ddd; box-shadow: 0 0 0 2px #ddd; color: transparent; z-index: 3; }
+.tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
+.tl-node.empty { border-color: #444; }
+.tl-node.empty:hover { border-color: #444; box-shadow: 0 0 0 2px transparent; cursor: default; }
 
-.tl-node:hover {
-    border-color: #ddd;
-    outline-color: #ddd;
-    color: transparent;
-    z-index: 3;
-}
-
-.tl-node img {
-    width: 38px;
-    height: 38px;
-    object-fit: cover;
-    pointer-events: none;
-}
-
-.tl-node.empty {
-    border-color: #444;
-}
-
-.tl-node.empty:hover {
-    border-color: #444;
-    outline-color: transparent;
-    cursor: default;
-}
-
-/* ================= KHUNG THÔNG TIN GLOBAL MỚI ================= */
-.tl-global-tooltip { 
-    display: none; 
-    position: fixed; 
-    width: 250px; /* Mở rộng chiều ngang cho thoải mái */
-    background-color: #161616; 
-    border: 2px solid #555; 
-    padding: 15px; 
-    z-index: 99999; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.9); 
-    pointer-events: none; 
-    font-family: 'Times New Roman', serif; /* Ép cứng font serif */
-}
-
-/* Nửa trên: Bố cục ngang (Ảnh trái, Chữ phải) */
-.tl-panel-top { 
-    display: flex; 
-    gap: 15px; 
-    margin-bottom: 15px; 
-    align-items: center; 
-}
-
-.tl-panel-img-box { 
-    width: 80px; 
-    height: 80px; 	
-    flex-shrink: 0; /* Giữ ảnh không bị bóp méo */
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
+/* GLOBAL TOOLTIP */
+.tl-global-tooltip { display: none; position: fixed; width: 250px; background-color: #161616; border: 2px solid #555; padding: 15px; z-index: 99999; box-shadow: 0 4px 20px rgba(0,0,0,0.9); pointer-events: none; font-family: 'Times New Roman', serif; }
+.tl-panel-top { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
+.tl-panel-img-box { width: 80px; height: 80px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
 .tl-panel-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-/* Thông tin tên Album bên phải */
-.tl-panel-info { 
-    display: flex; 
-    flex-direction: column; 
-	flex: 1;
-	min-width: 0;
-}
-.tl-panel-title { color: #888; font-size: 14px; margin-bottom: 6px; overflow-wrap: break-word; word-break: break-word;} /* 1st Album */
-.tl-panel-sub { color: #ddd; font-size: 16px; line-height: 1.3; overflow-wrap: break-word; word-break: break-word; } /* Tên Album chính */
-
-/* Nửa dưới: Ngày phát hành & Label */
-.tl-panel-meta { 
-    display: flex; 
-    justify-content: space-between; 
-    border-top: 1px solid #444; 
-    padding-top: 14px; 
-}
+.tl-panel-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.tl-panel-title { color: #888; font-size: 14px; margin-bottom: 6px; overflow-wrap: break-word; word-break: break-word; }
+.tl-panel-sub { color: #ddd; font-size: 16px; line-height: 1.3; overflow-wrap: break-word; word-break: break-word; }
+.tl-panel-meta { display: flex; justify-content: space-between; border-top: 1px solid #444; padding-top: 14px; }
 .meta-col { display: flex; flex-direction: column; gap: 6px; }
 .meta-label { font-size: 12px; color: #888; }
 .meta-value { font-size: 14px; color: #ddd; }
-
-/* Khung Tie-up (Nằm dưới cùng) */
-.tl-panel-tieup {
-    display: none; /* Mặc định giấu đi */
-    flex-direction: column;
-    gap: 6px;
-    padding-top: 12px;
-}
+.tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; }
 </style>
 </head>
 
@@ -192,24 +135,24 @@ filter: grayscale(100%); transition: filter 0.8s ease; user-select: none; -webki
 <div class="scroll-wrapper">
 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 650px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
 <tbody>
-<!--TITLE-->
+<!-- TITLE -->
 <tr>
 <td align="center" valign="bottom"> 
 <span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
 About <span id="scramble" style="color: #fff;"></span></span>
 </td>
 </tr>
-<!--SPACER-->
+<!-- SPACER -->
 <tr><td style="height: 30px;"></td></tr>
-<!--TEXT-->
+<!-- TEXT -->
 <tr>
 <td align="center" valign="top">
 <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
-<!--SPACER-->
+<!-- SPACER -->
 <tr><td style="height: 80px;"></td></tr>
-<!--PHOTO-->
+<!-- PHOTO SLIDER -->
 <tr>
 <td class="slider-cell" align="left" valign="top">
 <div class="embla" id="embla-slider">
@@ -226,42 +169,58 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </div>
 </td>
 </tr>
-<!--NARROW-->
+<!-- NAV CONTROLS -->
 <tr>
-<td align="center" valign="top" style="padding-top: 20px;">
+<td align="center" valign="top" style="padding-top: 15px;">
 <div style="display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
 <span id="btn-prev" class="nav-arrow">
-<!--PREV BUTTON-->
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-<!--PHOTO DATA CAPTION SETTING-->
 <span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
-<!--NEXT BUTTON-->
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
 </div>
 </td>
 </tr>
-<!--SPACER-->
+<!-- SPACER -->
 <tr><td style="height: 80px;"></td></tr>
-<!--TITLE-->
-<tr>
-<td align="center" valign="top">
-<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD has released a total of 45 singles, 17 official albums and more</span>
-</td>
-</tr>
-<!--SPACER-->
-<tr><td style="height: 20px;"></td></tr>
-<!--TIMELINE TABLE-->
+<!-- TIMELINE MAP AREA -->
 <tr>
 <td align="center" valign="top">
 <div class="tl-border-outer">
-<div class="tl-border-inner">
-<div class="tl-scroll-area" id="timeline-drag">
-<div style="color: #555; padding: 20px;">Loading.</div>
-</div>
-</div>
+
+    <!-- HUD PANEL -->
+    <div class="tl-hud-panel">
+        
+        <!-- SEARCH COMPONENT -->
+        <div class="tl-search-inner">
+            <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search Title, Tie-up, Year...">
+            <span id="tl-search-clear" class="tl-search-clear">&times;</span>
+            <div id="tl-search-dropdown" class="tl-dropdown"></div>
+        </div>
+
+        <!-- FILTER COMPONENT -->
+        <div class="tl-filter-group">
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
+            <button class="tl-filter-btn" data-filter="single">SINGLE</button>
+            <button class="tl-filter-btn" data-filter="album">ALBUM</button>
+        </div>
+
+    </div>
+
+    <!-- INSTRUCTIONS OVERLAY -->
+    <div class="tl-ui-bottom-left">
+        Drag to pan | Scroll to zoom | Hover a node
+    </div>
+
+    <!-- MAP CONTAINER -->
+    <div class="tl-border-inner">
+        <div class="tl-scroll-area" id="timeline-drag">
+            <div style="color: #555; padding: 20px;">Loading...</div>
+        </div>
+    </div>
+    
 </div>
 </td>
 </tr>
@@ -272,7 +231,8 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 </tbody>
 </table>
-<!--IMG LIGHT BOX-->
+
+<!-- LIGHTBOX -->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
 </div>
@@ -280,21 +240,19 @@ About <span id="scramble" style="color: #fff;"></span></span>
 function openLightbox(imageSrc) { document.getElementById('lightbox-img').src = imageSrc; document.getElementById('lightbox').style.display = 'flex'; }
 </script>
 
-<!--EMBLA CAROUSEL SETTING-->
+<!-- EXTERNAL LIBS -->
+<script src="assets/libs/panzoom.min.js"></script>
 <script src="assets/libs/embla-carousel.umd.js"></script>
 
+<!-- CAROUSEL INIT -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const emblaNode = document.getElementById('embla-slider');
-    
-    // INIT ENGINE
     const emblaApi = EmblaCarousel(emblaNode, { align: 'center', loop: true, skipSnaps: true, dragFree: false });
 
-    // NAV BUTTONS
     document.getElementById('btn-prev').addEventListener('click', () => emblaApi.scrollPrev());
     document.getElementById('btn-next').addEventListener('click', () => emblaApi.scrollNext());
 
-    // COLOR LOGIC
     const slides = emblaApi.slideNodes();
     const applyColor = () => {
         const selected = emblaApi.selectedScrollSnap();
@@ -306,14 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const captionNode = document.getElementById('slide-caption');
     let captionTimeout = null;
 
-    // PHOTO DATA CAPTION LOGIC
     const showCaptionFast = () => {
         clearTimeout(captionTimeout);
         captionNode.style.opacity = '0';
         
         captionTimeout = setTimeout(() => {
             const currentSlide = slides[emblaApi.selectedScrollSnap()];
-            
             captionNode.textContent = currentSlide.getAttribute('data-caption') || '';
             captionNode.style.opacity = '1'; 
         }, 300); 
@@ -322,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
     emblaApi.on('init', () => { 
         emblaNode.classList.add('is-ready'); 
         applyColor(); 
-        
         const firstSlide = slides[emblaApi.selectedScrollSnap()];
         captionNode.textContent = firstSlide.getAttribute('data-caption') || '';
         captionNode.style.opacity = '1';
@@ -333,10 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showCaptionFast();
     });
 
-    // CLICK & TOUCH LOGIC
     emblaNode.addEventListener('click', (e) => {
         if (!e.target.classList.contains('gallery-img')) return;
-        
         const slide = e.target.closest('.embla__slide');
         if (!slide) return;
         
@@ -350,9 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-
-
-
+<!-- GLOBAL TOOLTIP UI -->
 <div id="global-tooltip" class="tl-global-tooltip">
     <div class="tl-panel-top">
         <div class="tl-panel-img-box"><img id="tt-img" src="" alt="Thumb"></div>
@@ -361,7 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="tt-sub" class="tl-panel-sub"></div>
         </div>
     </div>
-    
     <div class="tl-panel-meta">
         <div class="meta-col">
             <span class="meta-label">Released</span>
@@ -372,63 +322,56 @@ document.addEventListener('DOMContentLoaded', () => {
             <span id="tt-label" class="meta-value"></span>
         </div>
     </div>
-
     <div id="tt-tieup-container" class="tl-panel-tieup">
         <span class="meta-label">Tie-up</span>
         <span id="tt-tieup" class="meta-value"></span>
     </div>
 </div>
 
-
-
+<!-- DATA & MAP LOGIC -->
 <script src="timeline-data.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const dragContainer = document.getElementById('timeline-drag');
     
-    // 1. Bơm HTML từ biến TIMELINE_HTML (trong file timeline-data.js) vào khung
     if (typeof TIMELINE_HTML !== 'undefined') {
         dragContainer.innerHTML = TIMELINE_HTML;
     } else {
-        dragContainer.innerHTML = "<div style='color:red; padding:20px;'>Lỗi: Không tìm thấy file timeline-data.js!</div>";
-        return; // Lỗi thì dừng luôn, không chạy tiếp xuống dưới
+        dragContainer.innerHTML = "";
+        return; 
     }
 
-    // 2. Chức năng Kéo Thả (Drag to Pan)
-    let isDown = false, startX, startY, scrollLeft, scrollTop;
-    dragContainer.addEventListener('mousedown', (e) => {
-        isDown = true; dragContainer.style.cursor = 'grabbing';
-        startX = e.pageX - dragContainer.offsetLeft;
-        startY = e.pageY - dragContainer.offsetTop;
-        scrollLeft = dragContainer.scrollLeft;
-        scrollTop = dragContainer.scrollTop;
-    });
-    dragContainer.addEventListener('mouseleave', () => { isDown = false; dragContainer.style.cursor = 'grab'; });
-    dragContainer.addEventListener('mouseup', () => { isDown = false; dragContainer.style.cursor = 'grab'; });
-    dragContainer.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - dragContainer.offsetLeft;
-        const y = e.pageY - dragContainer.offsetTop;
-        dragContainer.scrollLeft = scrollLeft - ((x - startX) * 1.5);
-        dragContainer.scrollTop = scrollTop - ((y - startY) * 1.5);
+    /* PANZOOM INIT */
+    const zoomTarget = dragContainer.firstElementChild; 
+    const containerRect = dragContainer.getBoundingClientRect();
+    let defaultZoom = 0.5; 
+
+    const pz = panzoom(zoomTarget, {
+        maxZoom: 3, 
+        minZoom: 0.2,
+        initialZoom: defaultZoom, 
+        bounds: true, 
+        boundsPadding: 0.1
     });
 
-    // 3. Chức năng Hiện Thông Tin (Tooltip)
+    const contentHeight = zoomTarget.offsetHeight * defaultZoom;
+    const startX = 0; 
+    const startY = (containerRect.height - contentHeight) / 2;
+    pz.moveTo(startX, startY);
+
+    /* TOOLTIP ENGINE */
     const tooltip = document.getElementById('global-tooltip');
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
     nodesWithData.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
-            // Nhét dữ liệu
             document.getElementById('tt-img').src = node.dataset.thumb;
             document.getElementById('tt-title').textContent = node.dataset.title;
             document.getElementById('tt-sub').textContent = node.dataset.sub;
             document.getElementById('tt-released').textContent = node.dataset.released;
             document.getElementById('tt-label').textContent = node.dataset.label;
 
-            // --- LOGIC ẨN/HIỆN TIE-UP ---
             const tieupContainer = document.getElementById('tt-tieup-container');
             if (node.dataset.tieup) {
                 document.getElementById('tt-tieup').textContent = node.dataset.tieup;
@@ -437,22 +380,156 @@ document.addEventListener('DOMContentLoaded', () => {
                 tieupContainer.style.display = 'none';
             }
 
-            // Tính tọa độ đè lên giao diện
             const rect = node.getBoundingClientRect();
             tooltip.style.left = (rect.right + 15) + 'px';
             tooltip.style.top = (rect.top - 15) + 'px';
             tooltip.style.display = 'block';
         });
 
-        node.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+        node.addEventListener('mouseleave', () => { 
+            if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
+        });
     });
 
-    // Ẩn bảng thông tin khi người dùng đang cuộn map
-    dragContainer.addEventListener('scroll', () => { tooltip.style.display = 'none'; });
+    function updateMagneticTooltip() {
+        const forcedNode = document.querySelector('.force-hover');
+        if (forcedNode) {
+            const rect = forcedNode.getBoundingClientRect();
+            tooltip.style.left = (rect.right + 15) + 'px';
+            tooltip.style.top = (rect.top - 15) + 'px';
+        } else {
+            tooltip.style.display = 'none'; 
+        }
+    }
+    
+    pz.on('pan', updateMagneticTooltip);
+    pz.on('zoom', updateMagneticTooltip);
+    
+    /* SEARCH AND FILTER LOGIC */
+    const searchInput = document.getElementById('tl-search-box');
+    const searchDropdown = document.getElementById('tl-search-dropdown');
+    const filterBtns = document.querySelectorAll('.tl-filter-btn');
+    const searchClearBtn = document.getElementById('tl-search-clear');
+
+    function runSearch() {
+        const keyword = searchInput.value.toLowerCase().trim();
+        const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
+        const activeFilterBtn = document.querySelector('.tl-filter-btn.active');
+        const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+
+        searchDropdown.innerHTML = '';
+        searchClearBtn.style.display = keyword.length > 0 ? 'block' : 'none';
+
+        if (keyword.length < 2) {
+            allMusicNodes.forEach(node => node.classList.remove('is-searched'));
+            searchDropdown.classList.remove('show');
+            return;
+        }
+
+        let matchCount = 0;
+        let dropdownHTML = '';
+
+        allMusicNodes.forEach((node, index) => {
+            const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
+            
+            if (!isMatchFilter) {
+                node.classList.remove('is-searched');
+                return; 
+            }
+
+            const nodeData = (
+                (node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '')
+            ).toLowerCase();
+
+            if (nodeData.includes(keyword)) {
+                node.classList.add('is-searched');
+                matchCount++;
+                
+                dropdownHTML += `
+                    <div class="tl-dropdown-item" data-index="${index}" data-keyword="${node.dataset.sub}">
+                        <div class="tl-di-left">
+                            <img src="${node.dataset.thumb}" draggable="false">
+                            <span>${node.dataset.sub}</span>
+                        </div>
+                        <div class="tl-di-right">${node.dataset.released}</div>
+                    </div>
+                `;
+            } else {
+                node.classList.remove('is-searched');
+            }
+        });
+
+        if (matchCount === 0) {
+            searchDropdown.classList.remove('show');
+        } else {
+            searchDropdown.innerHTML = dropdownHTML;
+            searchDropdown.classList.add('show');
+            
+            const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
+            items.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    const targetIndex = this.getAttribute('data-index');
+                    const targetNode = allMusicNodes[targetIndex];
+
+                    allMusicNodes.forEach(n => n.classList.remove('force-hover'));
+                    
+                    const nodeRect = targetNode.getBoundingClientRect();
+                    const containerRect = dragContainer.getBoundingClientRect();
+                    
+                    const diffX = (containerRect.left + containerRect.width / 2) - (nodeRect.left + nodeRect.width / 2);
+                    const diffY = (containerRect.top + containerRect.height / 2) - (nodeRect.top + nodeRect.height / 2);
+                    
+                    pz.moveBy(diffX, diffY, false);
+
+                    targetNode.classList.add('force-hover');
+                    setTimeout(() => { targetNode.dispatchEvent(new Event('mouseenter')); }, 10);
+                });
+            });
+        }
+    }
+
+    searchInput.addEventListener('input', runSearch);
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filterType = btn.dataset.filter;
+            const allNodes = document.querySelectorAll('.tl-node[data-type]');
+            
+            allNodes.forEach(node => {
+                if (filterType === 'all' || node.dataset.type === filterType) {
+                    node.classList.remove('is-filtered');
+                } else {
+                    node.classList.add('is-filtered');
+                }
+            });
+            
+            runSearch();
+        });
+    });
+
+    searchClearBtn.addEventListener('click', () => {
+        searchInput.value = ''; 
+        runSearch(); 
+        searchInput.focus(); 
+    });
+
+    /* NATIVE HOVER RESET */
+    const allTimelineNodes = document.querySelectorAll('.tl-node');
+    allTimelineNodes.forEach(node => {
+        node.addEventListener('mouseenter', (e) => {
+            if (e.isTrusted) { 
+                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            }
+        });
+    });
 });
 </script>
 
-<!--JS IMPORT-->
+<!-- EXTERNAL SCRIPTS -->
 <script src="assets/js/scramble.js"></script>
 <script src="assets/js/small-screen-btn.js"></script>
 
