@@ -12,7 +12,7 @@
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
 
 /* PROFILE LAYOUT */
-html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; }
+html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow-x: hidden; }
 body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
@@ -66,8 +66,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SEARCH BAR */
 .tl-search-inner { position: relative; width: 100%; max-width: 330px; }
-.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 15px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
-.tl-search-input::placeholder { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 14px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
+.tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; font-size: 14px; font-weight: bold; cursor: pointer; display: none; user-select: none; font-family: sans-serif; }
 .tl-search-clear:hover { color: #fff; }
@@ -123,7 +123,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 @media screen and (max-width: 600px) {
 .tl-hud-panel { flex-direction: column-reverse; align-items: flex-start; } 
 .tl-search-inner { max-width: 100%; width: 100%; }
-.tl-filter-group { width: auto; } }
+.tl-filter-group { width: auto; align-self: flex-start; } }
 </style>
 </head>
 
@@ -348,6 +348,9 @@ document.addEventListener('DOMContentLoaded', () => {
     borderOuter.appendChild(tooltip);
     tooltip.style.position = 'absolute';
 
+    /* INITIALIZE STATE TRACKING */
+    let activeHoveredNode = null;
+
     /* INITIALIZE PANZOOM */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
@@ -385,6 +388,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nodesWithData.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
+            activeHoveredNode = node;
+
             document.getElementById('tt-img').src = node.dataset.thumb;
             document.getElementById('tt-title').textContent = node.dataset.title;
             document.getElementById('tt-sub').textContent = node.dataset.sub;
@@ -419,21 +424,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         node.addEventListener('mouseleave', () => { 
+            activeHoveredNode = null;
             if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
         });
     });
 
     function updateMagneticTooltip() {
         const forcedNode = document.querySelector('.force-hover');
-        if (forcedNode) {
+        const currentNode = forcedNode || activeHoveredNode;
+
+        if (currentNode) {
             const t = pz.getTransform();
             const dragRect = dragContainer.getBoundingClientRect();
             const oRect = borderOuter.getBoundingClientRect();
             const dl = dragRect.left - oRect.left;
             const dt = dragRect.top - oRect.top;
 
-            const local = getLocalCoords(forcedNode, zoomTarget);
-            let targetLeft = (local.x + forcedNode.offsetWidth) * t.scale + t.x + dl + 20;
+            const local = getLocalCoords(currentNode, zoomTarget);
+            let targetLeft = (local.x + currentNode.offsetWidth) * t.scale + t.x + dl + 20;
             let targetTop = local.y * t.scale + t.y + dt - 15;
 
             /* LIMIT BOUNDARIES */
@@ -442,6 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
+            tooltip.style.display = 'block';
         } else {
             tooltip.style.display = 'none'; 
         }
@@ -539,6 +548,12 @@ document.addEventListener('DOMContentLoaded', () => {
             currentT.x = tx;
             currentT.y = ty;
             zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${tx}, ${ty})`;
+
+            /* AUTO-HOVER FIRST RESULT */
+            const firstNode = matchedNodes[0].node;
+            allMusicNodes.forEach(n => n.classList.remove('force-hover'));
+            firstNode.classList.add('force-hover');
+            setTimeout(() => { firstNode.dispatchEvent(new Event('mouseenter')); }, 10);
 
             /* BIND DROPDOWN INTERACTIONS */
             const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
