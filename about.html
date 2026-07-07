@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
@@ -121,27 +121,10 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE  */
 @media screen and (max-width: 600px) {
-    .tl-hud-panel { 
-        flex-direction: column-reverse !important; 
-        align-items: flex-start !important; 
-        text-align: left !important; 
-    } 
-    .tl-search-inner { 
-        max-width: 100% !important; 
-        width: 100% !important; 
-        margin-top: 10px !important; 
-    }
-    .tl-filter-group { 
-        display: flex !important; /* Dùng Flex cứng, cấm dùng inline-flex */
-        width: -webkit-max-content !important; /* Bùa chú riêng cho Safari iOS */
-        width: max-content !important; /* Ép khung chỉ bọc đúng nội dung */
-        align-self: flex-start !important; /* Tát nó văng sát tường bên trái */
-        margin: 0 !important; 
-    } 
-    .tl-filter-btn { 
-        flex: none !important; /* Tước sạch quyền tự do co giãn */
-    }
-}
+.tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; text-align: left !important; } 
+.tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 10px !important; }
+.tl-filter-group { display: flex !important; width: -webkit-max-content !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; } 
+.tl-filter-btn { flex: none !important; } }
 </style>
 </head>
 
@@ -220,7 +203,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 3</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
