@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             
             if (isTouch) {
-                /* MOBILE: Chạm lần 1 hiện bảng, chạm lần 2 vô link */
+                /* MOBILE: Chạm lần 1 hiện bảng, chạm lần 2 vô links */
                 if (!node.classList.contains('force-hover')) {
                     e.preventDefault(); 
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
