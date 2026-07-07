@@ -327,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
-<!-- DATA & MAP LOGIC -->
 <script src="timeline-data.js"></script>
 
 <script>
@@ -352,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initialZoom: defaultZoom, 
         bounds: true, 
         boundsPadding: 0.1,
-		smoothScroll: false
+        smoothScroll: false
     });
 
     const contentHeight = zoomTarget.offsetHeight * defaultZoom;
@@ -360,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
 
-    /* TOOLTIP ENGINE */
+    /* TOOLTIP ENGINE (Tối ưu UI của Đại ca) */
     const tooltip = document.getElementById('global-tooltip');
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
@@ -386,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetLeft = rect.right + 15;
             let targetTop = rect.top - 15;
 
+            // Ép Tooltip không văng ra ngoài khung
             if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
             if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
 
@@ -436,8 +436,9 @@ document.addEventListener('DOMContentLoaded', () => {
         searchDropdown.innerHTML = '';
         searchClearBtn.style.display = keyword.length > 0 ? 'block' : 'none';
 
+        allMusicNodes.forEach(node => node.classList.remove('is-searched'));
+
         if (keyword.length < 2) {
-            allMusicNodes.forEach(node => node.classList.remove('is-searched'));
             searchDropdown.classList.remove('show');
             return;
         }
@@ -446,11 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         allMusicNodes.forEach((node, index) => {
             const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
-            
-            if (!isMatchFilter) {
-                node.classList.remove('is-searched');
-                return; 
-            }
+            if (!isMatchFilter) return;
 
             const nodeData = (
                 (node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '')
@@ -459,20 +456,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nodeData.includes(keyword)) {
                 node.classList.add('is-searched');
                 matchedNodes.push({ node, index });
-            } else {
-                node.classList.remove('is-searched');
             }
         });
 
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
-            /* SORT RESULTS LEFT TO RIGHT & RENDER */
+            /* SORT L-TO-R CỦA ĐẠI CA (Tuyệt vời) */
             matchedNodes.sort((a, b) => a.node.offsetLeft - b.node.offsetLeft);
 
             let dropdownHTML = '';
-            let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-
             matchedNodes.forEach(match => {
                 const node = match.node;
                 const innerImg = node.querySelector('img');
@@ -487,38 +480,39 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="tl-di-right">${node.dataset.released}</div>
                     </div>
                 `;
-
-                const x = node.offsetLeft;
-                const y = node.offsetTop;
-                const w = node.offsetWidth;
-                const h = node.offsetHeight;
-                
-                if (x < minX) minX = x;
-                if (x + w > maxX) maxX = x + w;
-                if (y < minY) minY = y;
-                if (y + h > maxY) maxY = y + h;
             });
 
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
-            /* SAFE ZOOM TO 1 AND CENTER MATCHED GROUP */
+            /* LÕI MA TRẬN TÍNH TOÁN CỦA ĐỆ (Bất tử trước Panzoom) */
             const cRect = dragContainer.getBoundingClientRect();
-            const centerX = (minX + maxX) / 2;
-            const centerY = (minY + maxY) / 2;
-            
-            const currentTransform = typeof pz.getTransform === 'function' ? pz.getTransform() : { scale: 1 };
-            const currentScale = currentTransform.scale || 1;
-            
-            pz.moveTo((cRect.width / 2) - (centerX * currentScale), (cRect.height / 2) - (centerY * currentScale));
-            
-            if (typeof pz.zoomAbs === 'function') {
-                pz.zoomAbs(cRect.width / 2, cRect.height / 2, 1);
-            }
-            
-            pz.moveTo((cRect.width / 2) - centerX, (cRect.height / 2) - centerY);
-            
-            /* BIND DROPDOWN CLICKS */
+            const currentT = pz.getTransform();
+
+            let totalLocalX = 0;
+            let totalLocalY = 0;
+
+            matchedNodes.forEach(match => {
+                const r = match.node.getBoundingClientRect();
+                const nodeScreenX = r.left + r.width / 2;
+                const nodeScreenY = r.top + r.height / 2;
+                totalLocalX += (nodeScreenX - cRect.left - currentT.x) / currentT.scale;
+                totalLocalY += (nodeScreenY - cRect.top - currentT.y) / currentT.scale;
+            });
+
+            const avgLocalX = totalLocalX / matchedNodes.length;
+            const avgLocalY = totalLocalY / matchedNodes.length;
+
+            const tx = (cRect.width / 2) - avgLocalX;
+            const ty = (cRect.height / 2) - avgLocalY;
+
+            // Ép Transform bằng phần cứng
+            currentT.scale = 1;
+            currentT.x = tx;
+            currentT.y = ty;
+            zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${tx}, ${ty})`;
+
+            /* DROPDOWN EVENTS (Fix bug tính sai toạ độ khi zoom) */
             const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
             items.forEach(item => {
                 item.addEventListener('click', function(e) {
@@ -528,13 +522,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     allMusicNodes.forEach(n => n.classList.remove('force-hover'));
                     
-                    const nodeRect = targetNode.getBoundingClientRect();
-                    const containerRect = dragContainer.getBoundingClientRect();
+                    const freshT = pz.getTransform();
+                    const freshCRect = dragContainer.getBoundingClientRect();
+                    const nRect = targetNode.getBoundingClientRect();
                     
-                    const diffX = (containerRect.left + containerRect.width / 2) - (nodeRect.left + nodeRect.width / 2);
-                    const diffY = (containerRect.top + containerRect.height / 2) - (nodeRect.top + nodeRect.height / 2);
+                    const nodeScreenX = nRect.left + nRect.width / 2;
+                    const nodeScreenY = nRect.top + nRect.height / 2;
                     
-                    pz.moveBy(diffX, diffY, false);
+                    const localX = (nodeScreenX - freshCRect.left - freshT.x) / freshT.scale;
+                    const localY = (nodeScreenY - freshCRect.top - freshT.y) / freshT.scale;
+                    
+                    const dropTx = (freshCRect.width / 2) - localX;
+                    const dropTy = (freshCRect.height / 2) - localY;
+                    
+                    freshT.scale = 1;
+                    freshT.x = dropTx;
+                    freshT.y = dropTy;
+                    zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${dropTx}, ${dropTy})`;
 
                     targetNode.classList.add('force-hover');
                     setTimeout(() => { targetNode.dispatchEvent(new Event('mouseenter')); }, 10);
@@ -571,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* NATIVE HOVER RESET & PIN TOOLTIP INTERACTIONS */
+    /* NATIVE HOVER RESET & PIN TOOLTIP (Của Đại ca - Rất hay) */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
     
     allTimelineNodes.forEach(node => {
