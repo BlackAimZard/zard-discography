@@ -120,12 +120,13 @@ a:hover { color: #ff0000; text-decoration: underline; }
 #content-text { font-size: 16px !important;  }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE */
-/* HUD RESPONSIVE */
 @media screen and (max-width: 600px) {
     .tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; } 
     .tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 10px !important; }
-    .tl-filter-group { width: auto !important; display: inline-flex !important; align-self: flex-start !important; margin: 0 !important; } 
-    .tl-filter-btn { flex: 0 0 auto !important; } /* Khóa kéo giãn, ép nó gọn lại */
+    /* Ép sát trái bằng margin-right: auto và khóa width */
+    .tl-filter-group { width: auto !important; align-self: flex-start !important; margin: 0 auto 0 0 !important; } 
+    /* Tước quyền co giãn của 3 nút trên mobile */
+    .tl-filter-btn { flex: 0 0 auto !important; }
 }
 </style>
 </head>
@@ -205,7 +206,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 2</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
