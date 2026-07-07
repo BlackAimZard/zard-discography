@@ -121,9 +121,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE */
 @media screen and (max-width: 600px) {
-.tl-hud-panel { flex-direction: column-reverse; align-items: flex-start; } 
-.tl-search-inner { max-width: 100%; width: 100%; }
-.tl-filter-group { width: auto; align-self: flex-start; margin-right: auto; } }
+.tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; } 
+.tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 10px !important; }
+.tl-filter-group { width: max-content !important; align-self: flex-start !important; margin: 0 !important; } }
 </style>
 </head>
 
@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-	/* NATIVE HOVER & MOBILE DOUBLE-TAP TO LINK */
+	/* NATIVE HOVER & TOOLTIP PINNING */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
     
     allTimelineNodes.forEach(node => {
@@ -631,16 +631,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         node.addEventListener('click', (e) => {
-            if (window.matchMedia("(hover: none)").matches) {
+            const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            
+            if (isTouch) {
+                /* MOBILE: Chạm lần 1 hiện bảng, chạm lần 2 vô link */
                 if (!node.classList.contains('force-hover')) {
                     e.preventDefault(); 
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                     node.classList.add('force-hover');
                     setTimeout(() => { 
                         node.dispatchEvent(new Event('mouseenter')); 
-                        updateMagneticTooltip();
+                        if (typeof updateMagneticTooltip === 'function') updateMagneticTooltip();
                     }, 10);
                 }
+            } else {
+                /* PC: Bấm 1 phát bay thẳng vô link luôn */
+                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+                node.classList.add('force-hover');
             }
         });
     });
