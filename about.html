@@ -327,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
+<!-- DATA & MAP LOGIC -->
 <script src="timeline-data.js"></script>
 
 <script>
@@ -340,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
-    /* PANZOOM INIT */
+    /* INITIALIZE PANZOOM */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
     let defaultZoom = 0.5; 
@@ -359,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
 
-    /* TOOLTIP ENGINE (Tối ưu UI của Đại ca) */
+    /* TOOLTIP ENGINE */
     const tooltip = document.getElementById('global-tooltip');
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
@@ -385,7 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetLeft = rect.right + 15;
             let targetTop = rect.top - 15;
 
-            // Ép Tooltip không văng ra ngoài khung
             if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
             if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
 
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
     
-    /* SEARCH AND FILTER LOGIC */
+    /* SEARCH & FILTER LOGIC */
     const searchInput = document.getElementById('tl-search-box');
     const searchDropdown = document.getElementById('tl-search-dropdown');
     const filterBtns = document.querySelectorAll('.tl-filter-btn');
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
-            /* SORT L-TO-R CỦA ĐẠI CA (Tuyệt vời) */
+            /* SORT RESULTS CHRONOLOGICALLY */
             matchedNodes.sort((a, b) => a.node.offsetLeft - b.node.offsetLeft);
 
             let dropdownHTML = '';
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
-            /* LÕI MA TRẬN TÍNH TOÁN CỦA ĐỆ (Bất tử trước Panzoom) */
+            /* DIRECT MATRIX MUTATION FOR ACCURATE CENTERING */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
 
@@ -506,13 +506,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const tx = (cRect.width / 2) - avgLocalX;
             const ty = (cRect.height / 2) - avgLocalY;
 
-            // Ép Transform bằng phần cứng
             currentT.scale = 1;
             currentT.x = tx;
             currentT.y = ty;
             zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${tx}, ${ty})`;
 
-            /* DROPDOWN EVENTS (Fix bug tính sai toạ độ khi zoom) */
+            /* BIND DROPDOWN INTERACTIONS */
             const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
             items.forEach(item => {
                 item.addEventListener('click', function(e) {
@@ -575,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* NATIVE HOVER RESET & PIN TOOLTIP (Của Đại ca - Rất hay) */
+    /* NATIVE HOVER & TOOLTIP PINNING */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
     
     allTimelineNodes.forEach(node => {
@@ -594,6 +593,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    /* BIND EXTERNAL SCROLL/RESIZE EVENTS */
+    window.addEventListener('scroll', updateMagneticTooltip, { passive: true });
+    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 });
 </script>
 
