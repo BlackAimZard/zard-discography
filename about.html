@@ -351,7 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
         minZoom: 0.2,
         initialZoom: defaultZoom, 
         bounds: true, 
-        boundsPadding: 0.1
+        boundsPadding: 0.1,
+		smoothScroll: false
     });
 
     const contentHeight = zoomTarget.offsetHeight * defaultZoom;
@@ -380,8 +381,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const rect = node.getBoundingClientRect();
-            tooltip.style.left = (rect.right + 15) + 'px';
-            tooltip.style.top = (rect.top - 15) + 'px';
+            const cRect = dragContainer.getBoundingClientRect();
+            
+            let targetLeft = rect.right + 15;
+            let targetTop = rect.top - 15;
+
+            if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
+            if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
+
+            tooltip.style.left = targetLeft + 'px';
+            tooltip.style.top = targetTop + 'px';
             tooltip.style.display = 'block';
         });
 
@@ -394,8 +403,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const forcedNode = document.querySelector('.force-hover');
         if (forcedNode) {
             const rect = forcedNode.getBoundingClientRect();
-            tooltip.style.left = (rect.right + 15) + 'px';
-            tooltip.style.top = (rect.top - 15) + 'px';
+            const cRect = dragContainer.getBoundingClientRect();
+            
+            let targetLeft = rect.right + 15;
+            let targetTop = rect.top - 15;
+
+            if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
+            if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
+
+            tooltip.style.left = targetLeft + 'px';
+            tooltip.style.top = targetTop + 'px';
         } else {
             tooltip.style.display = 'none'; 
         }
@@ -425,8 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let matchCount = 0;
-        let dropdownHTML = '';
+        let matchedNodes = [];
 
         allMusicNodes.forEach((node, index) => {
             const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
@@ -442,13 +458,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nodeData.includes(keyword)) {
                 node.classList.add('is-searched');
-                matchCount++;
-                
+                matchedNodes.push({ node, index });
+            } else {
+                node.classList.remove('is-searched');
+            }
+        });
+
+        if (matchedNodes.length === 0) {
+            searchDropdown.classList.remove('show');
+        } else {
+            /* SORT RESULTS LEFT TO RIGHT & RENDER */
+            matchedNodes.sort((a, b) => a.node.offsetLeft - b.node.offsetLeft);
+
+            let dropdownHTML = '';
+            let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+            matchedNodes.forEach(match => {
+                const node = match.node;
                 const innerImg = node.querySelector('img');
                 const imgSrc = innerImg ? innerImg.getAttribute('src') : '';
                 
                 dropdownHTML += `
-                    <div class="tl-dropdown-item" data-index="${index}" data-keyword="${node.dataset.sub}">
+                    <div class="tl-dropdown-item" data-index="${match.index}" data-keyword="${node.dataset.sub}">
                         <div class="tl-di-left">
                             <img src="${imgSrc}" draggable="false">
                             <span>${node.dataset.sub}</span>
@@ -456,15 +487,38 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="tl-di-right">${node.dataset.released}</div>
                     </div>
                 `;
-            }
-        });
 
-        if (matchCount === 0) {
-            searchDropdown.classList.remove('show');
-        } else {
+                const x = node.offsetLeft;
+                const y = node.offsetTop;
+                const w = node.offsetWidth;
+                const h = node.offsetHeight;
+                
+                if (x < minX) minX = x;
+                if (x + w > maxX) maxX = x + w;
+                if (y < minY) minY = y;
+                if (y + h > maxY) maxY = y + h;
+            });
+
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
+
+            /* SAFE ZOOM TO 1 AND CENTER MATCHED GROUP */
+            const cRect = dragContainer.getBoundingClientRect();
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
             
+            const currentTransform = typeof pz.getTransform === 'function' ? pz.getTransform() : { scale: 1 };
+            const currentScale = currentTransform.scale || 1;
+            
+            pz.moveTo((cRect.width / 2) - (centerX * currentScale), (cRect.height / 2) - (centerY * currentScale));
+            
+            if (typeof pz.zoomAbs === 'function') {
+                pz.zoomAbs(cRect.width / 2, cRect.height / 2, 1);
+            }
+            
+            pz.moveTo((cRect.width / 2) - centerX, (cRect.height / 2) - centerY);
+            
+            /* BIND DROPDOWN CLICKS */
             const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
             items.forEach(item => {
                 item.addEventListener('click', function(e) {
@@ -517,18 +571,16 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* NATIVE HOVER RESET & MOBILE INTERACTIONS */
+    /* NATIVE HOVER RESET & PIN TOOLTIP INTERACTIONS */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
     
     allTimelineNodes.forEach(node => {
-        /* DESKTOP HOVER */
         node.addEventListener('mouseenter', (e) => {
             if (e.isTrusted) { 
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
             }
         });
         
-        /* MOBILE CLICK: FIRST CLICK SHOWS TOOLTIP, SECOND CLICK NAVIGATES LINK */
         node.addEventListener('click', (e) => {
             if (!node.classList.contains('force-hover')) {
                 e.preventDefault(); 
@@ -537,19 +589,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { node.dispatchEvent(new Event('mouseenter')); }, 10);
             }
         });
-    });
-
-    /* MOBILE DISMISS TOOLTIP ON OUTSIDE CLICK */
-    document.addEventListener('click', (e) => {
-        const isSearch = e.target.closest('.tl-search-inner');
-        const isFilter = e.target.closest('.tl-filter-group');
-        const isNode = e.target.closest('.tl-node');
-        const isTooltip = e.target.closest('.tl-global-tooltip');
-
-        if (!isSearch && !isFilter && !isNode && !isTooltip) {
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-            document.getElementById('global-tooltip').style.display = 'none';
-        }
     });
 });
 </script>
