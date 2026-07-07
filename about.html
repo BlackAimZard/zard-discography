@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 5</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
-    /* TOOLTIP SETUP */
+    /* 1. TOOLTIP SETUP */
     const tooltip = document.getElementById('global-tooltip');
     const borderOuter = dragContainer.closest('.tl-border-outer');
     borderOuter.appendChild(tooltip);
@@ -360,7 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let activeHoveredNode = null;
 
-    /* PANZOOM INITIALIZATION */
+    /* 2. DEVICE INPUT TRACKER (MOUSE VS TOUCH) */
+    window.isUsingMouse = true;
+    document.addEventListener('touchstart', () => { window.isUsingMouse = false; }, {passive: true});
+    document.addEventListener('mousemove', () => { window.isUsingMouse = true; }, {passive: true});
+
+    /* 3. PANZOOM INITIALIZATION */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
     let defaultZoom = 0.5; 
@@ -375,15 +380,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const contentHeight = zoomTarget.offsetHeight * defaultZoom;
-    const startX = 0; 
-    const startY = (containerRect.height - contentHeight) / 2;
-    pz.moveTo(startX, startY);
+    pz.moveTo(0, (containerRect.height - contentHeight) / 2);
 
-    /* LOCAL COORDINATES HELPER */
     function getLocalCoords(element, target) {
-        let x = 0;
-        let y = 0;
-        let curr = element;
+        let x = 0, y = 0, curr = element;
         while (curr && curr !== target) {
             x += curr.offsetLeft;
             y += curr.offsetTop;
@@ -391,22 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return { x, y };
     }
-
-    /* TOOLTIP ENGINE */
-    const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
-
-    nodesWithData.forEach(node => {
-        node.addEventListener('mouseenter', (e) => {
-            activeHoveredNode = node;
-            updateTooltipContent(node);
-            updateMagneticTooltip();
-        });
-
-        node.addEventListener('mouseleave', () => { 
-            activeHoveredNode = null;
-            if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
-        });
-    });
 
     function updateTooltipContent(node) {
         document.getElementById('tt-img').src = node.dataset.thumb;
@@ -452,8 +436,48 @@ document.addEventListener('DOMContentLoaded', () => {
     
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
-    
-    /* SEARCH & FILTER LOGIC */
+
+    /* 4. NODE INTERACTIONS (PC & MOBILE) */
+    const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
+
+    allMusicNodes.forEach(node => {
+        node.addEventListener('mouseenter', () => {
+            if (window.isUsingMouse) {
+                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            }
+            activeHoveredNode = node;
+            updateTooltipContent(node);
+            updateMagneticTooltip();
+        });
+
+        node.addEventListener('mouseleave', () => { 
+            activeHoveredNode = null;
+            if (!node.classList.contains('force-hover')) {
+                tooltip.style.display = 'none'; 
+            }
+        });
+
+        node.addEventListener('click', (e) => {
+            if (!window.isUsingMouse) {
+                /* MOBILE TOUCH INTERACTION */
+                if (!node.classList.contains('force-hover')) {
+                    e.preventDefault(); /* Chặn link lần 1 */
+                    document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+                    node.classList.add('force-hover');
+                    activeHoveredNode = node;
+                    updateTooltipContent(node);
+                    updateMagneticTooltip();
+                }
+                /* Chạm lần 2 thì bỏ qua e.preventDefault(), tự động bay sang Link */
+            } else {
+                /* PC MOUSE INTERACTION */
+                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+                node.classList.add('force-hover');
+            }
+        });
+    });
+
+    /* 5. SEARCH & FILTER ENGINE */
     const searchInput = document.getElementById('tl-search-box');
     const searchDropdown = document.getElementById('tl-search-dropdown');
     const filterBtns = document.querySelectorAll('.tl-filter-btn');
@@ -461,7 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function runSearch() {
         const keyword = searchInput.value.toLowerCase().trim();
-        const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
         const activeFilterBtn = document.querySelector('.tl-filter-btn.active');
         const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
@@ -491,10 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
-            /* CLEAN UP PREVIOUS PINNING */
             allMusicNodes.forEach(n => n.classList.remove('force-hover'));
 
-            /* UPDATE DROPDOWN */
             let dropdownHTML = '';
             matchedNodes.forEach(match => {
                 const node = match.node;
@@ -513,11 +534,10 @@ document.addEventListener('DOMContentLoaded', () => {
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
-            /* AUTO-PIN FIRST MATCH */
             const firstNode = matchedNodes[0].node;
             firstNode.classList.add('force-hover');
+            activeHoveredNode = firstNode;
             
-            /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
             const r = firstNode.getBoundingClientRect();
@@ -535,14 +555,15 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTooltipContent(firstNode);
             updateMagneticTooltip();
 
-            /* DROPDOWN CLICK INTERACTION */
             searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     
                     const targetNode = allMusicNodes[this.getAttribute('data-index')];
                     allMusicNodes.forEach(n => n.classList.remove('force-hover'));
                     targetNode.classList.add('force-hover');
+                    activeHoveredNode = targetNode;
                     
                     const t = pz.getTransform();
                     const cr = dragContainer.getBoundingClientRect();
@@ -559,7 +580,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateTooltipContent(targetNode);
                     updateMagneticTooltip();
                     
-                    /* HIDE DROPDOWN AFTER SELECTION */
                     searchDropdown.classList.remove('show');
                 });
             });
@@ -580,64 +600,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    searchClearBtn.addEventListener('click', () => {
+    searchClearBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         searchInput.value = ''; 
         runSearch(); 
         searchInput.focus(); 
     });
 
-    /* GLOBAL INTERACTION HANDLERS */
-    document.querySelectorAll('.tl-node').forEach(node => {
-        /* PREVENT GHOST-PIN ON PC, BUT IGNORE TOUCH TO PRESERVE MOBILE DOUBLE-TAP */
-        node.addEventListener('pointerenter', (e) => {
-            if (e.pointerType === 'mouse') {
-                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-            }
-        });
-        
-        node.addEventListener('click', (e) => {
-            if (!node.hasAttribute('data-title')) return;
-
-            const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches || 
-                            ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            
-            if (isTouch) {
-                /* FIRST TAP: SHOW TOOLTIP & PREVENT LINK JUMP */
-                if (!node.classList.contains('force-hover')) {
-                    e.preventDefault();
-                    document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-                    node.classList.add('force-hover');
-                    updateTooltipContent(node);
-                    updateMagneticTooltip();
-                }
-                /* SECOND TAP: BYPASSES PREVENT DEFAULT AND JUMPS TO LINK NATURALLY */
-            } else {
-                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-                node.classList.add('force-hover');
-            }
-        });
-    });
-
-    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
-
-    /* DROPDOWN VISIBILITY TOGGLE (OUTSIDE CLICK & FOCUS) */
+    /* 6. GLOBAL UI TOGGLES (CLICK OUTSIDE & FOCUS) */
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.tl-search-inner')) {
+        const isSearchInner = e.target.closest('.tl-search-inner');
+        if (!isSearchInner) {
             searchDropdown.classList.remove('show');
         }
         
-        if (!e.target.closest('.tl-search-inner') && !e.target.closest('.tl-filter-group') && 
-            !e.target.closest('.tl-node') && !e.target.closest('.tl-global-tooltip')) {
+        // Nếu nhấp vào khoảng trống (bỏ qua search, filter, và node có dữ liệu) thì tắt bảng info
+        const isNode = e.target.closest('.tl-node[data-title]');
+        const isFilter = e.target.closest('.tl-filter-group');
+        const isTooltip = e.target.closest('.tl-global-tooltip');
+        
+        if (!isSearchInner && !isFilter && !isNode && !isTooltip) {
             document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
             tooltip.style.display = 'none';
         }
     });
 
-    searchInput.addEventListener('focus', () => {
-        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
+    searchInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Nhấn lại vào thanh search thì bung danh sách cũ ra (nếu có)
+        if (searchInput.value.trim().length >= 2 && searchDropdown.innerHTML.trim() !== '') {
             searchDropdown.classList.add('show');
         }
     });
+
+    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 });
 </script>
 
