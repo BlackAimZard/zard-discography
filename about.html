@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 9</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL T</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
-    /* TOOLTIP SETUP */
+    /* 1. TOOLTIP SETUP */
     const tooltip = document.getElementById('global-tooltip');
     const borderOuter = dragContainer.closest('.tl-border-outer');
     borderOuter.appendChild(tooltip);
@@ -361,7 +361,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let activeHoveredNode = null;
 
-    /* PANZOOM INITIALIZATION */
+    /* 2. TOUCH RADAR (GIẢI QUYẾT TRIỆT ĐỂ BỆNH "GIẢ RÊ CHUỘT" CỦA MOBILE) */
+    let lastTouchTime = 0;
+    document.addEventListener('touchstart', () => { 
+        lastTouchTime = Date.now(); 
+    }, {passive: true});
+
+    /* 3. PANZOOM INITIALIZATION */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
     let defaultZoom = 0.5; 
@@ -376,15 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const contentHeight = zoomTarget.offsetHeight * defaultZoom;
-    const startX = 0; 
-    const startY = (containerRect.height - contentHeight) / 2;
-    pz.moveTo(startX, startY);
+    pz.moveTo(0, (containerRect.height - contentHeight) / 2);
 
-    /* LOCAL COORDINATES HELPER */
     function getLocalCoords(element, target) {
-        let x = 0;
-        let y = 0;
-        let curr = element;
+        let x = 0, y = 0, curr = element;
         while (curr && curr !== target) {
             x += curr.offsetLeft;
             y += curr.offsetTop;
@@ -393,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x, y };
     }
 
-    /* TOOLTIP RENDER ENGINE */
     function updateTooltipContent(node) {
         document.getElementById('tt-img').src = node.dataset.thumb;
         document.getElementById('tt-title').textContent = node.dataset.title;
@@ -439,15 +439,17 @@ document.addEventListener('DOMContentLoaded', () => {
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
 
-    /* UNIFIED NODE INTERACTIONS (PC & MOBILE) */
+    /* 4. NODE INTERACTIONS (PC & MOBILE UNIFIED) */
     const allTimelineNodes = document.querySelectorAll('.tl-node');
-    
+
     allTimelineNodes.forEach(node => {
         const hasData = node.hasAttribute('data-title');
 
-        node.addEventListener('pointerenter', (e) => {
-            /* PC: Di chuột vào là xóa Pin cũ đi (Giữ nguyên logic cực mượt của đại ca) */
-            if (e.pointerType === 'mouse') {
+        node.addEventListener('mouseenter', () => {
+            // Nếu là thao tác chạm ngón tay (dưới 1 giây trước) thì bỏ qua lệnh dọn dẹp
+            const isFakeTouchHover = (Date.now() - lastTouchTime < 1000);
+            
+            if (!isFakeTouchHover) {
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
             }
             
@@ -458,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        node.addEventListener('pointerleave', (e) => {
+        node.addEventListener('mouseleave', () => { 
             if (hasData) {
                 activeHoveredNode = null;
                 if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
@@ -468,31 +470,31 @@ document.addEventListener('DOMContentLoaded', () => {
         node.addEventListener('click', (e) => {
             if (!hasData) {
                 e.preventDefault(); 
-                return; // Bỏ qua nếu bấm trúng ô trống
+                return; 
             }
 
-            /* PHÂN BIỆT ĐIỆN THOẠI BẰNG POINTER-TYPE MỚI NHẤT */
-            const isTouch = e.pointerType === 'touch' || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            const isTouch = (Date.now() - lastTouchTime < 1000) || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             
             if (isTouch) {
-                /* MOBILE: Chạm lần 1 ghim bảng, chạm lần 2 vô link */
+                /* MOBILE: Chạm lần 1 ghim, chạm lần 2 vô link */
                 if (!node.classList.contains('force-hover')) {
-                    e.preventDefault(); 
+                    e.preventDefault(); // Chặn chuyển trang
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                     node.classList.add('force-hover');
                     activeHoveredNode = node;
                     updateTooltipContent(node);
                     updateMagneticTooltip();
                 }
+                // Nhấn lần 2 -> Đã có force-hover -> Trình duyệt tự động chuyển sang trang mới
             } else {
-                /* PC: Bấm 1 cái vào link luôn */
+                /* PC: Bấm 1 phát ăn luôn */
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
             }
         });
     });
-    
-    /* SEARCH & FILTER LOGIC */
+
+    /* 5. SEARCH & FILTER ENGINE */
     const searchInput = document.getElementById('tl-search-box');
     const searchDropdown = document.getElementById('tl-search-dropdown');
     const filterBtns = document.querySelectorAll('.tl-filter-btn');
@@ -530,10 +532,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
-            /* CLEAN UP PREVIOUS PINNING */
             allMusicNodes.forEach(n => n.classList.remove('force-hover'));
 
-            /* UPDATE DROPDOWN */
             let dropdownHTML = '';
             matchedNodes.forEach(match => {
                 const node = match.node;
@@ -552,12 +552,10 @@ document.addEventListener('DOMContentLoaded', () => {
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
-            /* AUTO-PIN FIRST MATCH */
             const firstNode = matchedNodes[0].node;
             firstNode.classList.add('force-hover');
             activeHoveredNode = firstNode; 
             
-            /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
             const r = firstNode.getBoundingClientRect();
@@ -575,7 +573,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTooltipContent(firstNode);
             updateMagneticTooltip();
 
-            /* DROPDOWN CLICK INTERACTION */
             searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -601,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateTooltipContent(targetNode);
                     updateMagneticTooltip();
                     
-                    /* ẨN MENU KHI ĐÃ CHỌN XONG KẾT QUẢ */
+                    // Chọn xong thì đóng menu đổ xuống
                     searchDropdown.classList.remove('show');
                 });
             });
@@ -631,14 +628,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 
-    /* DROPDOWN VISIBILITY TOGGLE (OUTSIDE CLICK & FOCUS) - GIỮ NGUYÊN BẢN GỐC CỦA ĐẠI CA */
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.tl-search-inner')) {
+    /* 6. GLOBAL UI TOGGLES (CLICK OUTSIDE TO CLOSE PIN/DROPDOWN) */
+    function handleOutsideInteraction(e) {
+        const isSearchInner = e.target.closest('.tl-search-inner');
+        const isFilter = e.target.closest('.tl-filter-group');
+        const isNode = e.target.closest('.tl-node');
+        const isTooltip = e.target.closest('.tl-global-tooltip');
+
+        if (!isSearchInner) {
             searchDropdown.classList.remove('show');
         }
-    });
+        
+        if (!isSearchInner && !isFilter && !isNode && !isTooltip) {
+            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            tooltip.style.display = 'none';
+        }
+    }
 
-    searchInput.addEventListener('focus', () => {
+    // Gắn Radar bắt cả chuột (PC) lẫn chạm ngón tay (Mobile)
+    document.addEventListener('click', handleOutsideInteraction);
+    document.addEventListener('touchstart', handleOutsideInteraction, {passive: true});
+
+    searchInput.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
             searchDropdown.classList.add('show');
         }
