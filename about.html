@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -352,16 +352,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
-    /* INITIALIZE TOOLTIP PARENTING */
+    /* TOOLTIP SETUP */
     const tooltip = document.getElementById('global-tooltip');
     const borderOuter = dragContainer.closest('.tl-border-outer');
     borderOuter.appendChild(tooltip);
     tooltip.style.position = 'absolute';
 
-    /* INITIALIZE STATE TRACKING */
     let activeHoveredNode = null;
 
-    /* INITIALIZE PANZOOM */
+    /* PANZOOM INITIALIZATION */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
     let defaultZoom = 0.5; 
@@ -380,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
 
-    /* HELPER FOR RECURSIVE LOCAL COORDINATES */
+    /* LOCAL COORDINATES HELPER */
     function getLocalCoords(element, target) {
         let x = 0;
         let y = 0;
@@ -399,38 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
     nodesWithData.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
             activeHoveredNode = node;
-
-            document.getElementById('tt-img').src = node.dataset.thumb;
-            document.getElementById('tt-title').textContent = node.dataset.title;
-            document.getElementById('tt-sub').textContent = node.dataset.sub;
-            document.getElementById('tt-released').textContent = node.dataset.released;
-            document.getElementById('tt-label').textContent = node.dataset.label;
-
-            const tieupContainer = document.getElementById('tt-tieup-container');
-            if (node.dataset.tieup) {
-                document.getElementById('tt-tieup').textContent = node.dataset.tieup;
-                tieupContainer.style.display = 'flex'; 
-            } else {
-                tieupContainer.style.display = 'none';
-            }
-
-            const t = pz.getTransform();
-            const dragRect = dragContainer.getBoundingClientRect();
-            const oRect = borderOuter.getBoundingClientRect();
-            const dl = dragRect.left - oRect.left;
-            const dt = dragRect.top - oRect.top;
-
-            const local = getLocalCoords(node, zoomTarget);
-            let targetLeft = (local.x + node.offsetWidth) * t.scale + t.x + dl + 20;
-            let targetTop = local.y * t.scale + t.y + dt - 15;
-
-            /* LIMIT BOUNDARIES */
-            if (targetLeft < 15) targetLeft = 15;
-            if (targetTop < 15) targetTop = 15;
-
-            tooltip.style.left = targetLeft + 'px';
-            tooltip.style.top = targetTop + 'px';
-            tooltip.style.display = 'block';
+            updateTooltipContent(node);
+            updateMagneticTooltip();
         });
 
         node.addEventListener('mouseleave', () => { 
@@ -438,6 +407,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
         });
     });
+
+    function updateTooltipContent(node) {
+        document.getElementById('tt-img').src = node.dataset.thumb;
+        document.getElementById('tt-title').textContent = node.dataset.title;
+        document.getElementById('tt-sub').textContent = node.dataset.sub;
+        document.getElementById('tt-released').textContent = node.dataset.released;
+        document.getElementById('tt-label').textContent = node.dataset.label;
+
+        const tieupContainer = document.getElementById('tt-tieup-container');
+        if (node.dataset.tieup) {
+            document.getElementById('tt-tieup').textContent = node.dataset.tieup;
+            tieupContainer.style.display = 'flex'; 
+        } else {
+            tieupContainer.style.display = 'none';
+        }
+    }
 
     function updateMagneticTooltip() {
         const forcedNode = document.querySelector('.force-hover');
@@ -454,7 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetLeft = (local.x + currentNode.offsetWidth) * t.scale + t.x + dl + 20;
             let targetTop = local.y * t.scale + t.y + dt - 15;
 
-            /* LIMIT BOUNDARIES */
             if (targetLeft < 15) targetLeft = 15;
             if (targetTop < 15) targetTop = 15;
 
@@ -492,14 +476,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let matchedNodes = [];
-
         allMusicNodes.forEach((node, index) => {
             const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
             if (!isMatchFilter) return;
 
-            const nodeData = (
-                (node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '')
-            ).toLowerCase();
+            const nodeData = ((node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '')).toLowerCase();
 
             if (nodeData.includes(keyword)) {
                 node.classList.add('is-searched');
@@ -510,17 +491,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
-            /* SORT RESULTS CHRONOLOGICALLY */
-            matchedNodes.sort((a, b) => a.node.offsetLeft - b.node.offsetLeft);
+            /* CLEAN UP PREVIOUS PINNING */
+            allMusicNodes.forEach(n => n.classList.remove('force-hover'));
 
+            /* UPDATE DROPDOWN */
             let dropdownHTML = '';
             matchedNodes.forEach(match => {
                 const node = match.node;
                 const innerImg = node.querySelector('img');
                 const imgSrc = innerImg ? innerImg.getAttribute('src') : '';
-                
                 dropdownHTML += `
-                    <div class="tl-dropdown-item" data-index="${match.index}" data-keyword="${node.dataset.sub}">
+                    <div class="tl-dropdown-item" data-index="${match.index}">
                         <div class="tl-di-left">
                             <img src="${imgSrc}" draggable="false">
                             <span>${node.dataset.sub}</span>
@@ -529,72 +510,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             });
-
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
-            /* DIRECT MATRIX MUTATION FOR ACCURATE CENTERING */
+            /* AUTO-PIN FIRST MATCH */
+            const firstNode = matchedNodes[0].node;
+            firstNode.classList.add('force-hover');
+            
+            /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
-
-            let totalLocalX = 0;
-            let totalLocalY = 0;
-
-            matchedNodes.forEach(match => {
-                const r = match.node.getBoundingClientRect();
-                const nodeScreenX = r.left + r.width / 2;
-                const nodeScreenY = r.top + r.height / 2;
-                totalLocalX += (nodeScreenX - cRect.left - currentT.x) / currentT.scale;
-                totalLocalY += (nodeScreenY - cRect.top - currentT.y) / currentT.scale;
-            });
-
-            const avgLocalX = totalLocalX / matchedNodes.length;
-            const avgLocalY = totalLocalY / matchedNodes.length;
-
-            const tx = (cRect.width / 2) - avgLocalX;
-            const ty = (cRect.height / 2) - avgLocalY;
+            const r = firstNode.getBoundingClientRect();
+            
+            const nodeScreenX = r.left + r.width / 2;
+            const nodeScreenY = r.top + r.height / 2;
+            const localX = (nodeScreenX - cRect.left - currentT.x) / currentT.scale;
+            const localY = (nodeScreenY - cRect.top - currentT.y) / currentT.scale;
 
             currentT.scale = 1;
-            currentT.x = tx;
-            currentT.y = ty;
-            zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${tx}, ${ty})`;
+            currentT.x = (cRect.width / 2) - localX;
+            currentT.y = (cRect.height / 2) - localY;
+            zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${currentT.x}, ${currentT.y})`;
 
-            /* AUTO-HOVER FIRST RESULT */
-            const firstNode = matchedNodes[0].node;
-            allMusicNodes.forEach(n => n.classList.remove('force-hover'));
-            firstNode.classList.add('force-hover');
-            setTimeout(() => { firstNode.dispatchEvent(new Event('mouseenter')); }, 10);
+            updateTooltipContent(firstNode);
+            updateMagneticTooltip();
 
-            /* BIND DROPDOWN INTERACTIONS */
-            const items = searchDropdown.querySelectorAll('.tl-dropdown-item');
-            items.forEach(item => {
+            /* DROPDOWN CLICK INTERACTION */
+            searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
                 item.addEventListener('click', function(e) {
-                    e.preventDefault(); 
-                    const targetIndex = this.getAttribute('data-index');
-                    const targetNode = allMusicNodes[targetIndex];
-
+                    e.preventDefault();
+                    
+                    const targetNode = allMusicNodes[this.getAttribute('data-index')];
                     allMusicNodes.forEach(n => n.classList.remove('force-hover'));
-                    
-                    const freshT = pz.getTransform();
-                    const freshCRect = dragContainer.getBoundingClientRect();
-                    const nRect = targetNode.getBoundingClientRect();
-                    
-                    const nodeScreenX = nRect.left + nRect.width / 2;
-                    const nodeScreenY = nRect.top + nRect.height / 2;
-                    
-                    const localX = (nodeScreenX - freshCRect.left - freshT.x) / freshT.scale;
-                    const localY = (nodeScreenY - freshCRect.top - freshT.y) / freshT.scale;
-                    
-                    const dropTx = (freshCRect.width / 2) - localX;
-                    const dropTy = (freshCRect.height / 2) - localY;
-                    
-                    freshT.scale = 1;
-                    freshT.x = dropTx;
-                    freshT.y = dropTy;
-                    zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${dropTx}, ${dropTy})`;
-
                     targetNode.classList.add('force-hover');
-                    setTimeout(() => { targetNode.dispatchEvent(new Event('mouseenter')); }, 10);
+                    
+                    const t = pz.getTransform();
+                    const cr = dragContainer.getBoundingClientRect();
+                    const nr = targetNode.getBoundingClientRect();
+                    
+                    const lx = (nr.left + nr.width / 2 - cr.left - t.x) / t.scale;
+                    const ly = (nr.top + nr.height / 2 - cr.top - t.y) / t.scale;
+                    
+                    t.scale = 1;
+                    t.x = (cr.width / 2) - lx;
+                    t.y = (cr.height / 2) - ly;
+                    zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${t.x}, ${t.y})`;
+                    
+                    updateTooltipContent(targetNode);
+                    updateMagneticTooltip();
                 });
             });
         }
@@ -606,18 +569,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             const filterType = btn.dataset.filter;
-            const allNodes = document.querySelectorAll('.tl-node[data-type]');
-            
-            allNodes.forEach(node => {
-                if (filterType === 'all' || node.dataset.type === filterType) {
-                    node.classList.remove('is-filtered');
-                } else {
-                    node.classList.add('is-filtered');
-                }
+            document.querySelectorAll('.tl-node[data-type]').forEach(node => {
+                node.classList.toggle('is-filtered', filterType !== 'all' && node.dataset.type !== filterType);
             });
-            
             runSearch();
         });
     });
@@ -628,41 +583,29 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-	/* NATIVE HOVER & TOOLTIP PINNING */
-    const allTimelineNodes = document.querySelectorAll('.tl-node');
-    
-    allTimelineNodes.forEach(node => {
-        node.addEventListener('mouseenter', (e) => {
-            if (e.isTrusted) { 
-                document.querySelectorAll('.force-hover').forEach(n => {
-                    if (n !== node) n.classList.remove('force-hover');
-                });
-            }
+    /* GLOBAL INTERACTION HANDLERS */
+    document.querySelectorAll('.tl-node').forEach(node => {
+        node.addEventListener('mouseenter', () => {
+            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
         });
         
         node.addEventListener('click', (e) => {
             const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            
             if (isTouch) {
-                /* MOBILE: Chạm lần 1 hiện bảng, chạm lần 2 vô links */
                 if (!node.classList.contains('force-hover')) {
-                    e.preventDefault(); 
+                    e.preventDefault();
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                     node.classList.add('force-hover');
-                    setTimeout(() => { 
-                        node.dispatchEvent(new Event('mouseenter')); 
-                        if (typeof updateMagneticTooltip === 'function') updateMagneticTooltip();
-                    }, 10);
+                    updateTooltipContent(node);
+                    updateMagneticTooltip();
                 }
             } else {
-                /* PC: Bấm 1 phát bay thẳng vô link luôn */
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
             }
         });
     });
 
-    /* BIND EXTERNAL WINDOW EVENTS */
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 });
 </script>
