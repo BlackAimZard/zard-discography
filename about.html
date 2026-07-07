@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL SSS</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -491,8 +491,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedNodes.length === 0) {
             searchDropdown.classList.remove('show');
         } else {
+            /* CLEAN UP PREVIOUS PINNING */
             allMusicNodes.forEach(n => n.classList.remove('force-hover'));
 
+            /* UPDATE DROPDOWN */
             let dropdownHTML = '';
             matchedNodes.forEach(match => {
                 const node = match.node;
@@ -511,9 +513,11 @@ document.addEventListener('DOMContentLoaded', () => {
             searchDropdown.innerHTML = dropdownHTML;
             searchDropdown.classList.add('show');
 
+            /* AUTO-PIN FIRST MATCH */
             const firstNode = matchedNodes[0].node;
             firstNode.classList.add('force-hover');
             
+            /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
             const currentT = pz.getTransform();
             const r = firstNode.getBoundingClientRect();
@@ -555,8 +559,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeHoveredNode = targetNode;
                     updateTooltipContent(targetNode);
                     updateMagneticTooltip();
-                    
-                    /* Tự động đóng menu sổ xuống nhường chỗ cho bản đồ */
+
+                    /* ẨN MENU KHI CHỌN XONG KẾT QUẢ */
                     searchDropdown.classList.remove('show');
                 });
             });
@@ -584,16 +588,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==================================================== */
-    /* GLOBAL INTERACTION HANDLERS (TRỊ TẬN GỐC BỆNH MOBILE)*/
+    /* GLOBAL INTERACTION HANDLERS (PHÂN TÁCH PC & MOBILE)  */
     /* ==================================================== */
     
-    // Biến lưu trữ tọa độ để đo khoảng cách ngón tay
-    let touchStartX = 0;
-    let touchStartY = 0;
+    // RADAR TOÀN CẦU CHO MOBILE (Đo khoảng cách ngón tay)
+    let globalTouchStartX = 0;
+    let globalTouchStartY = 0;
 
+    document.addEventListener('touchstart', (e) => {
+        globalTouchStartX = e.changedTouches[0].screenX;
+        globalTouchStartY = e.changedTouches[0].screenY;
+    }, {passive: true});
+
+    /* --- MOBILE ONLY: CHẠM RA KHOẢNG TRỐNG ĐỂ TẮT BẢNG --- */
+    document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const touchEndY = e.changedTouches[0].screenY;
+        const distance = Math.sqrt(
+            Math.pow(touchEndX - globalTouchStartX, 2) + 
+            Math.pow(touchEndY - globalTouchStartY, 2)
+        );
+
+        // Kéo bản đồ thì không làm gì cả
+        if (distance > 10) return;
+
+        const isSearch = e.target.closest('.tl-search-inner');
+        const isFilter = e.target.closest('.tl-filter-group');
+        const isNode = e.target.closest('.tl-node');
+        const isTooltip = e.target.closest('.tl-global-tooltip');
+
+        // CHỈ MOBILE: Nếu chạm (Tap) vào khoảng đen (không phải node/search/tooltip)
+        if (!isSearch && !isFilter && !isNode && !isTooltip) {
+            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            tooltip.style.display = 'none';
+            activeHoveredNode = null;
+        }
+    });
+
+    /* TƯƠNG TÁC TRÊN TỪNG NODE ĐĨA NHẠC */
     document.querySelectorAll('.tl-node').forEach(node => {
         node.addEventListener('mouseenter', (e) => {
-            // Giữ nguyên PC Baseline
+            // PC LOGIC: Trỏ chuột vào là dọn Pin cũ
             if (e.isTrusted) { 
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
             }
@@ -603,50 +638,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             
             if (!isTouch) {
-                // PC LOGIC - Giữ nguyên 100% không mất 1 dấu phẩy
+                // PC LOGIC: Bấm chuột là ghim. Bấm ra ngoài PC không có lệnh xóa ghim nên vẫn CÒN NGUYÊN!
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
             } else {
-                // Trên Mobile, nếu lỡ có lọt lưới cái click ma nào thì chặn lại để nhường cho touchend bên dưới
+                // MOBILE: Chặn click giả
                 e.preventDefault(); 
             }
         });
 
-        /* LUỒNG RIÊNG CHO ĐIỆN THOẠI BẰNG TOÀN HỌC (ĐỊNH LÝ PYTAGO) */
-        node.addEventListener('touchstart', (e) => {
-            // Ghi nhận tọa độ X, Y ngay lúc ngón tay chạm xuống
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, {passive: true});
-
+        /* MOBILE LOGIC CHO TỪNG NODE (TAP 1 HIỆN BẢNG, TAP 2 VÔ LINK) */
         node.addEventListener('touchend', (e) => {
-            // Lấy tọa độ X, Y ngay lúc ngón tay nhấc lên
             const touchEndX = e.changedTouches[0].screenX;
             const touchEndY = e.changedTouches[0].screenY;
-
-            // Tính quãng đường ngón tay đã trượt trên mặt kính
             const distance = Math.sqrt(
-                Math.pow(touchEndX - touchStartX, 2) + 
-                Math.pow(touchEndY - touchStartY, 2)
+                Math.pow(touchEndX - globalTouchStartX, 2) + 
+                Math.pow(touchEndY - globalTouchStartY, 2)
             );
 
-            // Nếu trượt > 10px thì đó là đại ca đang kéo Panzoom, KHÔNG LÀM GÌ CẢ
-            if (distance > 10) return;
+            // Đang lướt kéo bản đồ -> Bỏ qua
+            if (distance > 10) return; 
 
-            /* NẾU LÀ CÚ CHẠM (TAP) HỢP LỆ */
-            if (e.cancelable) e.preventDefault(); // Dập tắt mọi bóng ma click của Panzoom
-
+            if (e.cancelable) e.preventDefault(); 
+            
+            if (!node.hasAttribute('data-title')) return; 
+            
             if (!node.classList.contains('force-hover')) {
-                // CHẠM LẦN 1: Hiện bảng và Pin
+                // Chạm lần 1
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
                 
-                // Mớm data vào để tooltip không bị trống
                 activeHoveredNode = node;
                 updateTooltipContent(node);
                 updateMagneticTooltip();
             } else {
-                // CHẠM LẦN 2: Nhảy thẳng vô link
+                // Chạm lần 2
                 const link = node.getAttribute('href');
                 if (link && link !== '#') {
                     window.location.href = link;
@@ -657,12 +683,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 
-    /* DROPDOWN VISIBILITY TOGGLE (OUTSIDE CLICK & FOCUS) - GIỮ NGUYÊN GỐC CỦA ĐẠI CA */
+    /* ĐÓNG MENU SEARCH KHI CLICK RA NGOÀI (ÁP DỤNG CẢ PC LẪN MOBILE) */
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.tl-search-inner')) {
             searchDropdown.classList.remove('show');
         }
-        // Tuyệt đối không viết thêm lệnh ẩn Tooltip ở đây nữa, giữ nguyên bảng thông tin khi kéo khoảng trắng!
+        // ĐẠI CA CHÚ Ý: Đệ không viết lệnh tắt Tooltip ở PC chỗ này, nên PC kéo thả thoải mái!
+    });
+
+    /* HIỆN LẠI MENU KHI BẤM VÀO THANH SEARCH */
+    searchInput.addEventListener('click', () => {
+        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
+            searchDropdown.classList.add('show');
+        }
     });
 
     searchInput.addEventListener('focus', () => {
