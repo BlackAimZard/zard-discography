@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta name="robots" content="none">
 <meta name="theme-color" content="#000000">
@@ -122,6 +122,15 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* HUD RESPONSIVE  */
 @media screen and (max-width: 600px) {
 .tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; text-align: left !important; } 
+.tl-search-input {
+        font-size: 16px !important; /* Lừa Safari là đã đủ 16px để nó cất tính năng Auto-Zoom đi */
+        width: 114.2857% !important; /* Bơm chiều ngang lên (100% / 0.875) */
+        height: 43.43px !important; /* Bơm chiều cao lên (38px / 0.875) */
+        line-height: 38.85px !important; /* Bơm khoảng cách dòng (34px / 0.875) */
+        padding: 0 40px 0 17.14px !important; /* Bơm khoảng cách lề */
+        transform: scale(0.875) !important; /* Ma thuật thu nhỏ vạn vật lại đúng 87.5% (Tương đương 14px) */
+        transform-origin: top left !important; /* Neo cứng ở góc trái trên cùng để không bị trôi đi */
+    }
 .tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 10px !important; }
 .tl-filter-group { display: flex !important; width: -webkit-max-content !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; } 
 .tl-filter-btn { flex: none !important; } }
@@ -203,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
