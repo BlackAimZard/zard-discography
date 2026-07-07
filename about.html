@@ -341,6 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return; 
     }
 
+    /* INITIALIZE TOOLTIP PARENTING */
+    const tooltip = document.getElementById('global-tooltip');
+    const borderOuter = dragContainer.closest('.tl-border-outer');
+    borderOuter.appendChild(tooltip);
+    tooltip.style.position = 'absolute';
+
     /* INITIALIZE PANZOOM */
     const zoomTarget = dragContainer.firstElementChild; 
     const containerRect = dragContainer.getBoundingClientRect();
@@ -361,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
     pz.moveTo(startX, startY);
 
     /* TOOLTIP ENGINE */
-    const tooltip = document.getElementById('global-tooltip');
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
     nodesWithData.forEach(node => {
@@ -381,13 +386,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const rect = node.getBoundingClientRect();
-            const cRect = dragContainer.getBoundingClientRect();
+            const oRect = borderOuter.getBoundingClientRect();
             
-            let targetLeft = rect.right + 15;
-            let targetTop = rect.top - 15;
+            let targetLeft = (rect.right - oRect.left) + 15;
+            let targetTop = (rect.top - oRect.top) - 15;
 
-            if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
-            if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
+            if (targetLeft < 15) targetLeft = 15;
+            if (targetTop < 15) targetTop = 15;
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
@@ -403,13 +408,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const forcedNode = document.querySelector('.force-hover');
         if (forcedNode) {
             const rect = forcedNode.getBoundingClientRect();
-            const cRect = dragContainer.getBoundingClientRect();
+            const oRect = borderOuter.getBoundingClientRect();
             
-            let targetLeft = rect.right + 15;
-            let targetTop = rect.top - 15;
+            let targetLeft = (rect.right - oRect.left) + 15;
+            let targetTop = (rect.top - oRect.top) - 15;
 
-            if (targetLeft < cRect.left + 15) targetLeft = cRect.left + 15;
-            if (targetTop < cRect.top + 15) targetTop = cRect.top + 15;
+            if (targetLeft < 15) targetLeft = 15;
+            if (targetTop < 15) targetTop = 15;
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
@@ -594,8 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* BIND EXTERNAL SCROLL/RESIZE EVENTS */
-    window.addEventListener('scroll', updateMagneticTooltip, { passive: true });
+    /* BIND EXTERNAL WINDOW EVENTS */
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 });
 </script>
