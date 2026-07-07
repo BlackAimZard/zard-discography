@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 5</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -558,6 +558,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     updateTooltipContent(targetNode);
                     updateMagneticTooltip();
+                    
+                    /* HIDE DROPDOWN AFTER SELECTION */
+                    searchDropdown.classList.remove('show');
                 });
             });
         }
@@ -585,13 +588,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* GLOBAL INTERACTION HANDLERS */
     document.querySelectorAll('.tl-node').forEach(node => {
-        node.addEventListener('mouseenter', () => {
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+        /* PREVENT GHOST-PIN ON PC, BUT IGNORE TOUCH TO PRESERVE MOBILE DOUBLE-TAP */
+        node.addEventListener('pointerenter', (e) => {
+            if (e.pointerType === 'mouse') {
+                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            }
         });
         
         node.addEventListener('click', (e) => {
-            const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            if (!node.hasAttribute('data-title')) return;
+
+            const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches || 
+                            ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            
             if (isTouch) {
+                /* FIRST TAP: SHOW TOOLTIP & PREVENT LINK JUMP */
                 if (!node.classList.contains('force-hover')) {
                     e.preventDefault();
                     document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
@@ -599,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateTooltipContent(node);
                     updateMagneticTooltip();
                 }
+                /* SECOND TAP: BYPASSES PREVENT DEFAULT AND JUMPS TO LINK NATURALLY */
             } else {
                 document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
                 node.classList.add('force-hover');
@@ -607,6 +619,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
+
+    /* DROPDOWN VISIBILITY TOGGLE (OUTSIDE CLICK & FOCUS) */
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.tl-search-inner')) {
+            searchDropdown.classList.remove('show');
+        }
+        
+        if (!e.target.closest('.tl-search-inner') && !e.target.closest('.tl-filter-group') && 
+            !e.target.closest('.tl-node') && !e.target.closest('.tl-global-tooltip')) {
+            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+            tooltip.style.display = 'none';
+        }
+    });
+
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
+            searchDropdown.classList.add('show');
+        }
+    });
 });
 </script>
 
