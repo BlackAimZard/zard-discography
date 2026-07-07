@@ -104,19 +104,19 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-panel-img-box { width: 80px; height: 80px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
 .tl-panel-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .tl-panel-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
-.tl-panel-title { color: #888; font-size: 14px; margin-bottom: 6px; overflow-wrap: break-word; word-break: break-word; }
-.tl-panel-sub { color: #ddd; font-size: 16px; line-height: 1.3; overflow-wrap: break-word; word-break: break-word; }
+.tl-panel-title { color: #888; font-size: 14px; margin-bottom: 6px; text-align: left; overflow-wrap: break-word; word-break: break-word; }
+.tl-panel-sub { color: #ddd; font-size: 16px; line-height: 1.3; text-align: left; overflow-wrap: break-word; word-break: break-word; }
 .tl-panel-meta { display: flex; justify-content: space-between; border-top: 1px solid #444; padding-top: 14px; }
 .meta-col { display: flex; flex-direction: column; gap: 6px; }
-.meta-label { font-size: 12px; color: #888; }
+.meta-label { font-size: 12px; color: #888; text-align: left; }
 .meta-value { font-size: 14px; color: #ddd; }
-.tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; }
+.tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; text-align: left; }
 
 /* SMALL SCREEN FIX */
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
-#content-text { font-size: 16px !important; }
+#content-text { font-size: 16px !important;  }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE */
 @media screen and (max-width: 600px) {
@@ -366,6 +366,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
 
+    /* HELPER FOR RECURSIVE LOCAL COORDINATES */
+    function getLocalCoords(element, target) {
+        let x = 0;
+        let y = 0;
+        let curr = element;
+        while (curr && curr !== target) {
+            x += curr.offsetLeft;
+            y += curr.offsetTop;
+            curr = curr.offsetParent;
+        }
+        return { x, y };
+    }
+
     /* TOOLTIP ENGINE */
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
@@ -385,14 +398,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 tieupContainer.style.display = 'none';
             }
 
-            const rect = node.getBoundingClientRect();
+            const t = pz.getTransform();
+            const dragRect = dragContainer.getBoundingClientRect();
             const oRect = borderOuter.getBoundingClientRect();
-            
-            let targetLeft = (rect.right - oRect.left) + 15;
-            let targetTop = (rect.top - oRect.top) - 15;
+            const dl = dragRect.left - oRect.left;
+            const dt = dragRect.top - oRect.top;
 
-            if (targetLeft < 15) targetLeft = 15;
-            if (targetTop < 15) targetTop = 15;
+            const local = getLocalCoords(node, zoomTarget);
+            let targetLeft = (local.x + node.offsetWidth) * t.scale + t.x + dl + 20;
+            let targetTop = local.y * t.scale + t.y + dt - 15;
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
@@ -407,14 +421,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMagneticTooltip() {
         const forcedNode = document.querySelector('.force-hover');
         if (forcedNode) {
-            const rect = forcedNode.getBoundingClientRect();
+            const t = pz.getTransform();
+            const dragRect = dragContainer.getBoundingClientRect();
             const oRect = borderOuter.getBoundingClientRect();
-            
-            let targetLeft = (rect.right - oRect.left) + 15;
-            let targetTop = (rect.top - oRect.top) - 15;
+            const dl = dragRect.left - oRect.left;
+            const dt = dragRect.top - oRect.top;
 
-            if (targetLeft < 15) targetLeft = 15;
-            if (targetTop < 15) targetTop = 15;
+            const local = getLocalCoords(forcedNode, zoomTarget);
+            let targetLeft = (local.x + forcedNode.offsetWidth) * t.scale + t.x + dl + 20;
+            let targetTop = local.y * t.scale + t.y + dt - 15;
 
             tooltip.style.left = targetLeft + 'px';
             tooltip.style.top = targetTop + 'px';
