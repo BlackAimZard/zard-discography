@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL T1</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL T2</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -712,6 +712,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const isFilter = e.target.closest('.tl-filter-group');
         const isNode = e.target.closest('.tl-node');
         const isTooltip = e.target.closest('.tl-global-tooltip');
+		
+		if (!isSearch) {
+            searchDropdown.classList.remove('show');
+        }
 
         // Nếu chạm vào không gian đen (không phải mục quan trọng)
         if (!isSearch && !isFilter && !isNode && !isTooltip) {
