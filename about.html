@@ -212,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL ok</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -516,6 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
             /* AUTO-PIN FIRST MATCH */
             const firstNode = matchedNodes[0].node;
             firstNode.classList.add('force-hover');
+			activeHoveredNode = firstNode;
             
             /* RECENTER AND ZOOM TO FIRST MATCH */
             const cRect = dragContainer.getBoundingClientRect();
@@ -569,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchInput.addEventListener('input', runSearch);
 
-    filterBtns.forEach(btn => {
+	filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -580,10 +581,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             /* DỌN DẸP BÓNG MA TOOLTIP NẾU NODE ĐANG GHIM BỊ TÀNG HÌNH DO ĐỔI TAB */
-            if (activeHoveredNode && activeHoveredNode.classList.contains('is-filtered')) {
-                activeHoveredNode.classList.remove('force-hover');
+            // Đệ sửa lại: Tìm thẳng node đang có force-hover để tháo gỡ
+            const currentPinnedNode = document.querySelector('.force-hover');
+            if (currentPinnedNode && currentPinnedNode.classList.contains('is-filtered')) {
+                currentPinnedNode.classList.remove('force-hover');
                 tooltip.style.display = 'none';
-                activeHoveredNode = null;
+                activeHoveredNode = null; 
             }
             
             runSearch();
