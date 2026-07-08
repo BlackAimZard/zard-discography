@@ -12,8 +12,19 @@
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
 
 /* PROFILE LAYOUT */
-html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; }
+html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
 body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
+.x-axis-lock { 
+    width: 100%; height: 100%; 
+    overflow-x: auto; overflow-y: hidden; /* Lồng ngoài chỉ ôm trục X */
+    scrollbar-width: none; -ms-overflow-style: none; 
+}
+.y-axis-lock { 
+    width: fit-content; min-width: 100%; height: 100%; 
+    overflow-x: hidden; overflow-y: auto; /* Lồng trong chỉ ôm trục Y */
+    scrollbar-width: none; -ms-overflow-style: none; 
+}
+.x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -115,6 +126,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; text-align: left; }
 
 /* SMALL SCREEN FIX */
+@media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
 @media screen and (max-width: 600px) { 
 #title-text, #scramble { font-size: 36px !important; } 
@@ -139,6 +151,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 </head>
 
 <body>
+<div class="x-axis-lock">
+<div class="y-axis-lock">
 <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
@@ -217,7 +231,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL T5</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL T6</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -246,7 +260,8 @@ About <span id="scramble" style="color: #fff;"></span></span>
 </tr>
 </tbody>
 </table>
-
+</div>
+</div>
 <!-- LIGHTBOX -->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
