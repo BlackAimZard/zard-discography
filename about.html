@@ -12,7 +12,7 @@
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
 
 /* PROFILE LAYOUT */
-html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow-x: hidden; }
+html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; }
 body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
@@ -205,8 +205,11 @@ About <span id="scramble" style="color: #fff;"></span></span>
     <div class="tl-hud-panel">
         
         <!-- SEARCH COMPONENT -->
-        <div class="tl-search-inner">
-            <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search Title, Tie-up, Year...">
+		<div class="tl-search-inner">
+            
+            <div style="width: 100%; overflow: hidden;">
+                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search Title, Tie-up, Year...">
+            </div>
             <span id="tl-search-clear" class="tl-search-clear">
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
             <div id="tl-search-dropdown" class="tl-dropdown"></div>
@@ -214,7 +217,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL T4</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL T5</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
