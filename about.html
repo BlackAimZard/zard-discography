@@ -69,9 +69,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 14px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
-.tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; cursor: pointer; display: none; user-select: none; line-height: 0; padding: 4px; }
+.tl-search-clear { position: absolute; right: 0; top: 0; width: 38px; height: 38px; color: #888; cursor: pointer; display: none; user-select: none; }
 .tl-search-clear:hover { color: #fff; }
-.tl-search-clear svg { display: block; }
+.tl-search-clear svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; }
 
 /* SEARCH DROPDOWN */
 .tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.8); }
