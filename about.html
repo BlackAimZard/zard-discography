@@ -69,8 +69,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 14px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
-.tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; font-size: 14px; font-weight: bold; cursor: pointer; display: none; user-select: none; font-family: sans-serif; }
+.tl-search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #888; cursor: pointer; display: none; user-select: none; line-height: 0; padding: 4px; }
 .tl-search-clear:hover { color: #fff; }
+.tl-search-clear svg { display: block; }
 
 /* SEARCH DROPDOWN */
 .tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.8); }
@@ -206,13 +207,14 @@ About <span id="scramble" style="color: #fff;"></span></span>
         <!-- SEARCH COMPONENT -->
         <div class="tl-search-inner">
             <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search Title, Tie-up, Year...">
-            <span id="tl-search-clear" class="tl-search-clear">&times;</span>
+            <span id="tl-search-clear" class="tl-search-clear">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
             <div id="tl-search-dropdown" class="tl-dropdown"></div>
         </div>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL T2</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL T3</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
