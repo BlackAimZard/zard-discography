@@ -106,10 +106,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* TIMELINE NODES */
 .tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #292929; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
-.tl-node:hover, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #ddd; z-index: 3; }
 .tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
 .tl-node.empty { border: 2px solid #444; }
-.tl-node.empty:hover { border: 2px solid #444; cursor: default; width: 50px; height: 50px; margin: 0; }
+.tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #ddd; z-index: 3; }
 
 /* GLOBAL TOOLTIP */
 .tl-global-tooltip { display: none; position: fixed; width: 250px; background-color: #161616; border: 2px solid #555; padding: 15px; z-index: 99999; box-shadow: 0 4px 20px rgba(0,0,0,0.9); pointer-events: none; font-family: 'Times New Roman', serif; }
@@ -231,7 +230,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 2</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -358,7 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
-<!-- DATA & MAP LOGIC -->
+<script src="timeline-data.js"></script>
+
+<script>
 <script src="timeline-data.js"></script>
 
 <script>
@@ -413,28 +414,55 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x, y };
     }
 
-/* TOOLTIP INTERACTION ENGINE */
-    const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
-
-    /* Cắm Rada theo dõi xem đại ca có đang nhấn giữ chuột (kéo bản đồ) hay không */
+    /* GLOBAL MOUSE DRAG RADAR */
     let isGlobalMouseDown = false;
-    document.addEventListener('mousedown', () => isGlobalMouseDown = true);
-    document.addEventListener('mouseup', () => isGlobalMouseDown = false);
+    let isGlobalDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    document.addEventListener('mousedown', (e) => {
+        isGlobalMouseDown = true;
+        isGlobalDragging = false;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isGlobalMouseDown) return;
+        const distance = Math.sqrt(Math.pow(e.clientX - dragStartX, 2) + Math.pow(e.clientY - dragStartY, 2));
+        /* REQUIRE >3PX MOVEMENT TO REGISTER AS DRAG */
+        if (distance > 3) { 
+            isGlobalDragging = true;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isGlobalMouseDown = false;
+        isGlobalDragging = false;
+    });
+
+    /* TOOLTIP INTERACTION ENGINE */
+    const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
     nodesWithData.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
-            /* NẾU ĐANG KÉO BẢN ĐỘ (HOLD CHUỘT) -> CẤM HIỆN BẢNG ĐỂ CHỐNG CHỚP (NGOẠI TRỪ NODE ĐANG GHIM) */
-            if (isGlobalMouseDown && !node.classList.contains('force-hover')) return;
+            /* PREVENT HOVER EFFECTS WHILE DRAGGING (EXCEPT PINNED NODES) */
+            if (isGlobalDragging && !node.classList.contains('force-hover')) return;
 
             activeHoveredNode = node;
+            node.classList.add('is-hovered'); 
             updateTooltipContent(node);
             updateMagneticTooltip();
         });
 
         node.addEventListener('mouseleave', () => { 
-            /* Tắt ngay và luôn lập tức, không khoan nhượng */
             activeHoveredNode = null;
-            if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
+            node.classList.remove('is-hovered'); 
+            
+            /* HIDE TOOLTIP IMMEDIATELY IF NOT PINNED */
+            if (!node.classList.contains('force-hover')) {
+                tooltip.style.display = 'none'; 
+            }
         });
     });
 
@@ -458,7 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* MAGNETIC TOOLTIP POSITIONING */
     function updateMagneticTooltip() {
         const forcedNode = document.querySelector('.force-hover');
-        const currentNode = forcedNode || activeHoveredNode;
+        /* PRIORITIZE HOVERED NODE OVER PINNED NODE */
+        const currentNode = activeHoveredNode || forcedNode;
 
         if (currentNode) {
             const t = pz.getTransform();
@@ -643,6 +672,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* GLOBAL EVENT HANDLERS (MOUSE & TOUCH) */
     document.querySelectorAll('.tl-node').forEach(node => {
         node.addEventListener('mouseenter', () => {
+            /* PROTECT PINNED NODE WHILE DRAGGING MAP */
+            if (isGlobalDragging) return; 
+            
             document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
         });
         
