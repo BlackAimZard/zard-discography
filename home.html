@@ -10,10 +10,11 @@
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); font-display: swap; }
+@font-face { font-family: 'ZenOldMincho-Regular'; src: local('Zen Old Mincho'), local('ZenOldMincho-Regular'), url('fonts/ZenOldMincho-Regular.woff') format('woff'); font-display: swap; }
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
-body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
+body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", Times, sans-serif; color: #ffffff; }
 .x-axis-lock { 
     width: 100%; height: 100%; 
     overflow-x: auto; overflow-y: hidden;
@@ -38,9 +39,6 @@ img { border: 0; display: block; }
 /* ELEMENT & ICON */
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
-
-/* ANIMATION FIX */
-#scramble { transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden; display: inline-block; white-space: nowrap; }
 
 /* SCROLL WRAPPER */
 .scroll-wrapper { width: 100%; padding-bottom: 5px; }
@@ -131,7 +129,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
-@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } 
+@media screen and (max-width: 600px) { #title-text { font-size: 44px !important; } 
 #content-text { font-size: 16px !important;  }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE  */
@@ -165,8 +163,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <!-- TITLE -->
 <tr>
 <td align="center" valign="bottom"> 
-<span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">
-About <span id="scramble" style="color: #fff;"></span></span>
+<span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 50px; color: #888; line-height: 1.2; font-family: 'trona-bold', 'Times New Roman', Times, Serif;">ZARD</span>
 </td>
 </tr>
 <!-- SPACER -->
@@ -174,7 +171,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!-- TEXT -->
 <tr>
 <td align="center" valign="top">
-<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">ZARD was a Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai / 坂井泉水</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
+<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6;">A Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai（坂井泉水）</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
 <!-- SPACER -->
@@ -203,7 +200,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #888; font-family: 'Times New Roman', serif; opacity: 0; transition: opacity 0.1s ease;"></span>
+<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #888;" opacity: 0; transition: opacity 0.1s ease;"></span>
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
@@ -215,7 +212,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!-- TITLE -->
 <tr>
 <td align="center" valign="bottom"> 
-<span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 44px; color: #888; line-height: 1.2; white-space: nowrap;">Discography</span>
+<span id="title-text" style="display: block; width: 100%; text-align: left; font-size: 50px; color: #888; line-height: 1.2; font-family: 'trona-bold', 'Times New Roman', Times, Serif;">Discography</span>
 </td>
 </tr>
 <!-- SPACER -->
@@ -223,7 +220,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 <!-- TEXT -->
 <tr>
 <td align="center" valign="top">
-<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6; font-family: 'Times New Roman', serif;">45 official singles | 11 studio albums | more</span>
+<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6;">45 official singles | 11 studio albums | more</span>
 </td>
 </tr>
 <!-- SPACER -->
@@ -842,7 +839,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- EXTERNAL SCRIPTS -->
-<script src="assets/js/scramble.js"></script>
 <script src="assets/js/small-screen-btn.js"></script>
 
 </body>
