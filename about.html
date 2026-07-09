@@ -9,19 +9,19 @@
 <title>About</title>
 <style type="text/css">
 /* FONTS IMPORT */
-@font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); }
+@font-face { font-family: 'trona-bold'; src: local('Trona Bold'), local('trona-Bold'), url('fonts/trona-bold.woff') format('woff'); font-display: swap; }
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
 body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif; color: #ffffff; }
 .x-axis-lock { 
     width: 100%; height: 100%; 
-    overflow-x: auto; overflow-y: hidden; /* Lồng ngoài chỉ ôm trục X */
+    overflow-x: auto; overflow-y: hidden;
     scrollbar-width: none; -ms-overflow-style: none; 
 }
 .y-axis-lock { 
     width: fit-content; min-width: 100%; height: 100%; 
-    overflow-x: hidden; overflow-y: auto; /* Lồng trong chỉ ôm trục Y */
+    overflow-x: hidden; overflow-y: auto;
     scrollbar-width: none; -ms-overflow-style: none; 
 }
 .x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
@@ -60,7 +60,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* TIMELINE MAP CONTAINER */
 .tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 .tl-border-inner { padding: 0; border: none; }
-.tl-scroll-area { width: 100%; height: 500px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+.tl-scroll-area { width: 100%; height: 550px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 
 /* HUD UI PANEL */
 .tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; }
@@ -68,16 +68,16 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: 'Times New Roman', serif; font-size: 12px; pointer-events: none; user-select: none; }
 
 /* FLAT GROUPED BUTTONS */
-.tl-filter-group { display: flex; border: 2px solid #555; background: #1c1c1c; box-sizing: border-box; height: 38px; }
-.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: 'Times New Roman', serif; font-size: 12px; cursor: pointer; padding: 0 10px; line-height: 34px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
+.tl-filter-group { display: flex; border: 2px solid #555; background: #292929; box-sizing: border-box; height: 38px; }
+.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: 'Times New Roman', serif; font-size: 12px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 34px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
 .tl-filter-btn:last-child { border-right: none; }
-.tl-filter-btn:hover { background: #333; color: #fff; }
+.tl-filter-btn:hover { color: #fff; }
 .tl-filter-btn.active { background: #d49a3a; color: #111; pointer-events: none; }
 .tl-node.is-filtered { display: none !important; }
 
 /* SEARCH BAR */
 .tl-search-inner { position: relative; width: 100%; max-width: 330px; }
-.tl-search-input { background: #1c1c1c; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 14px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
+.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: 'Times New Roman', serif; font-size: 12px; padding: 0 35px 0 15px; line-height: 34px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 38px; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto;}
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 38px; height: 38px; color: #888; cursor: pointer; display: none; user-select: none; }
@@ -102,7 +102,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-col { display: flex; flex-direction: column; align-items: center; width: 50px; }
 .tl-year-text { font-size: 16px; color: #aaa; font-family: 'Times New Roman', serif; margin-bottom: 20px; user-select: none; }
 .tl-nodes-container { display: flex; flex-direction: column; gap: 30px; position: relative; }
-.tl-nodes-container::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 2px; background-color: #555; z-index: 1; }
+.tl-nodes-container::before { content: ''; position: absolute; top: 2px; bottom: 2px; left: 50%; transform: translateX(-50%); width: 2px; background-color: #555; z-index: 1; }
 
 /* TIMELINE NODES */
 .tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #292929; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
@@ -127,23 +127,22 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
 @media screen and (max-width: 650px) { .main-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
-@media screen and (max-width: 600px) { 
-#title-text, #scramble { font-size: 36px !important; } 
+@media screen and (max-width: 600px) { #title-text, #scramble { font-size: 36px !important; } 
 #content-text { font-size: 16px !important;  }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
 /* HUD RESPONSIVE  */
 @media screen and (max-width: 600px) {
-.tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; text-align: left !important; } 
-.tl-search-input {
-        font-size: 16px !important; /* Lừa Safari là đã đủ 16px để nó cất tính năng Auto-Zoom đi */
-        width: 114.2857% !important; /* Bơm chiều ngang lên (100% / 0.875) */
-        height: 43.43px !important; /* Bơm chiều cao lên (38px / 0.875) */
-        line-height: 38.85px !important; /* Bơm khoảng cách dòng (34px / 0.875) */
-        padding: 0 40px 0 17.14px !important; /* Bơm khoảng cách lề */
-        transform: scale(0.875) !important; /* Ma thuật thu nhỏ vạn vật lại đúng 87.5% (Tương đương 14px) */
-        transform-origin: top left !important; /* Neo cứng ở góc trái trên cùng để không bị trôi đi */
-    }
-.tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 10px !important; }
+.tl-hud-panel { flex-direction: column-reverse !important; align-items: flex-start !important; text-align: left !important; gap: 10px !important; }
+.tl-search-input { 
+    font-size: 16px !important; 
+    width: 133.33% !important; /* 100% / 0.75 */
+    height: 50.66px !important; /* 38px / 0.75 */
+    line-height: 45.33px !important; /* 34px / 0.75 */
+    padding: 0 40px 0 20px !important; /* Bơm lề */
+    transform: scale(0.75) !important; /* Ép về đúng kích thước thực tế 12px */
+    transform-origin: top left !important; 
+}
+.tl-search-inner { max-width: 100% !important; width: 100% !important; margin-top: 0px !important; }
 .tl-filter-group { display: flex !important; width: -webkit-max-content !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; } 
 .tl-filter-btn { flex: none !important; } }
 </style>
@@ -221,7 +220,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 		<div class="tl-search-inner">
             
             <div style="width: 100%; overflow: hidden;">
-                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search Title, Tie-up, Year...">
+                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search title, released...">
             </div>
             <span id="tl-search-clear" class="tl-search-clear">
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
@@ -230,7 +229,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 2</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 3</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
