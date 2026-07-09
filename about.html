@@ -18,11 +18,13 @@ body { font-size: 16px; font-family: "trona-bold", "Times New Roman", sans-serif
     width: 100%; height: 100%; 
     overflow-x: auto; overflow-y: hidden;
     scrollbar-width: none; -ms-overflow-style: none; 
+	overscroll-behavior: none;
 }
 .y-axis-lock { 
     width: fit-content; min-width: 100%; height: 100%; 
     overflow-x: hidden; overflow-y: auto;
     scrollbar-width: none; -ms-overflow-style: none; 
+	overscroll-behavior: none;
 }
 .x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
 
@@ -229,7 +231,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL 3</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
