@@ -222,7 +222,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 		<div class="tl-search-inner">
             
             <div style="width: 100%; overflow: hidden;">
-                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search title, released...">
+                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search title, released, label, tie-up">
             </div>
             <span id="tl-search-clear" class="tl-search-clear">
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
             if (!isMatchFilter) return;
 
-            const nodeData = ((node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '')).toLowerCase();
+            const nodeData = ((node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '') + ' ' + (node.dataset.label || '') + ' ' + (node.dataset.tieup || '')).toLowerCase();
 
             if (nodeData.includes(keyword)) {
                 node.classList.add('is-searched');

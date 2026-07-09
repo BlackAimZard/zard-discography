@@ -63,7 +63,7 @@ const TIMELINE_HTML = `
                data-title="4th Single"
                data-sub="Nemurenai Yoru wo Daite"
                data-released="1992.08.05"
-               data-label="PPODH-1087"
+               data-label="PODH-1087"
 			   data-tieup='"Tonight" Ending Theme'>
                 <img src="assets/disco-cover-photo/sg/sg-tl-thumb/sg04.jpg" draggable="false">
             </a>
