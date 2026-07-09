@@ -231,7 +231,7 @@ About <span id="scramble" style="color: #fff;"></span></span>
 
         <!-- FILTER COMPONENT -->
         <div class="tl-filter-group">
-            <button class="tl-filter-btn active" data-filter="all">ALL</button>
+            <button class="tl-filter-btn active" data-filter="all">ALL 1</button>
             <button class="tl-filter-btn" data-filter="single">SINGLE</button>
             <button class="tl-filter-btn" data-filter="album">ALBUM</button>
         </div>
@@ -413,17 +413,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x, y };
     }
 
-    /* TOOLTIP INTERACTION ENGINE */
+/* TOOLTIP INTERACTION ENGINE */
     const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
+
+    /* Cắm Rada theo dõi xem đại ca có đang nhấn giữ chuột (kéo bản đồ) hay không */
+    let isGlobalMouseDown = false;
+    document.addEventListener('mousedown', () => isGlobalMouseDown = true);
+    document.addEventListener('mouseup', () => isGlobalMouseDown = false);
 
     nodesWithData.forEach(node => {
         node.addEventListener('mouseenter', (e) => {
+            /* NẾU ĐANG KÉO BẢN ĐỘ (HOLD CHUỘT) -> CẤM HIỆN BẢNG ĐỂ CHỐNG CHỚP (NGOẠI TRỪ NODE ĐANG GHIM) */
+            if (isGlobalMouseDown && !node.classList.contains('force-hover')) return;
+
             activeHoveredNode = node;
             updateTooltipContent(node);
             updateMagneticTooltip();
         });
 
         node.addEventListener('mouseleave', () => { 
+            /* Tắt ngay và luôn lập tức, không khoan nhượng */
             activeHoveredNode = null;
             if (!node.classList.contains('force-hover')) tooltip.style.display = 'none'; 
         });
