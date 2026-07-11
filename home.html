@@ -46,6 +46,12 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /*ZARD logo */
 .ZARD-logo { height: 45px; width: auto; }
+.tl-disco-title {
+    font-size: 44px;
+    color: #999;
+	line-height: 44px;
+    margin-bottom: 30px;
+}
 
 /* EMBLA CAROUSEL */
 .embla { width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.4s ease-in; }
@@ -69,7 +75,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
     margin: 0 auto 20px auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
     column-gap: 10px;
     row-gap: 10px;
@@ -189,6 +195,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 @media screen and (max-width: 600px) { 
 #title-text { font-size: 44px !important; } 
 .ZARD-logo { height: 40px; } 
+.tl-disco-title { font-size: 40px; }
 #content-text { font-size: 16px !important; }
 .tl-header-text { font-size: 16px !important; width: 100% !important; }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } 
@@ -216,6 +223,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
     } 
     .tl-filter-btn { flex: none !important; } 
 }
+
+
 </style>
 </head>
 
@@ -232,7 +241,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <!--ZARD-->
 <tr>
 <td align="center" valign="bottom">
-<span id="title-text" style="display: block; width: 100%; text-align: left; color: #888;">
+<span id="title-text" style="display: block; width: 100%; text-align: left; color: #999;">
 <svg class="ZARD-logo" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 29.4" style="fill: currentColor; display: block;" fill-rule="evenodd">
 <g>
 <path d="M22.4,29.4H0L16.7,1.9H6.2C4,1.9,2.9,2.5,2.3,5.4h-1l0.3-4.7h20.8L5.8,28.2h10.1c3.9,0,5.3,0,6-3.7h1L22.4,29.4z"></path>
@@ -278,7 +287,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #888;" opacity: 0; transition: opacity 0.1s ease;"></span>
+<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD;" opacity: 0; transition: opacity 0.1s ease;"></span>
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
@@ -292,7 +301,10 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <td align="center" valign="top">
 
 <div class="tl-header-panel">
-    <span id="content-text" class="tl-header-text">45 official singles | 11 studio albums | more</span>
+<div id="content-text" class="tl-header-text">
+    <div class="tl-disco-title">Discography</div>
+    <div>45 official singles | 11 studio albums | more</div>
+</div>
     <div class="tl-filter-group">
         <button class="tl-filter-btn active" data-filter="all">All</button>
         <button class="tl-filter-btn" data-filter="single">Single</button>
