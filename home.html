@@ -26,15 +26,11 @@ body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", 
     overflow-x: hidden; overflow-y: auto;
     scrollbar-width: none; -ms-overflow-style: none; 
     overscroll-behavior: none;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
 }
 .x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
 
 /* SCROLL SNAP SECTIONS */
 .snap-section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
     min-height: 100vh;
     width: 100vw;
     display: flex;
@@ -210,15 +206,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; text-align: left; }
 
 /* SCROLL INDICATOR ANIMATION */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
 .scroll-indicator {
     position: absolute;
     bottom: 25px;
-    animation: bounce 2s infinite;
     color: #555;
     cursor: pointer;
     transition: color 0.3s;
@@ -228,20 +218,14 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
 @media screen and (max-width: 650px) { .content-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
-@media screen and (max-width: 600px) { 
-#title-text { font-size: 44px !important; } 
-.ZARD-logo { height: 40px; } 
-.tl-disco-title { font-size: 40px; }
-#content-text { font-size: 16px !important; }
-.tl-header-text { font-size: 16px !important; width: 100% !important; }
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } 
-}
-
-/* HUD RESPONSIVE */
 @media screen and (max-width: 600px) {
-    .tl-search-inner > div:first-child {
-        height: 36px !important;
-    }
+    .ZARD-logo { height: 40px; }
+    .tl-disco-title { font-size: 40px; }
+    #content-text { font-size: 16px !important; }
+    .tl-header-text { font-size: 16px !important; width: 100% !important; }
+    .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; }
+    
+    .tl-search-inner > div:first-child { height: 36px !important; }
     .tl-search-input {
         font-family: sans-serif !important;
         font-size: 22px !important;
@@ -254,10 +238,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
         transform: scale(0.5) !important;
         margin: 0 !important;
     }
-    .tl-filter-group { 
-        display: flex !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; 
-    } 
-    .tl-filter-btn { flex: none !important; } 
+    .tl-filter-group { display: flex !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; }
+    .tl-filter-btn { flex: none !important; }
 }
 </style>
 </head>
@@ -308,7 +290,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
                 <span id="btn-prev" class="nav-arrow">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </span>
-                <span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD;" opacity: 0; transition: opacity 0.1s ease;"></span>
+                <span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD; opacity: 0; transition: opacity 0.1s ease;"></span>
                 <span id="btn-next" class="nav-arrow">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </span>
@@ -327,7 +309,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         <div class="content-wrapper">
             
             <div class="tl-header-panel">
-                <div id="content-text" class="tl-header-text">
+                <div class="tl-header-text">
                     <div class="tl-disco-title">Discography</div>
                     <div>45 official singles | 11 studio albums | more</div>
                 </div>
