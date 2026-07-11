@@ -85,13 +85,13 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* HUD UI PANEL */
 .tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; flex-wrap: wrap; container-type: inline-size; container-name: hud; }
 .tl-search-inner, .tl-filter-group { pointer-events: auto; } 
-.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: san-serif; font-size: 12px; pointer-events: none; user-select: none; }
+.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: sans-serif; font-size: 11px; pointer-events: none; user-select: none; }
 .tl-ui-bottom-right { position: absolute; bottom: 15px; right: 15px; z-index: 50; color: #888; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s, transform 0.4s ease; }
 .tl-ui-bottom-right:hover { color: #fff; transform: rotate(-90deg); }
 
 /* FLAT GROUPED BUTTONS */
 .tl-filter-group { display: flex; border: 2px solid #555; background: #292929; box-sizing: border-box; height: 36px; }
-.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: san-serif; font-size: 12px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
+.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
 .tl-filter-btn:last-child { border-right: none; }
 .tl-filter-btn:hover { color: #fff; }
 .tl-filter-btn.active { background: #d49a3a; color: #111; pointer-events: none; }
@@ -113,7 +113,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         order: 1;
     }
 }
-.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: san-serif; font-size: 12px; padding: 0px 35px 0 15px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
+.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 35px 0 15px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #888; cursor: pointer; display: none; user-select: none; }
@@ -126,8 +126,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
     background: #292929;
     border: 2px solid #555;
     color: #888;
-    font-family: san-serif;
-    font-size: 12px;
+    font-family: sans-serif;
+    font-size: 11px;
     font-weight: bold;
     line-height: 32px;
     cursor: pointer;
@@ -199,7 +199,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
         height: 36px !important;
     }
     .tl-search-input {
-        font-size: 24px !important;
+        font-family: sans-serif !important;
+        font-size: 22px !important;
         width: 200% !important;
         height: 72px !important;
         line-height: 64px !important;
