@@ -66,13 +66,13 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-scroll-area { width: 100%; height: 550px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-header-panel {
     max-width: 650px;
-    margin: 0 auto 15px auto;
+    margin: 0 auto 20px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     column-gap: 10px;
-    row-gap: 15px;
+    row-gap: 10px;
 }
 .tl-header-text {
     font-size: 18px;
@@ -90,11 +90,11 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-ui-bottom-right:hover { color: #fff; transform: rotate(-90deg); }
 
 /* FLAT GROUPED BUTTONS */
-.tl-filter-group { display: flex; border: 2px solid #555; background: #292929; box-sizing: border-box; height: 36px; }
+.tl-filter-group { display: flex; border: 2px solid #555; background: #191919; box-sizing: border-box; height: 36px; }
 .tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
 .tl-filter-btn:last-child { border-right: none; }
 .tl-filter-btn:hover { color: #fff; }
-.tl-filter-btn.active { background: #d49a3a; color: #111; pointer-events: none; }
+.tl-filter-btn.active { background: #292929; color: #DDD; pointer-events: none; }
 .tl-node.is-filtered { display: none !important; }
 
 /* SEARCH BAR */
@@ -113,7 +113,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         order: 1;
     }
 }
-.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 35px 0 15px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
+.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 12px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #888; cursor: pointer; display: none; user-select: none; }
@@ -189,7 +189,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 @media screen and (max-width: 600px) { 
 #title-text { font-size: 44px !important; } 
 .ZARD-logo { height: 40px; } 
-#content-text, .tl-header-text { font-size: 16px !important; }
+#content-text { font-size: 16px !important; }
+.tl-header-text { font-size: 16px !important; width: 100% !important; }
 .embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } 
 }
 
@@ -272,7 +273,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 </tr>
 <!-- NAV CONTROLS -->
 <tr>
-<td align="center" valign="top" style="padding-top: 15px;">
+<td align="center" valign="top" style="padding-top: 10px;">
 <div style="display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -293,9 +294,9 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <div class="tl-header-panel">
     <span id="content-text" class="tl-header-text">45 official singles | 11 studio albums | more</span>
     <div class="tl-filter-group">
-        <button class="tl-filter-btn active" data-filter="all">ALL1</button>
-        <button class="tl-filter-btn" data-filter="single">SINGLE</button>
-        <button class="tl-filter-btn" data-filter="album">ALBUM</button>
+        <button class="tl-filter-btn active" data-filter="all">All</button>
+        <button class="tl-filter-btn" data-filter="single">Single</button>
+        <button class="tl-filter-btn" data-filter="album">Album</button>
     </div>
 </div>
 
