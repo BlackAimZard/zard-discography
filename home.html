@@ -14,7 +14,7 @@
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
-body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", Times, sans-serif; color: #ffffff; }
+body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", Times, serif; color: #ffffff; }
 .x-axis-lock { 
     width: 100%; height: 100%; 
     overflow-x: auto; overflow-y: hidden;
@@ -53,14 +53,14 @@ body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", 
 
 #discography-section {
     justify-content: flex-start; 
-    padding-top: 10vh; 
-    padding-bottom: 20vh;
+	padding-top: 5vh;
+    padding-bottom: 15vh;
 }
 
 #page-1-section {
     justify-content: flex-start; 
-    padding-top: 25vh; 
-    padding-bottom: 25vh;
+    padding-top: 20vh; 
+    padding-bottom: 5vh;
 }
 
 
@@ -221,13 +221,27 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* SCROLL INDICATOR */
 .scroll-indicator {
-    position: absolute;
-    bottom: 25px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 5px;
     color: #555;
-    cursor: pointer;
-    transition: color 0.3s;
 }
-.scroll-indicator:hover { color: #fff; }
+
+.scroll-line {
+    width: 1px;
+    height: 120px;
+    background-color: currentColor;
+}
+
+.scroll-text {
+    writing-mode: vertical-rl;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+} letter-spacing: 2px;
+}
 
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
@@ -304,20 +318,20 @@ a:hover { color: #ff0000; text-decoration: underline; }
                 <span id="btn-prev" class="nav-arrow">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </span>
-                <!-- HTML UPDATE -->
-				<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD; opacity: 1;"></span>
+                <span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD; opacity: 1;"></span>
                 <span id="btn-next" class="nav-arrow">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </span>
             </div>
             
+            <!-- SCROLL INDICATOR -->
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span class="scroll-text">Scroll</span>
+            </div>
+            
         </div>
-        
-        <!-- SCROLL INDICATOR -->
-        <div class="scroll-indicator" onclick="document.getElementById('discography-section').scrollIntoView({behavior: 'smooth'})">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-    </div>
+    </div> 
 
     <!-- ONE PAGE: SECTION 2 -->
     <div class="snap-section" id="discography-section">
