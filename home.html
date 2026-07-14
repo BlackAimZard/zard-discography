@@ -10,13 +10,58 @@
 <style type="text/css">
 /* FONTS IMPORT */
 @font-face { font-family: 'ZenOldMincho-Regular'; src: local('Zen Old Mincho'), local('ZenOldMincho-Regular'), url('fonts/ZenOldMincho-Regular.woff') format('woff'); font-display: swap; }
+@font-face { font-family: 'Roboto Condensed'; src: local('Roboto Condensed'), local('Roboto Condensed'), url('fonts/Roboto Condensed.woff') format('woff'); font-display: swap; }
 
 /* PROFILE LAYOUT */
 html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
-body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", Times, sans-serif; color: #ffffff; }
-.x-axis-lock { width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: none; }
-.y-axis-lock { width: fit-content; min-width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: none; }
+body { font-size: 16px; font-family: "ZenOldMincho-Regular", "Times New Roman", Times, serif; color: #ffffff; }
+.x-axis-lock { 
+    width: 100%; height: 100%; 
+    overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -ms-overflow-style: none; 
+    overscroll-behavior: none;
+}
+.y-axis-lock { 
+    width: fit-content; min-width: 100%; height: 100%; 
+    overflow-x: hidden; overflow-y: auto;
+    scrollbar-width: none; -ms-overflow-style: none; 
+    overscroll-behavior: none;
+}
 .x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
+
+/* SNAP SECTIONS */
+.snap-section {
+    width: 100%;
+    min-width: calc(300px + 12vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    max-width: 650px;
+    width: calc(100% - 12vw);
+    min-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: table;
+    table-layout: fixed;
+}
+
+/* SECTION PADDING */
+#page-1-section {
+    justify-content: flex-start; 
+ padding: 200px 0 150px
+}
+
+#discography-section {
+    justify-content: flex-start; 
+    padding-bottom: 150px;
+}
+
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -29,10 +74,14 @@ img { border: 0; display: block; }
 a { background: transparent; text-decoration: none; color: #003399; margin: 0; padding: 0; vertical-align: baseline; }
 a:hover { color: #ff0000; text-decoration: underline; }
 
-/* TITLE */
-.ZARD-logo { height: 45px; width: auto; margin-bottom: 30px; }
-.tl-disco-title { font-size: 44px; color: #999; line-height: 44px; margin-bottom: 30px; }
-#content-text { margin-bottom: 20px; }
+/* ZARD LOGO & TEXT */
+.ZARD-logo { height: 45px; width: auto; }
+.tl-disco-title {
+    font-size: 50px;
+    color: #999;
+    line-height: 50px;
+    margin-bottom: 30px;
+}
 
 /* EMBLA CAROUSEL */
 .embla { width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.4s ease-in; }
@@ -51,36 +100,83 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 .tl-border-inner { padding: 0; border: none; }
 .tl-scroll-area { width: 100%; height: 550px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
-.tl-header-panel { max-width: 650px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; column-gap: 10px; row-gap: 15px; }
-.tl-header-text { font-size: 18px; color: #ddd; line-height: 1.6; text-align: left; margin: 0; }
+.tl-header-panel {
+    max-width: 650px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+.tl-header-text {
+    font-size: 18px;
+    color: #ddd;
+    line-height: 1.6;
+    text-align: left;
+    margin: 0;
+}
 
 /* HUD UI PANEL */
 .tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; flex-wrap: wrap; container-type: inline-size; container-name: hud; }
 .tl-search-inner, .tl-filter-group { pointer-events: auto; } 
-.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: sans-serif; font-size: 11px; pointer-events: none; user-select: none; }
+.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: 'Roboto Condensed', sans-serif; font-size: 11px; pointer-events: none; user-select: none; }
 .tl-ui-bottom-right { position: absolute; bottom: 15px; right: 15px; z-index: 50; color: #888; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s, transform 0.4s ease; }
 .tl-ui-bottom-right:hover { color: #fff; transform: rotate(-90deg); }
 
 /* FLAT GROUPED BUTTONS */
 .tl-filter-group { display: flex; border: 2px solid #555; background: #191919; box-sizing: border-box; height: 36px; }
-.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
+.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: 'Roboto Condensed', sans-serif; font-size: 12px; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
 .tl-filter-btn:last-child { border-right: none; }
 .tl-filter-btn:hover { color: #fff; }
 .tl-filter-btn.active { background: #292929; color: #DDD; pointer-events: none; }
 .tl-node.is-filtered { display: none !important; }
 
 /* SEARCH BAR */
-.tl-search-inner { position: relative; width: 350px; max-width: 100%; }
-@container hud (max-width: 475px) { .tl-search-inner { width: 100%; order: 2; }
-.tl-btn-reset { order: 1; } }
-.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 12px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
+.tl-search-inner {
+    position: relative;
+    width: 350px;
+    max-width: 100%;
+}
+
+@container hud (max-width: 475px) {
+    .tl-search-inner {
+        width: 100%;
+        order: 2;
+    }
+    .tl-btn-reset {
+        order: 1;
+    }
+}
+.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: 'Roboto Condensed', sans-serif; font-size: 11px; padding: 0px 12px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
 .tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #888; cursor: pointer; display: none; user-select: none; }
 .tl-search-clear:hover { color: #fff; }
 .tl-search-clear svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; }
-.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #292929; border: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; line-height: 32px; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
-.tl-btn-reset:hover {color: #fff; border-color: #fff; }
+.tl-btn-reset {
+    width: 115px;
+    height: 36px;
+    flex-shrink: 0;
+    background: #292929;
+    border: 2px solid #555;
+    color: #888;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    line-height: 32px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s, color 0.2s;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tl-btn-reset:hover {
+    color: #fff;
+    border-color: #fff;
+}
 
 /* SEARCH DROPDOWN */
 .tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.8); }
@@ -105,7 +201,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* TIMELINE NODES */
 .tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #292929; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
 .tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
-.tl-node.empty { border: 2px solid #444; }
+.tl-node.empty { border: 2px solid #555; }
 .tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #ddd; z-index: 3; }
 
 /* GLOBAL TOOLTIP */
@@ -122,148 +218,174 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .meta-value { font-size: 14px; color: #ddd; }
 .tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; text-align: left; }
 
+/* SCROLL INDICATOR */
+.scroll-indicator {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 5px;
+    color: #555;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 80px;
+    background-color: currentColor;
+}
+
+.scroll-text {
+    writing-mode: vertical-rl;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+} letter-spacing: 2px;
+}
+
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html, body { overflow: auto; } .x-axis-lock, .y-axis-lock { display: contents; } }
-@media screen and (max-width: 700px) { .content-wrapper { padding-left: 20px !important; padding-right: 20px !important; } }
-@media screen and (max-width: 600px) { 
-.ZARD-logo { height: 40px; } 
-.tl-disco-title { font-size: 40px; }
-#content-text { font-size: 16px !important; }
-.tl-header-text { font-size: 16px !important; width: 100% !important; }
-.embla { width: calc(100% + 40px) !important; margin-left: -20px !important; } }
+@media screen and (max-width: 600px) {
+    .ZARD-logo { height: 40px; }
+    .tl-disco-title { font-size: 40px; }
+    #content-text { font-size: 16px !important; }
+    .tl-header-text { font-size: 16px !important; width: 100% !important; }
 
-/* HUD RESPONSIVE */
-@media screen and (max-width: 600px) { .tl-search-inner > div:first-child { height: 36px !important; }
-.tl-search-input { font-family: sans-serif !important; font-size: 22px !important; width: 200% !important; height: 72px !important; line-height: 64px !important; border-width: 4px !important; padding: 0 70px 0 30px !important; transform-origin: top left !important; transform: scale(0.5) !important; margin: 0 !important; }
-.tl-filter-group { display: flex !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; } 
-.tl-filter-btn { flex: none !important; } }
+    .embla { width: calc(100% + 12vw) !important; margin-left: -6vw !important; }
+    
+    .tl-search-inner > div:first-child { height: 36px !important; }
+    .tl-search-input {
+        font-family: sans-serif !important;
+        font-size: 22px !important;
+        width: 200% !important;
+        height: 72px !important;
+        line-height: 64px !important;
+        border-width: 4px !important;
+        padding: 0 70px 0 30px !important;
+        transform-origin: top left !important;
+        transform: scale(0.5) !important;
+        margin: 0 !important;
+    }
+    .tl-filter-group { display: flex !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; }
+    .tl-filter-btn { flex: none !important; }
+}
 </style>
 </head>
 
 <body>
 <div class="x-axis-lock">
 <div class="y-axis-lock">
-<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-<td class="main-wrapper" align="center" valign="middle" style="padding: 80px 0 150px 0;">
-<div class="content-wrapper">
-<table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width: 650px; min-width: 300px; margin: 0 auto; table-layout: fixed;">
-<tbody>
-<!--ZARD-->
-<tr>
-<td align="center" valign="bottom">
-<span style="display: block; width: 100%; text-align: left; color: #999;">
-<svg class="ZARD-logo" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 29.4" style="fill: currentColor; display: block;" fill-rule="evenodd">
-<g>
-<path d="M22.4,29.4H0L16.7,1.9H6.2C4,1.9,2.9,2.5,2.3,5.4h-1l0.3-4.7h20.8L5.8,28.2h10.1c3.9,0,5.3,0,6-3.7h1L22.4,29.4z"></path>
-<path d="M38.5,20c-0.7,1.6-2,4.9-2.1,6.6c-0.1,1.5,1.1,1.7,2.4,1.9v0.9c-1.6,0-5.6,0-7.1,0v-0.9c1.9-0.2,2.2-1,3.1-3.1c1.2-2.8,2.4-5.5,3.6-8.3L45.1,0h1.5l8.8,22.1c0.5,1.1,1.5,3.8,2.3,4.8c1,1.3,1.2,1.4,2.7,1.6v0.9c-2.1,0-8.1,0-10.2,0v-0.9c1.2,0,2.1,0,2.1-1.7c0-1.1-0.5-2.4-0.9-3.4l-1.7-4.5H38.9L38.5,20z M49.1,17.6L44.3,5.3l-4.9,12.3H49.1z"></path>
-<path d="M93,25.9c1.4,1.6,2.1,2.2,4.3,2.6v0.9H90L88,26.9L80.7,18c-1.4-1.7-1.3-1.9-3.6-1.9v7.7c0,1.4,0,2.9,0.2,3.5c0.3,0.7,0.7,1.2,2.1,1.2v0.9h-9.4v-0.9c1.4,0,1.8-0.4,2.2-1.2c0.3-0.6,0.4-1.5,0.4-3.7V5.2c0-1.4,0-2.1-0.4-2.6c-0.5-0.6-0.9-0.9-2.1-0.9v-1c2.5,0.1,9.7,0.1,11.5,0c5,0,10,1.1,10,7.2c0,4.7-3.6,7.1-7.9,7.5L93,25.9z M77.1,14.9c5.7,0,9.5-0.1,9.5-6.4c0-3.8-1.7-6.6-5.7-6.6c-0.5,0-2.9-0.1-3.3,0.1c-0.6,0.3-0.5,1.1-0.5,1.6V14.9z"></path>
-<path d="M108.6,4.9c0-0.9,0-1.9-0.4-2.4c-0.5-0.6-0.6-0.7-2-0.7V0.7h10.8c9.2-0.2,16.2,4.5,16.2,14c0,9.2-6.2,14.9-15.2,14.7c-2.6,0-10.1,0-12,0v-0.9c1.1-0.1,1.8-0.4,2.1-1.1c0.4-0.8,0.5-2.1,0.5-3.5V4.9z M113.0,22.4c0,4.1,0,4.2,0.5,4.9c0.5,0.7,1.1,1,4.8,1c7.7,0,9.4-6.3,9.4-13.2c0-8.4-2.2-13.2-11.8-13.2c-1.6,0-2.2,0.1-2.5,0.5c-0.2,0.3-0.4,0.8-0.4,1.2V22.4z"></path>
-</g>
-</svg>
-</span>
-</td>
-</tr>
-<!-- TEXT -->
-<tr>
-<td align="center" valign="top">
-<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6;">A Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai（坂井泉水）</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
-</td>
-</tr>
-<!-- PHOTO SLIDER -->
-<tr>
-<td class="slider-cell" align="left" valign="top">
-<div class="embla" id="embla-slider">
-<div class="embla__container">
-<div class="embla__slide" data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
-<div class="embla__slide" data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1993"><img src="assets/photo/thumb/1993-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1993-1.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1993"><img src="assets/photo/thumb/1993-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1993-2.jpg"></div>
-<div class="embla__slide" data-caption="Tokyo, 1994"><img src="assets/photo/thumb/1994.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1994.jpg"></div>
-<div class="embla__slide" data-caption="London, 1995"><img src="assets/photo/thumb/1995.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1995.jpg"></div>
-</div>
-</div>
-</td>
-</tr>
-<!-- NAV CONTROLS -->
-<tr>
-<td align="center" valign="top" style="padding-top: 10px;">
-<div style="display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
-<span id="btn-prev" class="nav-arrow">
-<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-</span>
-<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #999;" opacity: 0; transition: opacity 0.1s ease;"></span>
-<span id="btn-next" class="nav-arrow">
-<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-</span>
-</div>
-</td>
-</tr>
-<!-- SPACER -->
-<tr><td style="height: 100px;"></td></tr>
-<!-- TEXT -->
-<tr>
-<td align="center" valign="top">
 
+    <!-- ONE PAGE: SECTION 1 -->
+    <div class="snap-section" id="page-1-section">
+        <div class="content-wrapper">
+            
+            <!--ZARD-->
+            <span id="title-text" style="display: block; width: 100%; text-align: left; color: #999;">
+                <svg class="ZARD-logo" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 29.4" style="fill: currentColor; display: block;" fill-rule="evenodd">
+                    <g>
+                    <path d="M22.4,29.4H0L16.7,1.9H6.2C4,1.9,2.9,2.5,2.3,5.4h-1l0.3-4.7h20.8L5.8,28.2h10.1c3.9,0,5.3,0,6-3.7h1L22.4,29.4z"></path>
+                    <path d="M38.5,20c-0.7,1.6-2,4.9-2.1,6.6c-0.1,1.5,1.1,1.7,2.4,1.9v0.9c-1.6,0-5.6,0-7.1,0v-0.9c1.9-0.2,2.2-1,3.1-3.1c1.2-2.8,2.4-5.5,3.6-8.3L45.1,0h1.5l8.8,22.1c0.5,1.1,1.5,3.8,2.3,4.8c1,1.3,1.2,1.4,2.7,1.6v0.9c-2.1,0-8.1,0-10.2,0v-0.9c1.2,0,2.1,0,2.1-1.7c0-1.1-0.5-2.4-0.9-3.4l-1.7-4.5H38.9L38.5,20z M49.1,17.6L44.3,5.3l-4.9,12.3H49.1z"></path>
+                    <path d="M93,25.9c1.4,1.6,2.1,2.2,4.3,2.6v0.9H90L88,26.9L80.7,18c-1.4-1.7-1.3-1.9-3.6-1.9v7.7c0,1.4,0,2.9,0.2,3.5c0.3,0.7,0.7,1.2,2.1,1.2v0.9h-9.4v-0.9c1.4,0,1.8-0.4,2.2-1.2c0.3-0.6,0.4-1.5,0.4-3.7V5.2c0-1.4,0-2.1-0.4-2.6c-0.5-0.6-0.9-0.9-2.1-0.9v-1c2.5,0.1,9.7,0.1,11.5,0c5,0,10,1.1,10,7.2c0,4.7-3.6,7.1-7.9,7.5L93,25.9z M77.1,14.9c5.7,0,9.5-0.1,9.5-6.4c0-3.8-1.7-6.6-5.7-6.6c-0.5,0-2.9-0.1-3.3,0.1c-0.6,0.3-0.5,1.1-0.5,1.6V14.9z"></path>
+                    <path d="M108.6,4.9c0-0.9,0-1.9-0.4-2.4c-0.5-0.6-0.6-0.7-2-0.7V0.7h10.8c9.2-0.2,16.2,4.5,16.2,14c0,9.2-6.2,14.9-15.2,14.7c-2.6,0-10.1,0-12,0v-0.9c1.1-0.1,1.8-0.4,2.1-1.1c0.4-0.8,0.5-2.1,0.5-3.5V4.9z M113.0,22.4c0,4.1,0,4.2,0.5,4.9c0.5,0.7,1.1,1,4.8,1c7.7,0,9.4-6.3,9.4-13.2c0-8.4-2.2-13.2-11.8-13.2c-1.6,0-2.2,0.1-2.5,0.5c-0.2,0.3-0.4,0.8-0.4,1.2V22.4z"></path>
+                    </g>
+                </svg>
+            </span>
+            
+            <div style="height: 30px;"></div>
+            
+            <!-- TEXT -->
+            <span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6;">A Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai（坂井泉水）</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
+            
+            <div style="height: 20px;"></div>
+            
+            <!-- PHOTO SLIDER -->
+            <div class="embla" id="embla-slider">
+                <div class="embla__container">
+                    <div class="embla__slide" data-caption="Tokyo, 1990"><img src="assets/photo/thumb/1990.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1990.jpg"></div>
+                    <div class="embla__slide" data-caption="Tokyo, 1991"><img src="assets/photo/thumb/1991.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1991.jpg"></div>
+                    <div class="embla__slide" data-caption="Kanagawa, 1992"><img src="assets/photo/thumb/1992-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-1.jpg"></div>
+                    <div class="embla__slide" data-caption="Tokyo, 1992"><img src="assets/photo/thumb/1992-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1992-2.jpg"></div>
+                    <div class="embla__slide" data-caption="Tokyo, 1993"><img src="assets/photo/thumb/1993-1.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1993-1.jpg"></div>
+                    <div class="embla__slide" data-caption="Tokyo, 1993"><img src="assets/photo/thumb/1993-2.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1993-2.jpg"></div>
+                    <div class="embla__slide" data-caption="Tokyo, 1994"><img src="assets/photo/thumb/1994.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1994.jpg"></div>
+                    <div class="embla__slide" data-caption="London, 1995"><img src="assets/photo/thumb/1995.jpg" class="gallery-img" draggable="false" data-lightbox="assets/photo/1995.jpg"></div>
+                </div>
+            </div>
+            
+            <!-- NAV CONTROLS -->
+            <div style="padding-top: 10px; display: flex; justify-content: center; align-items: center; gap: 0px; user-select: none;">
+                <span id="btn-prev" class="nav-arrow">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </span>
+                <span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD; opacity: 1;"></span>
+                <span id="btn-next" class="nav-arrow">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+            </div>
+            
+            <!-- SCROLL INDICATOR -->
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span class="scroll-text">Scroll</span>
+            </div>
+            
+        </div>
+    </div> 
+
+    <!-- ONE PAGE: SECTION 2 -->
+    <div class="snap-section" id="discography-section">
+        <div class="content-wrapper">
+            
             <div class="tl-header-panel">
                 <div class="tl-header-text">
-                    <div class="tl-disco-title">Discography</div>
+                    <div class="tl-disco-title">DISC</div>
                     <div>45 official singles | 11 studio albums | more</div>
                 </div>
                 <div class="tl-filter-group">
-                    <button class="tl-filter-btn active" data-filter="all">All</button>
-                    <button class="tl-filter-btn" data-filter="single">Single</button>
-                    <button class="tl-filter-btn" data-filter="album">Album</button>
+                    <button class="tl-filter-btn active" data-filter="all">ALL</button>
+                    <button class="tl-filter-btn" data-filter="single">SINGLE</button>
+                    <button class="tl-filter-btn" data-filter="album">ALBUM</button>
                 </div>
             </div>
 
-<div class="tl-border-outer">
+            <div class="tl-border-outer">
 
-    <!-- HUD PANEL -->
-    <div class="tl-hud-panel">
-        
-        <!-- SEARCH COMPONENT -->
-        <div class="tl-search-inner">
-            <div style="width: 100%; overflow: hidden;">
-                <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search title, released, label, tie-up">
+                <!-- HUD PANEL -->
+                <div class="tl-hud-panel">
+                    <!-- SEARCH COMPONENT -->
+                    <div class="tl-search-inner">
+                        <div style="width: 100%; overflow: hidden;">
+                            <input type="text" id="tl-search-box" class="tl-search-input" placeholder="Search title, released, label, tie-up">
+                        </div>
+                        <span id="tl-search-clear" class="tl-search-clear">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
+                        <div id="tl-search-dropdown" class="tl-dropdown"></div>
+                    </div>
+
+                    <!-- RESET BUTTON -->
+                    <button id="tl-reset-btn" class="tl-btn-reset">RESET</button>
+                </div>
+
+                <!-- INSTRUCTIONS OVERLAY -->
+                <div class="tl-ui-bottom-left">
+                    Drag to pan | Scroll to zoom | Hover a node
+                </div>
+
+                <!-- MAP CONTAINER -->
+                <div class="tl-border-inner">
+                    <div class="tl-scroll-area" id="timeline-drag">
+                        <div style="color: #555; padding: 20px;">Loading...</div>
+                    </div>
+                </div>
+                
             </div>
-            <span id="tl-search-clear" class="tl-search-clear">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
-            <div id="tl-search-dropdown" class="tl-dropdown"></div>
-        </div>
-
-        <!-- RESET BUTTON -->
-        <button id="tl-reset-btn" class="tl-btn-reset">RESET</button>
-
-    </div>
-
-    <!-- INSTRUCTIONS OVERLAY -->
-    <div class="tl-ui-bottom-left">
-        Drag to pan | Scroll to zoom | Hover a node
-    </div>
-
-    <!-- MAP CONTAINER -->
-    <div class="tl-border-inner">
-        <div class="tl-scroll-area" id="timeline-drag">
-            <div style="color: #555; padding: 20px;">Loading...</div>
+            
         </div>
     </div>
-    
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
+
 </div>
 </div>
+
 <!-- LIGHTBOX -->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; cursor: zoom-out;" onclick="this.style.display='none'">
 <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%;">
@@ -400,8 +522,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const startX = 0; 
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
-	
-	/* MAP RESET HANDLER */
+    
+    /* MAP RESET HANDLER */
     document.getElementById('tl-reset-btn').addEventListener('click', () => {
         document.querySelectorAll('.tl-node').forEach(n => n.classList.remove('force-hover', 'is-hovered'));
         tooltip.style.display = 'none';
