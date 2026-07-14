@@ -48,22 +48,22 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .nav-arrow:active { color: #fff; transition: none; }
 
 /* TIMELINE MAP CONTAINER */
-.tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #555; box-sizing: border-box; position: relative; background-color: #191919; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
+.tl-border-outer { max-width: 650px; margin: 0 auto; border: 2px solid #444; box-sizing: border-box; position: relative; background-color: #111111; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 .tl-border-inner { padding: 0; border: none; }
 .tl-scroll-area { width: 100%; height: 550px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-header-panel { max-width: 650px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; column-gap: 10px; row-gap: 15px; }
-.tl-header-text { font-size: 18px; color: #ddd; line-height: 1.6; text-align: left; margin: 0; }
+.tl-header-text { font-size: 18px; color: #DDD; line-height: 1.6; text-align: left; margin: 0; }
 
 /* HUD UI PANEL */
 .tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; flex-wrap: wrap; container-type: inline-size; container-name: hud; }
 .tl-search-inner, .tl-filter-group { pointer-events: auto; } 
-.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #888; font-family: sans-serif; font-size: 11px; pointer-events: none; user-select: none; }
+.tl-ui-bottom-left { position: absolute; bottom: 15px; left: 15px; z-index: 50; color: #666; font-family: sans-serif; font-size: 11px; pointer-events: none; user-select: none; }
 .tl-ui-bottom-right { position: absolute; bottom: 15px; right: 15px; z-index: 50; color: #888; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s, transform 0.4s ease; }
 .tl-ui-bottom-right:hover { color: #fff; transform: rotate(-90deg); }
 
 /* FLAT GROUPED BUTTONS */
-.tl-filter-group { display: flex; border: 2px solid #555; background: #191919; box-sizing: border-box; height: 36px; }
-.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
+.tl-filter-group { display: flex; border: 2px solid #444; background: #111111; box-sizing: border-box; height: 36px; }
+.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #444; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
 .tl-filter-btn:last-child { border-right: none; }
 .tl-filter-btn:hover { color: #fff; }
 .tl-filter-btn.active { background: #292929; color: #DDD; pointer-events: none; }
@@ -73,27 +73,27 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-search-inner { position: relative; width: 350px; max-width: 100%; }
 @container hud (max-width: 475px) { .tl-search-inner { width: 100%; order: 2; }
 .tl-btn-reset { order: 1; } }
-.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 12px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
-.tl-search-input::placeholder { color: #888; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+.tl-search-input { background: #292929; border: 2px solid #444; color: #fff; font-family: sans-serif; font-size: 11px; padding: 0px 11px; line-height: 32px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
+.tl-search-input::placeholder { color: #666; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #888; cursor: pointer; display: none; user-select: none; }
 .tl-search-clear:hover { color: #fff; }
 .tl-search-clear svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; }
-.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #292929; border: 2px solid #555; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; line-height: 32px; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
+.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #292929; border: 2px solid #444; color: #888; font-family: sans-serif; font-size: 11px; font-weight: bold; line-height: 32px; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
 .tl-btn-reset:hover {color: #fff; border-color: #fff; }
 
 /* SEARCH DROPDOWN */
-.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.8); }
+.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #444; max-height: 250px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
 .tl-dropdown.show { display: block; }
 .tl-dropdown-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #333; cursor: pointer; transition: background 0.1s; }
 .tl-dropdown-item:hover { background: #333; }
 .tl-di-left { display: flex; align-items: center; gap: 12px; }
 .tl-di-left img { width: 32px; height: 32px; object-fit: cover; border: 1px solid #444; }
-.tl-di-left span { color: #ddd; font-family: 'Times New Roman', serif; font-size: 12px; text-align: left; }
+.tl-di-left span { color: #DDD; font-family: 'Times New Roman', serif; font-size: 12px; text-align: left; }
 .tl-di-right { color: #888; font-family: 'Times New Roman', serif; font-size: 12px; }
 .tl-node.is-searched { outline: 2px dashed #00ffff !important; outline-offset: 4px; z-index: 4; }
 .tl-dropdown::-webkit-scrollbar { width: 6px; }
-.tl-dropdown::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+.tl-dropdown::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
 
 /* GRID COLUMNS */
 .tl-grid { display: flex; gap: 50px; padding: 30px; min-width: max-content; }
@@ -103,23 +103,23 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-nodes-container::before { content: ''; position: absolute; top: 2px; bottom: 2px; left: 50%; transform: translateX(-50%); width: 2px; background-color: #555; z-index: 1; }
 
 /* TIMELINE NODES */
-.tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #292929; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
+.tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #191919; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
 .tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
-.tl-node.empty { border: 2px solid #444; }
-.tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #ddd; z-index: 3; }
+.tl-node.empty { border: 2px solid #555; }
+.tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #DDD; z-index: 3; }
 
 /* GLOBAL TOOLTIP */
-.tl-global-tooltip { display: none; position: fixed; width: 250px; background-color: #161616; border: 2px solid #555; padding: 15px; z-index: 99999; box-shadow: 0 4px 20px rgba(0,0,0,0.9); pointer-events: none; font-family: 'Times New Roman', serif; }
+.tl-global-tooltip { display: none; position: fixed; width: 250px; background-color: #161616; border: 2px solid #444; padding: 15px; z-index: 99999; box-shadow: 0 4px 20px rgba(0,0,0,0.9); pointer-events: none; font-family: 'Times New Roman', serif; }
 .tl-panel-top { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
 .tl-panel-img-box { width: 80px; height: 80px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
 .tl-panel-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .tl-panel-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
 .tl-panel-title { color: #888; font-size: 14px; margin-bottom: 6px; text-align: left; overflow-wrap: break-word; word-break: break-word; }
-.tl-panel-sub { color: #ddd; font-size: 16px; line-height: 1.3; text-align: left; overflow-wrap: break-word; word-break: break-word; }
+.tl-panel-sub { color: #DDD; font-size: 16px; line-height: 1.3; text-align: left; overflow-wrap: break-word; word-break: break-word; }
 .tl-panel-meta { display: flex; justify-content: space-between; border-top: 1px solid #444; padding-top: 14px; }
 .meta-col { display: flex; flex-direction: column; gap: 6px; }
 .meta-label { font-size: 12px; color: #888; text-align: left; }
-.meta-value { font-size: 14px; color: #ddd; }
+.meta-value { font-size: 14px; color: #DDD; }
 .tl-panel-tieup { display: none; flex-direction: column; gap: 6px; padding-top: 12px; text-align: left; }
 
 /* SMALL SCREEN FIX */
@@ -168,7 +168,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <!-- TEXT -->
 <tr>
 <td align="center" valign="top">
-<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #ddd; line-height: 1.6;">A Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai（坂井泉水）</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
+<span id="content-text" style="display: block; width: 100%; text-align: left; font-size: 18px; color: #DDD; line-height: 1.6;">A Japanese musical unit centered around <span style="white-space: nowrap;">Izumi Sakai（坂井泉水）</span><br>Even after Izumi Sakai's passing, her works live on as timeless standards</span>
 </td>
 </tr>
 <!-- PHOTO SLIDER -->
@@ -195,7 +195,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <span id="btn-prev" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
 </span>
-<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #999;" opacity: 0; transition: opacity 0.1s ease;"></span>
+<span id="slide-caption" style="display: inline-block; height: 36px; line-height: 36px; width: 150px; text-align: center; font-size: 14px; color: #DDD;" opacity: 0; transition: opacity 0.1s ease;"></span>
 <span id="btn-next" class="nav-arrow">
 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </span>
@@ -263,7 +263,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
     <!-- MAP CONTAINER -->
     <div class="tl-border-inner">
         <div class="tl-scroll-area" id="timeline-drag">
-            <div style="color: #555; padding: 20px;">Loading...</div>
+            <div style="color: #444; padding: 20px;">Loading...</div>
         </div>
     </div>
     
