@@ -142,14 +142,14 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html { overflow: auto; } body { overflow: visible; } .x-axis-lock, .y-axis-lock { display: contents; } }
 @media screen and (max-width: 800px) { 
-    .embla { width: 100% !important; margin-left: 0 !important; } 
-    .nav-wrapper { display: none !important; }
-    .mobile-nav-menu { display: grid !important; }
-    .content-wrapper { overflow-x: hidden; width: 100%; }
-    .header-logo-wrapper { justify-content: center; }
-    .content-wrapper table { max-width: 100% !important; }
-    #content-title { max-width: 100% !important; font-family: 'Roboto Condensed', sans-serif; text-align: right !important; }
-}
+html, body { height: auto !important; overflow: auto !important; overscroll-behavior: auto !important; }
+.x-axis-lock, .y-axis-lock { height: auto !important; overflow: visible !important; width: 100% !important; min-width: auto !important; display: block !important; }
+.embla { width: 100% !important; margin-left: 0 !important; touch-action: pan-y !important; } 
+.nav-wrapper { display: none !important; }
+.mobile-nav-menu { display: grid !important; }
+.header-logo-wrapper { justify-content: center; }
+.content-wrapper table { max-width: 100% !important; }
+#content-title { max-width: 100% !important; font-family: 'Roboto Condensed', sans-serif; text-align: right !important; } }
 
 </style>
 </head>
