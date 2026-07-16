@@ -13,11 +13,9 @@
 @font-face { font-family: 'Roboto Condensed'; src: local('Roboto Condensed'), local('Roboto Condensed'), url('fonts/Roboto Condensed.woff') format('woff'); font-display: swap; }
 @font-face { font-family: 'Roboto Condensed Medium'; src: local('Roboto Condensed Medium'), local('Roboto Condensed Medium'), url('fonts/Roboto Condensed Medium.woff') format('woff'); font-display: swap; } 
 
-html, body { height: 100%; margin: 0; padding: 0; overscroll-behavior: none; background-color: #000000; overflow: hidden; }
-body { font-size: 16px; font-family: "Meiryo", "Times New Roman", Times, sans-serif; color: #ffffff; }
-.x-axis-lock { width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: none; }
-.y-axis-lock { width: fit-content; min-width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: none; }
-.x-axis-lock::-webkit-scrollbar, .y-axis-lock::-webkit-scrollbar { display: none; }
+/* PROFILE LAYOUT */
+html, body { height: 100%; margin: 0; padding: 0; background-color: #000000; overflow: hidden; overscroll-behavior: none; }
+body { font-size: 16px; font-family: "Meiryo", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -141,8 +139,13 @@ a:hover { color: #ff0000; text-decoration: underline; }
 }
 
 /* SMALL SCREEN FIX */
-@media (hover: hover) and (pointer: fine) { html { overflow: auto; } body { overflow: visible; } .x-axis-lock, .y-axis-lock { display: contents; } }
+@media (hover: hover) and (pointer: fine) { 
+    html { overflow: auto; } 
+    body { overflow: visible; }  
+}
 @media screen and (max-width: 800px) {
+    html { height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior: none !important; }
+    body { height: auto !important; overflow: visible !important; overscroll-behavior: none !important; }
     .embla { width: 100% !important; margin-left: 0 !important; touch-action: pan-y !important; } 
     .nav-wrapper { display: none !important; }
     .mobile-nav-menu { display: grid !important; }
@@ -155,8 +158,6 @@ a:hover { color: #ff0000; text-decoration: underline; }
 </head>
 
 <body>
-<div class="x-axis-lock">
-<div class="y-axis-lock">
 
 <!-- nav MENU -->
 <div class="nav-wrapper">
@@ -165,7 +166,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         <a href="discography.html" class="nav-menu-btn">DISCOGRAPHY</a>
         <a href="single.html" class="nav-menu-btn" target="_blank">SINGLE LIST</a>
         <a href="#" class="nav-menu-btn">ALBUM LIST</a>
-        <a href="#" class="nav-menu-btn">OHTERS 3</a>
+        <a href="#" class="nav-menu-btn">OHTERS 1</a>
     </div>
 </div>
 
@@ -242,7 +243,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
     <a href="discography.html" class="mobile-nav-btn">DISCOGRAPHY</a>
     <a href="single.html" class="mobile-nav-btn" target="_blank">SINGLE LIST</a>
     <a href="#" class="mobile-nav-btn">ALBUM LIST</a>
-    <a href="#" class="mobile-nav-btn">OTHERS 3</a>
+    <a href="#" class="mobile-nav-btn">OTHERS 1</a>
     <span class="mobile-nav-btn empty-btn"></span>
 </div>
         </div>
@@ -250,9 +251,6 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <div style="position: relative; margin-top: 500px; width: 100%; height: 75px; background-color: #000000; display: flex; justify-content: center; align-items: center; overflow: hidden;">
     <span style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACAQMAAABFZu8gAAAABlBMVEUAqqoAAAC9JseZAAAADElEQVQI12O4wMwBAAKCANzeIkjIAAAAAElFTkSuQmCC); background-repeat: repeat; filter: saturate(0) brightness(0.42); z-index: 0; display: block;"></span>
     <span style="position: relative; z-index: 1; color: #ffffff; font-family: 'Roboto Condensed', sans-serif; font-size: 13px; letter-spacing: 0.5px;">A fansite by BlackAimZard</span>
-</div>
-
-</div>
 </div>
 
 <!-- LIGHTBOX -->
