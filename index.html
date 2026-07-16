@@ -141,7 +141,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 /* SMALL SCREEN FIX */
 @media (hover: hover) and (pointer: fine) { html { overflow: auto; } body { overflow: visible; }  }
 @media screen and (max-width: 800px) { 
-html, body { height: auto !important; overflow: auto !important; overscroll-behavior: auto !important; }
+html, body { height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior: none !important; }
 .embla { width: 100% !important; margin-left: 0 !important; touch-action: pan-y !important; } 
 .nav-wrapper { display: none !important; }
 .mobile-nav-menu { display: grid !important; }
@@ -162,7 +162,7 @@ html, body { height: auto !important; overflow: auto !important; overscroll-beha
         <a href="discography.html" class="nav-menu-btn">DISCOGRAPHY</a>
         <a href="single.html" class="nav-menu-btn" target="_blank">SINGLE LIST</a>
         <a href="#" class="nav-menu-btn">ALBUM LIST</a>
-        <a href="#" class="nav-menu-btn">OHTERS</a>
+        <a href="#" class="nav-menu-btn">OHTERS 1</a>
     </div>
 </div>
 
@@ -239,7 +239,7 @@ html, body { height: auto !important; overflow: auto !important; overscroll-beha
     <a href="discography.html" class="mobile-nav-btn">DISCOGRAPHY</a>
     <a href="single.html" class="mobile-nav-btn" target="_blank">SINGLE LIST</a>
     <a href="#" class="mobile-nav-btn">ALBUM LIST</a>
-    <a href="#" class="mobile-nav-btn">OTHERS</a>
+    <a href="#" class="mobile-nav-btn">OTHERS 1</a>
     <span class="mobile-nav-btn empty-btn"></span>
 </div>
         </div>
