@@ -14,8 +14,7 @@
 @font-face { font-family: 'Roboto Condensed Medium'; src: local('Roboto Condensed Medium'), local('Roboto Condensed Medium'), url('fonts/Roboto Condensed Medium.woff') format('woff'); font-display: swap; } 
 
 /* PROFILE LAYOUT */
-html, body { margin: 0; padding: 0; background-color: #000000; overscroll-behavior: none; }
-html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+html, body { height: 100%; margin: 0; padding: 0; background-color: #000000; overflow: hidden; overscroll-behavior: none; }
 body { font-size: 16px; font-family: "Meiryo", sans-serif; color: #ffffff; }
 
 /* BASE RESET */
@@ -140,13 +139,16 @@ a:hover { color: #ff0000; text-decoration: underline; }
 }
 
 /* SMALL SCREEN FIX */
+@media (hover: hover) and (pointer: fine) { html { overflow: auto; } body { overflow: visible; }  }
 @media screen and (max-width: 800px) { 
+html, body { height: auto !important; overflow: auto !important; overscroll-behavior: auto !important; }
 .embla { width: 100% !important; margin-left: 0 !important; touch-action: pan-y !important; } 
 .nav-wrapper { display: none !important; }
 .mobile-nav-menu { display: grid !important; }
 .header-logo-wrapper { justify-content: center; }
 .content-wrapper table { max-width: 100% !important; }
-#content-title { max-width: 100% !important; font-family: 'Roboto Condensed', sans-serif; text-align: right !important; } }
+#content-title { max-width: 100% !important; font-family: 'Roboto Condensed', sans-serif; text-align: right !important; }
+}
 
 </style>
 </head>
@@ -160,7 +162,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         <a href="discography.html" class="nav-menu-btn">DISCOGRAPHY</a>
         <a href="single.html" class="nav-menu-btn" target="_blank">SINGLE LIST</a>
         <a href="#" class="nav-menu-btn">ALBUM LIST</a>
-        <a href="#" class="nav-menu-btn">LINKS</a>
+        <a href="#" class="nav-menu-btn">OHTERS</a>
     </div>
 </div>
 
@@ -237,7 +239,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
     <a href="discography.html" class="mobile-nav-btn">DISCOGRAPHY</a>
     <a href="single.html" class="mobile-nav-btn" target="_blank">SINGLE LIST</a>
     <a href="#" class="mobile-nav-btn">ALBUM LIST</a>
-    <a href="#" class="mobile-nav-btn">LINKS</a>
+    <a href="#" class="mobile-nav-btn">OTHERS</a>
     <span class="mobile-nav-btn empty-btn"></span>
 </div>
         </div>
