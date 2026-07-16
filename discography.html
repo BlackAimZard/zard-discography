@@ -15,9 +15,10 @@
 @font-face { font-family: 'Roboto Condensed Medium'; src: local('Roboto Condensed Medium'), local('Roboto Condensed Medium'), url('fonts/Roboto Condensed Medium.woff') format('woff'); font-display: swap; } 
 
 /* PROFILE LAYOUT */
-html, body { margin: 0; padding: 0; min-width: 300px; font-family: "Meiryo", sans-serif; font-size: 16px; color: #ffffff; }
+html { background-color: #000000; }
+body { margin: 0; padding: 0; min-width: 300px; font-family: "Meiryo", sans-serif; font-size: 16px; color: #ffffff; background-color: transparent; }
 body, html { -ms-scroll-chaining: none; overscroll-behavior: none; }
-body::before { content: ""; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACAQMAAABFZu8gAAAABlBMVEUAqqoAAAC9JseZAAAADElEQVQI12O4wMwBAAKCANzeIkjIAAAAAElFTkSuQmCC); background-repeat: repeat; filter: saturate(0) brightness(0.42); z-index: -1; }
+body::before { content: ""; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #000000; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACAQMAAABFZu8gAAAABlBMVEUAqqoAAAC9JseZAAAADElEQVQI12O4wMwBAAKCANzeIkjIAAAAAElFTkSuQmCC); background-repeat: repeat; filter: saturate(0) brightness(0.42); z-index: -1; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
