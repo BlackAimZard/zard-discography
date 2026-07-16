@@ -14,27 +14,9 @@
 @font-face { font-family: 'Roboto Condensed Medium'; src: local('Roboto Condensed Medium'), local('Roboto Condensed Medium'), url('fonts/Roboto Condensed Medium.woff') format('woff'); font-display: swap; } 
 
 /* PROFILE LAYOUT */
-html {
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    height: 100%;
-    overflow: hidden;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none !important;
-    font-size: 16px;
-    font-family: "Meiryo", sans-serif;
-    color: #ffffff;
-}
+html, body { margin: 0; padding: 0; background-color: #000000; overflow-x: hidden; overscroll-behavior: none !important; }
+body { font-size: 16px; font-family: "Meiryo", sans-serif; color: #ffffff; }
+body,html { -ms-scroll-chaining:none;overscroll-behavior:none;line-height:1.6;font-size:16px;background-color:#000;font-family:"Noto Sans JP",sans-serif;font-weight:400;color:#fff }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -179,7 +161,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
         <a href="discography.html" class="nav-menu-btn">DISCOGRAPHY</a>
         <a href="single.html" class="nav-menu-btn" target="_blank">SINGLE LIST</a>
         <a href="#" class="nav-menu-btn">ALBUM LIST</a>
-        <a href="#" class="nav-menu-btn">OHTERS 1</a>
+        <a href="#" class="nav-menu-btn">OHTERS 5</a>
     </div>
 </div>
 
@@ -256,7 +238,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
     <a href="discography.html" class="mobile-nav-btn">DISCOGRAPHY</a>
     <a href="single.html" class="mobile-nav-btn" target="_blank">SINGLE LIST</a>
     <a href="#" class="mobile-nav-btn">ALBUM LIST</a>
-    <a href="#" class="mobile-nav-btn">OTHERS 1</a>
+    <a href="#" class="mobile-nav-btn">OTHERS 5</a>
     <span class="mobile-nav-btn empty-btn"></span>
 </div>
         </div>
