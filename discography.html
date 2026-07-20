@@ -19,6 +19,7 @@ html { background-color: #000000; }
 body { margin: 0; padding: 0; min-width: 300px; font-family: "Meiryo", sans-serif; font-size: 16px; color: #ffffff; background-color: transparent; }
 body, html { -ms-scroll-chaining: none; overscroll-behavior: none; }
 body::before { content: ""; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #000000; background-image: url(data:image/gif;base64,R0lGODlhBAAEAIABAENDQwAAACH5BAEAAAEALAAAAAAEAAQAAAIERI5oWQA7); background-repeat: repeat; z-index: -1; }
+.site-wrapper { width: 100%; overflow-x: hidden; position: relative; }
 
 /* BASE RESET */
 h2, ul, li { margin: 0; padding: 0; outline: 0; }
@@ -159,6 +160,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 </head>
 
 <body ontouchstart="">
+<div class="site-wrapper">
 
 <!-- BACKGROUND #000 -->
 <div style="background-color: #000000; position: relative; z-index: 1; padding-bottom: 500px;">
@@ -721,5 +723,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- EXTERNAL SCRIPTS -->
 <script src="assets/js/small-screen-btn.js"></script>
 
+</div>
 </body>
 </html>
