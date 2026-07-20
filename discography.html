@@ -62,8 +62,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-border-outer { max-width: 750px; margin: 0 auto; border: 2px solid #444; box-sizing: border-box; position: relative; background-color: #111111; user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 .tl-border-inner { padding: 0; border: none; }
 .tl-scroll-area { width: 100%; height: 550px; background-color: transparent; overflow: hidden; position: relative; box-sizing: border-box; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
-.tl-header-panel { max-width: 750px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; column-gap: 10px; row-gap: 15px; }
-.tl-header-text { font-size: 16px; color: #DDD; line-height: 1.6; text-align: left; margin: 0; padding-left: 10px; }
+.tl-header-panel { max-width: 750px; margin: 0 auto 20px auto; display: flex; align-items: center; }
 
 /* ===== 2. HUD PANEL ===== */
 .tl-hud-panel { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 50; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; pointer-events: none; flex-wrap: wrap; container-type: inline-size; container-name: hud; }
@@ -73,11 +72,11 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-ui-bottom-right:hover { color: #fff; transform: rotate(-90deg); }
 
 /* ===== 3. FILTER BUTTONS ===== */
-.tl-filter-group { display: flex; border: 2px solid #444; background: #111111; box-sizing: border-box; height: 36px; }
-.tl-filter-btn { flex: 1; min-width: 75px; background: transparent; border: none; border-right: 2px solid #444; color: #888; font-family: 'Roboto Condensed Medium', sans-serif; font-size: 12px; cursor: pointer; padding: 0 10px; line-height: 32px; text-align: center; transition: background 0.2s, color 0.2s; box-sizing: border-box; }
-.tl-filter-btn:last-child { border-right: none; }
-.tl-filter-btn:hover { color: #fff; }
-.tl-filter-btn.active { background: #292929; color: #DDD; pointer-events: none; }
+.tl-filter-group { display: flex; align-items: center; box-sizing: border-box; padding: 0 10px; }
+.tl-filter-btn { background: transparent; border: none; color: #444; font-family: 'Meiryo', sans-serif; font-size: 16px; cursor: pointer; padding: 0; }
+.tl-filter-btn:hover { color: #888; text-decoration: underline; }
+.tl-filter-btn.active { color: #fff; pointer-events: none; }
+.tl-sep { color: #888; margin: 0 20px; font-size: 16px; user-select: none; font-family: 'Roboto Condensed', sans-serif; }
 .tl-node.is-filtered { display: none !important; }
 
 /* ===== 4. SEARCH BAR  ===== */
@@ -152,10 +151,10 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* ===== DISCOGRAOHY TIMELINE RESPONSIVE ===== */
 .tl-header-panel, .tl-border-outer { width: calc(100% - 20px) !important; margin-left: auto !important; margin-right: auto !important; }
-.tl-header-text { padding-left: 0px; }
+.tl-filter-btn { padding: 0px ; }
 .tl-search-inner > div:first-child { height: 36px !important; }
 .tl-search-input { font-size: 22px !important; width: 200% !important; height: 72px !important; line-height: 64px !important; border-width: 4px !important; padding: 0 70px 0 30px !important; transform-origin: top left !important; transform: scale(0.5) !important; margin: 0 !important; }
-.tl-filter-group { display: flex !important; width: max-content !important; align-self: flex-start !important; margin: 0 !important; } 
+.tl-filter-group { display: flex !important; flex-wrap: wrap !important; width: 100% !important; align-self: flex-start !important; margin: 0 !important; padding: 0 !important; row-gap: 10px !important; }
 .tl-filter-btn { flex: none !important; } }
 
 </style>
@@ -207,13 +206,14 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- ===== FILTER BUTTONS ===== -->
 <div class="tl-header-panel">
-<div class="tl-header-text">
-<div>45 official singles | 11 studio albums | more</div>
-</div>
 <div class="tl-filter-group">
 <button class="tl-filter-btn active" data-filter="all">ALL</button>
+<span class="tl-sep">|</span>
 <button class="tl-filter-btn" data-filter="single">SINGLE</button>
+<span class="tl-sep">|</span>
 <button class="tl-filter-btn" data-filter="album">ALBUM</button>
+<span class="tl-sep">|</span>
+<button class="tl-filter-btn" data-filter="dvd">DVD</button>
 </div></div>
 
 <div class="tl-border-outer">
