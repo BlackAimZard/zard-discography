@@ -105,6 +105,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-node.is-searched { outline: 2px dashed #00ffff !important; outline-offset: 4px; z-index: 4; }
 .tl-dropdown-empty { padding: 6px 8px; color: #888; font-size: 11px; text-align: left; cursor: default; }
 /* SCROLLBAR UI */
+.tl-custom-scrollbar { display: none; }
+
 @media (pointer: fine) {
 .tl-dropdown::-webkit-scrollbar { display: none; }
 .tl-dropdown { -ms-overflow-style: none; scrollbar-width: none; padding-right: 0; }
@@ -115,8 +117,8 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-sb-btn:hover { background-color: #333; color: #fff; }
 
 .tl-sb-track { flex: 1; position: relative; background-color: #1c1c1c; transition: background 0.2s; }
-.tl-sb-track.grad-up { background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, transparent 100%); }
-.tl-sb-track.grad-down { background: linear-gradient(to top, rgba(255,255,255,0.2) 0%, transparent 100%); }
+.tl-sb-track.grad-up { background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%); }
+.tl-sb-track.grad-down { background: linear-gradient(to top, rgba(255,255,255,0.1) 0%, transparent 100%); }
 
 .tl-sb-thumb { position: absolute; left: 2px; width: 6px; background-color: #555; border-radius: 5px; cursor: pointer; z-index: 2; transition: background-color 0.2s; }
 .tl-sb-thumb:hover, .tl-sb-thumb:active { background-color: #777; }
