@@ -457,32 +457,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* MAGNETIC TOOLTIP POSITIONING */
-    function updateMagneticTooltip() {
-        const forcedNode = document.querySelector('.force-hover');
-        const currentNode = activeHoveredNode || forcedNode;
+	/* MAGNETIC TOOLTIP POSITIONING */
+	let tooltipFrame;
 
-        if (currentNode) {
-            const t = pz.getTransform();
-            const dragRect = dragContainer.getBoundingClientRect();
-            const oRect = borderOuter.getBoundingClientRect();
-            const dl = dragRect.left - oRect.left;
-            const dt = dragRect.top - oRect.top;
+	function updateMagneticTooltip() {
+		cancelAnimationFrame(tooltipFrame);
+    
+		tooltipFrame = requestAnimationFrame(() => {
+			const forcedNode = document.querySelector('.force-hover');
+			const currentNode = activeHoveredNode || forcedNode;
 
-            const local = getLocalCoords(currentNode, zoomTarget);
-            let targetLeft = (local.x + currentNode.offsetWidth) * t.scale + t.x + dl + 20;
-            let targetTop = local.y * t.scale + t.y + dt - 15;
+			if (currentNode) {
+				const t = pz.getTransform();
+				const dragRect = dragContainer.getBoundingClientRect();
+				const oRect = borderOuter.getBoundingClientRect();
+				const dl = dragRect.left - oRect.left;
+				const dt = dragRect.top - oRect.top;
 
-            if (targetLeft < 15) targetLeft = 15;
-            if (targetTop < 15) targetTop = 15;
+				const local = getLocalCoords(currentNode, zoomTarget);
+				let targetLeft = (local.x + currentNode.offsetWidth) * t.scale + t.x + dl + 20;
+				let targetTop = local.y * t.scale + t.y + dt - 15;
 
-            tooltip.style.left = targetLeft + 'px';
-            tooltip.style.top = targetTop + 'px';
-            tooltip.style.display = 'block';
-        } else {
-            tooltip.style.display = 'none'; 
-        }
-    }
+				if (targetLeft < 15) targetLeft = 15;
+				if (targetTop < 15) targetTop = 15;
+
+				tooltip.style.left = targetLeft + 'px';
+				tooltip.style.top = targetTop + 'px';
+				tooltip.style.display = 'block';
+			} else {
+				tooltip.style.display = 'none'; 
+			}
+		});
+	}
     
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
