@@ -73,7 +73,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* ===== 3. FILTER BUTTONS ===== */
 .tl-filter-group { display: flex; align-items: center; box-sizing: border-box; padding: 0 10px; }
-.tl-filter-btn { background: transparent; border: none; color: #555; font-family: 'Meiryo', sans-serif; font-size: 14px; cursor: pointer; padding: 0; }
+.tl-filter-btn { background: transparent; border: none; color: #666; font-family: 'Meiryo', sans-serif; font-size: 14px; cursor: pointer; padding: 0; }
 .tl-filter-btn:hover { color: #888; text-decoration: underline; }
 .tl-filter-btn.active { color: #fff; pointer-events: none; }
 .tl-sep { color: #888; margin: 0 20px; font-size: 14px; user-select: none; }
@@ -83,44 +83,45 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-search-inner { position: relative; width: 350px; max-width: 100%; }
 @container hud (max-width: 475px) { .tl-search-inner { width: 100%; order: 2; }
 .tl-btn-reset { order: 1; } }
-.tl-search-input { background: #292929; border: 2px solid #444; color: #fff; font-family: 'Meiryo', sans-serif; font-size: 11px; padding: 0 34px 0 10px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
+.tl-search-input { background: #292929; border: 2px solid #555; color: #fff; font-family: 'Meiryo', sans-serif; font-size: 11px; padding: 0 34px 0 10px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s; height: 36px; appearance: none; -webkit-appearance: none; border-radius: 0; user-select: auto; -webkit-user-select: auto; -ms-user-select: auto; display: block; margin: 0; }
 .tl-search-input::placeholder { color: #666; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 .tl-search-input:focus { border-color: #fff; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #888; cursor: pointer; display: none; user-select: none; }
 .tl-search-clear:hover { color: #fff; }
 .tl-search-clear svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; }
-.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #292929; border: 2px solid #444; color: #888; font-family: 'Meiryo', sans-serif; font-size: 12px; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
+.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #292929; border: 2px solid #555; color: #888; font-family: 'Meiryo', sans-serif; font-size: 12px; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
 .tl-btn-reset:hover {color: #fff; border-color: #fff; }
 
 /* ===== 5. SEARCH DROPDOWN ===== */
-.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #444; max-height: 176px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1c1c1c; border: 2px solid #555; max-height: 176px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
 .tl-dropdown.show { display: block; }
-.tl-dropdown-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #333; cursor: pointer; transition: background 0.1s; }
-.tl-dropdown-item:hover { background: #333; }
+.tl-dropdown-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #444; cursor: pointer; }
+.tl-dropdown-item:hover { background: #222; }
+.tl-dropdown-item:hover .tl-di-left span { color: #FFF; }
 .tl-dropdown-item:last-child { border-bottom: none; }
 .tl-di-left { display: flex; align-items: center; gap: 12px; }
 .tl-di-left img { width: 32px; height: 32px; object-fit: cover; border: 1px solid #444; }
-.tl-di-left span { color: #FFF; font-size: 12px; text-align: left; }
+.tl-di-left span { color: #BBB; font-size: 12px; text-align: left; transition: color 0.1s; }
 .tl-di-right { color: #888; font-size: 11px; }
 .tl-node.is-searched { outline: 2px dashed #00ffff !important; outline-offset: 4px; z-index: 4; }
 .tl-dropdown-empty { padding: 6px 8px; color: #888; font-size: 11px; text-align: left; cursor: default; }
-/* SCROLLBAR UI */
-.tl-custom-scrollbar { display: none; }
 
 @media (pointer: fine) {
 .tl-dropdown::-webkit-scrollbar { display: none; }
-.tl-dropdown { -ms-overflow-style: none; scrollbar-width: none; padding-right: 0; }
-.tl-dropdown-item { padding-right: 18px; } 
+.tl-dropdown { -ms-overflow-style: none; scrollbar-width: none; }
+.tl-dropdown.is-scrolling { padding-right: 10px; }
+.tl-dropdown.is-scrolling .tl-dropdown-item { padding-right: 8px; } 
 
 .tl-custom-scrollbar { position: absolute; right: 2px; width: 10px; z-index: 10000; display: none; flex-direction: column; background-color: #1c1c1c; box-sizing: border-box; }
-.tl-sb-btn { width: 10px; height: 14px; background-color: #1c1c1c; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #666; flex-shrink: 0; transition: background-color 0.2s, color 0.2s; }
-.tl-sb-btn:hover { background-color: #333; color: #fff; }
+.tl-sb-btn { width: 10px; height: 14px; background-color: #1c1c1c; display: flex; align-items: center; justify-content: center; color: #666; flex-shrink: 0; }
+.tl-sb-btn:not(.is-disabled):hover { background-color: #444; color: #fff; }
+.tl-sb-btn.is-disabled { cursor: default; }
 
-.tl-sb-track { flex: 1; position: relative; background-color: #1c1c1c; transition: background 0.2s; }
-.tl-sb-track.grad-up { background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%); }
-.tl-sb-track.grad-down { background: linear-gradient(to top, rgba(255,255,255,0.1) 0%, transparent 100%); }
+.tl-sb-track { flex: 1; position: relative; background-color: #1c1c1c; }
+.tl-sb-track.grad-up { background: linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, transparent 100%); }
+.tl-sb-track.grad-down { background: linear-gradient(to top, rgba(255,255,255,0.09) 0%, transparent 100%); }
 
-.tl-sb-thumb { position: absolute; left: 2px; width: 6px; background-color: #555; border-radius: 5px; cursor: pointer; z-index: 2; transition: background-color 0.2s; }
+.tl-sb-thumb { position: absolute; left: 2px; width: 6px; background-color: #555; border-radius: 5px; z-index: 2; }
 .tl-sb-thumb:hover, .tl-sb-thumb:active { background-color: #777; }
 }
 
@@ -129,12 +130,12 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-col { display: flex; flex-direction: column; align-items: center; width: 50px; }
 .tl-year-text { font-size: 16px; color: #aaa; margin-bottom: 20px; user-select: none; }
 .tl-nodes-container { display: flex; flex-direction: column; gap: 30px; position: relative; }
-.tl-nodes-container::before { content: ''; position: absolute; top: 2px; bottom: 2px; left: 50%; transform: translateX(-50%); width: 2px; background-color: #555; z-index: 1; }
+.tl-nodes-container::before { content: ''; position: absolute; top: 2px; bottom: 2px; left: 50%; transform: translateX(-50%); width: 2px; background-color: #666; z-index: 1; }
 
 /*  ===== 7. TIMELINE NODES  ===== */
-.tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #555; background-color: #191919; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
+.tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #666; background-color: #191919; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
 .tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
-.tl-node.empty { border: 2px solid #555; }
+.tl-node.empty { border: 2px solid #666; }
 .tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #FFF; z-index: 3; }
 
 /*  ===== 8. GLOBAL TOOLTIP  ===== */
@@ -772,24 +773,48 @@ document.addEventListener('DOMContentLoaded', () => {
     let startY = 0;
     let startScrollTop = 0;
     let scrollInterval;
+    let updateFrame;
 
     function updateScrollbar() {
-        if (!dropdown.classList.contains('show') || dropdown.scrollHeight <= dropdown.clientHeight) {
-            scrollbar.style.display = 'none';
-            return;
-        }
-        
-        scrollbar.style.display = 'flex';
-        scrollbar.style.top = (dropdown.offsetTop + 2) + 'px';
-        scrollbar.style.height = (dropdown.offsetHeight - 4) + 'px';
+        cancelAnimationFrame(updateFrame);
+        updateFrame = requestAnimationFrame(() => {
+            if (!dropdown.classList.contains('show') || dropdown.scrollHeight <= dropdown.clientHeight) {
+                scrollbar.style.display = 'none';
+                dropdown.classList.remove('is-scrolling');
+                return;
+            }
+            
+            scrollbar.style.display = 'flex';
+            dropdown.classList.add('is-scrolling');
+            
+            scrollbar.style.top = (dropdown.offsetTop + 2) + 'px';
+            scrollbar.style.height = (dropdown.offsetHeight - 4) + 'px';
 
-        const scrollRatio = dropdown.clientHeight / dropdown.scrollHeight;
-        const thumbHeight = Math.max(track.clientHeight * scrollRatio, 20);
-        thumb.style.height = thumbHeight + 'px';
+            const scrollRatio = dropdown.clientHeight / dropdown.scrollHeight;
+            const thumbHeight = Math.max(track.clientHeight * scrollRatio, 20);
+            thumb.style.height = thumbHeight + 'px';
 
-        const maxThumbTop = track.clientHeight - thumbHeight;
-        const scrollProgress = dropdown.scrollTop / (dropdown.scrollHeight - dropdown.clientHeight);
-        thumb.style.top = (scrollProgress * maxThumbTop) + 'px';
+            const maxThumbTop = track.clientHeight - thumbHeight;
+            const scrollProgress = dropdown.scrollTop / (dropdown.scrollHeight - dropdown.clientHeight);
+            thumb.style.top = (scrollProgress * maxThumbTop) + 'px';
+
+            if (dropdown.scrollTop <= 0) {
+                btnUp.classList.add('is-disabled');
+                track.classList.remove('grad-up');
+            } else {
+                btnUp.classList.remove('is-disabled');
+            }
+
+            if (Math.ceil(dropdown.scrollTop) + dropdown.clientHeight >= dropdown.scrollHeight) {
+                btnDown.classList.add('is-disabled');
+                track.classList.remove('grad-down');
+                stopScroll();
+            } else {
+                btnDown.classList.remove('is-disabled');
+            }
+            
+            if (dropdown.scrollTop <= 0) stopScroll();
+        });
     }
 
     const observer = new MutationObserver(updateScrollbar);
@@ -837,15 +862,15 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(scrollInterval);
     }
 
-    btnUp.addEventListener('mousedown', () => startScroll(-1));
-    btnDown.addEventListener('mousedown', () => startScroll(1));
+    btnUp.addEventListener('mousedown', () => { if (!btnUp.classList.contains('is-disabled')) startScroll(-1); });
+    btnDown.addEventListener('mousedown', () => { if (!btnDown.classList.contains('is-disabled')) startScroll(1); });
     document.addEventListener('mouseup', stopScroll);
     btnUp.addEventListener('mouseleave', stopScroll);
     btnDown.addEventListener('mouseleave', stopScroll);
 
-    btnUp.addEventListener('mouseenter', () => track.classList.add('grad-up'));
+    btnUp.addEventListener('mouseenter', () => { if (!btnUp.classList.contains('is-disabled')) track.classList.add('grad-up'); });
     btnUp.addEventListener('mouseleave', () => track.classList.remove('grad-up'));
-    btnDown.addEventListener('mouseenter', () => track.classList.add('grad-down'));
+    btnDown.addEventListener('mouseenter', () => { if (!btnDown.classList.contains('is-disabled')) track.classList.add('grad-down'); });
     btnDown.addEventListener('mouseleave', () => track.classList.remove('grad-down'));
 });
 </script>
