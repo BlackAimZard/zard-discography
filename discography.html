@@ -130,6 +130,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 /* ===== 7. TIMELINE NODES ===== */
 .tl-node { width: 50px; height: 50px; margin: 0; box-sizing: border-box; border: 2px solid #666; background-color: #191919; display: flex; justify-content: center; align-items: center; z-index: 2; position: relative; text-decoration: none; color: transparent; }
+.tl-node, .tl-nodes-container::before { outline: 2px solid transparent; }
 .tl-node img { width: 38px; height: 38px; object-fit: cover; pointer-events: none; }
 .tl-node.empty { border: 2px solid #666; }
 .tl-node.is-hovered, .tl-node.force-hover { width: 54px; height: 54px; margin: -2px; border: 4px solid #FFF; z-index: 3; }
@@ -368,8 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltip.style.display = 'none';
         activeHoveredNode = null;
         
-        pz.zoomAbs(0, 0, defaultZoom);
-        pz.moveTo(startX, startY);
+        const t = pz.getTransform();
+        t.scale = defaultZoom;
+        pz.moveTo(startX, startY);        
     });
 
     /* LOCAL COORDINATES HELPER */
