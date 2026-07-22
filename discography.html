@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         maxZoom: 3, 
         minZoom: 0.2,
         initialZoom: defaultZoom, 
-        bounds: true, 
+        bounds: false, 
         boundsPadding: 0.1,
         smoothScroll: false
     });
@@ -369,9 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltip.style.display = 'none';
         activeHoveredNode = null;
         
-        const t = pz.getTransform();
-        t.scale = defaultZoom;
-        pz.moveTo(startX, startY);        
+        pz.zoomAbs(0, 0, defaultZoom);
+        pz.moveTo(startX, startY);
     });
 
     /* LOCAL COORDINATES HELPER */
