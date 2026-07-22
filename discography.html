@@ -16,7 +16,7 @@
 @font-face { font-family: 'Fix-ellipsis'; src: local('Arial'); unicode-range: U+2026; }
 
 /* PROFILE LAYOUT */
-html { background-color: #000000; }
+html { background-color: #000000; color-scheme: dark; }
 body { margin: 0; padding: 0; min-width: 300px; font-family: "Meiryo", sans-serif; font-size: 16px; color: #ffffff; background-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;}
 body, html { -ms-scroll-chaining: none; overscroll-behavior: none; }
 body::before { content: ""; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #000000; background-image: url(data:image/gif;base64,R0lGODlhBAAEAIABAENDQwAAACH5BAEAAAEALAAAAAAEAAQAAAIERI5oWQA7); background-repeat: repeat; z-index: -1; }
@@ -92,7 +92,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-btn-reset:hover {color: #fff; border-color: #fff; }
 
 /* ===== 5. SEARCH DROPDOWN ===== */
-.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1C1C1C; border: 2px solid #555; max-height: 120px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+.tl-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1C1C1C; border: 2px solid #555; max-height: 120px; overflow-y: auto; display: none; z-index: 9999; box-shadow: 0 8px 20px rgba(0,0,0,0.6); scrollbar-color: #555 #1C1C1C; scrollbar-width: thin; }
 .tl-dropdown.show { display: block; }
 .tl-dropdown-item { display: flex; align-items: center; padding: 6px 8px; border-bottom: 1px solid #444; cursor: pointer; gap: 12px; }
 .tl-dropdown-item:hover { background: #222; }
@@ -103,23 +103,6 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-di-date { color: #666; font-size: 11px; flex-shrink: 0; }
 .tl-node.is-searched { outline: 2px dashed #00ffff !important; outline-offset: 4px; z-index: 4; }
 .tl-dropdown-empty { padding: 8px; color: #666; font-size: 11px; text-align: left; cursor: default; }
-/* ===== SCROLLBAR UI ===== */
-.tl-custom-scrollbar { position: absolute; right: 2px; width: 10px; z-index: 10000; display: none; flex-direction: column; background-color: #1C1C1C; box-sizing: border-box; }
-.tl-sb-btn { width: 10px; height: 14px; background-color: #1C1C1C; display: flex; align-items: center; justify-content: center; color: #555; flex-shrink: 0; }
-.tl-sb-btn:not(.is-disabled):hover { background-color: #444; color: #fff; }
-.tl-sb-btn.is-disabled { cursor: default; }
-.tl-sb-track { flex: 1; position: relative; background-color: #1C1C1C; }
-.tl-sb-track.grad-up { background: linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, transparent 100%); }
-.tl-sb-track.grad-down { background: linear-gradient(to top, rgba(255,255,255,0.09) 0%, transparent 100%); }
-.tl-sb-thumb { position: absolute; left: 2px; width: 6px; background-color: #555; border-radius: 5px; z-index: 2; }
-.tl-sb-thumb:hover, .tl-sb-thumb:active { background-color: #777; }
-@media (pointer: fine) {
-.tl-dropdown::-webkit-scrollbar { display: none; }
-.tl-dropdown { -ms-overflow-style: none; scrollbar-width: none; }
-.tl-dropdown.is-scrolling { padding-right: 10px; }
-.tl-dropdown.is-scrolling .tl-dropdown-item { padding-right: 8px; } }
-@media (pointer: coarse) {
-.tl-custom-scrollbar { display: none !important; } }
 
 /* ===== 6. GRID COLUMNS ===== */
 .tl-grid { display: flex; gap: 50px; padding: 30px; min-width: max-content; }
@@ -245,19 +228,6 @@ a:hover { color: #ff0000; text-decoration: underline; }
 <span id="tl-search-clear" class="tl-search-clear">
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>
 <div id="tl-search-dropdown" class="tl-dropdown"></div>
-
-<!-- CUSTOM PC SCROLLBAR -->
-<div id="tl-custom-scrollbar" class="tl-custom-scrollbar">
-    <div class="tl-sb-btn tl-sb-up">
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"><path d="M1.25 7l3.75-4 3.75 4z"/></svg>
-    </div>
-    <div class="tl-sb-track">
-        <div class="tl-sb-thumb"></div>
-    </div>
-    <div class="tl-sb-btn tl-sb-down">
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"><path d="M1.25 3l3.75 4 3.75-4z"/></svg>
-    </div>
-</div>
 </div>
 
 <!-- ===== RESET BUTTON ===== -->
@@ -755,127 +725,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
-<!-- CUSTOM SCROLLBAR LOGIC -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    const dropdown = document.getElementById('tl-search-dropdown');
-    const scrollbar = document.getElementById('tl-custom-scrollbar');
-    if (!dropdown || !scrollbar) return;
-
-    const thumb = scrollbar.querySelector('.tl-sb-thumb');
-    const track = scrollbar.querySelector('.tl-sb-track');
-    const btnUp = scrollbar.querySelector('.tl-sb-up');
-    const btnDown = scrollbar.querySelector('.tl-sb-down');
-
-    let isDragging = false;
-    let startY = 0;
-    let startScrollTop = 0;
-    let scrollInterval;
-    let updateFrame;
-
-    function updateScrollbar() {
-        cancelAnimationFrame(updateFrame);
-        updateFrame = requestAnimationFrame(() => {
-            if (!dropdown.classList.contains('show') || dropdown.scrollHeight <= dropdown.clientHeight) {
-                scrollbar.style.display = 'none';
-                dropdown.classList.remove('is-scrolling');
-                return;
-            }
-            
-            scrollbar.style.display = 'flex';
-            dropdown.classList.add('is-scrolling');
-            
-            scrollbar.style.top = (dropdown.offsetTop + 2) + 'px';
-            scrollbar.style.height = (dropdown.offsetHeight - 4) + 'px';
-
-            const scrollRatio = dropdown.clientHeight / dropdown.scrollHeight;
-            const thumbHeight = Math.max(track.clientHeight * scrollRatio, 20);
-            thumb.style.height = thumbHeight + 'px';
-
-            const maxThumbTop = track.clientHeight - thumbHeight;
-            const scrollProgress = dropdown.scrollTop / (dropdown.scrollHeight - dropdown.clientHeight);
-            thumb.style.top = (scrollProgress * maxThumbTop) + 'px';
-
-            if (dropdown.scrollTop <= 0) {
-                btnUp.classList.add('is-disabled');
-                track.classList.remove('grad-up');
-            } else {
-                btnUp.classList.remove('is-disabled');
-            }
-
-            if (Math.ceil(dropdown.scrollTop) + dropdown.clientHeight >= dropdown.scrollHeight) {
-                btnDown.classList.add('is-disabled');
-                track.classList.remove('grad-down');
-                stopScroll();
-            } else {
-                btnDown.classList.remove('is-disabled');
-            }
-            
-            if (dropdown.scrollTop <= 0) stopScroll();
-        });
-    }
-
-    const observer = new MutationObserver(updateScrollbar);
-    observer.observe(dropdown, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
-    dropdown.addEventListener('scroll', updateScrollbar);
-
-    thumb.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startY = e.clientY;
-        startScrollTop = dropdown.scrollTop;
-        document.body.style.userSelect = 'none';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.clientY - startY;
-        const maxThumbTop = track.clientHeight - thumb.clientHeight;
-        const scrollRatio = deltaY / maxThumbTop;
-        dropdown.scrollTop = startScrollTop + (scrollRatio * (dropdown.scrollHeight - dropdown.clientHeight));
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        }
-    });
-
-    track.addEventListener('mousedown', (e) => {
-        if (e.target === thumb) return;
-        const clickY = e.clientY - track.getBoundingClientRect().top;
-        const thumbTop = parseFloat(thumb.style.top) || 0;
-        const dir = clickY > thumbTop ? 1 : -1;
-        dropdown.scrollTop += dir * dropdown.clientHeight * 0.8;
-    });
-
-    function startScroll(dir) {
-        dropdown.scrollTop += dir * 15;
-        scrollInterval = setInterval(() => {
-            dropdown.scrollTop += dir * 15;
-        }, 30);
-    }
-
-    function stopScroll() {
-        clearInterval(scrollInterval);
-    }
-
-    btnUp.addEventListener('mousedown', () => { if (!btnUp.classList.contains('is-disabled')) startScroll(-1); });
-    btnDown.addEventListener('mousedown', () => { if (!btnDown.classList.contains('is-disabled')) startScroll(1); });
-    document.addEventListener('mouseup', stopScroll);
-    btnUp.addEventListener('mouseleave', stopScroll);
-    btnDown.addEventListener('mouseleave', stopScroll);
-
-    btnUp.addEventListener('mouseenter', () => { if (!btnUp.classList.contains('is-disabled')) track.classList.add('grad-up'); });
-    btnUp.addEventListener('mouseleave', () => track.classList.remove('grad-up'));
-    btnDown.addEventListener('mouseenter', () => { if (!btnDown.classList.contains('is-disabled')) track.classList.add('grad-down'); });
-    btnDown.addEventListener('mouseleave', () => track.classList.remove('grad-down'));
-});
-</script>
-
 </div>
 </body>
 </html>
