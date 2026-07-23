@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY V1</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -313,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tooltip.style.position = 'absolute';
 
     let activeHoveredNode = null;
+	let isSearchPinned = false;
 
     /* PANZOOM ENGINE INITIALIZATION */
     const zoomTarget = dragContainer.firstElementChild; 
@@ -338,6 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.tl-node').forEach(n => n.classList.remove('force-hover', 'is-hovered'));
         tooltip.style.display = 'none';
         activeHoveredNode = null;
+		isSearchPinned = false;
         
         pz.zoomAbs(0, 0, defaultZoom);
         pz.moveTo(startX, startY);
@@ -556,6 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		firstNode.classList.add('force-hover');
 		activeHoveredNode = firstNode;
+		isSearchPinned = true;
 
 		focusNodeOnMap(firstNode);
 		updateTooltipContent(firstNode);
@@ -571,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				targetNode.classList.add('force-hover');
 				activeHoveredNode = targetNode;
+				isSearchPinned = true;
 
 				focusNodeOnMap(targetNode);
 				updateTooltipContent(targetNode);
@@ -598,7 +602,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPinnedNode && currentPinnedNode.classList.contains('is-filtered')) {
                 currentPinnedNode.classList.remove('force-hover');
                 tooltip.style.display = 'none';
-                activeHoveredNode = null; 
+                activeHoveredNode = null;
+				isSearchPinned = false;
             }
             
             runSearch();
@@ -628,6 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (e.pointerType !== 'mouse' || isGlobalDragging) return;
 
 			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+			isSearchPinned = false;
 		});
 
 		let pointerStartX = 0;
@@ -657,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (!node.classList.contains('force-hover')) {
 				document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
 
+				isSearchPinned = false;
 				node.classList.add('force-hover');
 				activeHoveredNode = node;
 
@@ -694,6 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+			isSearchPinned = false;
 			node.classList.add('force-hover');
 		});
 	});
@@ -708,32 +716,40 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	/* GLOBAL DISMISS HANDLER */
-	function handleTouchLikeDismiss(e, startX, startY, endX, endY) {
+	function handleTouchLikeDismiss(e, startX, startY, endX, endY, searchWasFocused) {
 		if (Math.hypot(endX - startX, endY - startY) > 10) return;
 
 		const isSearch = e.target.closest('.tl-search-inner');
 		const isFilter = e.target.closest('.tl-filter-group');
 		const isNode = e.target.closest('.tl-node');
 		const isTooltip = e.target.closest('.tl-global-tooltip');
+		const isOutside = !isSearch && !isFilter && !isNode && !isTooltip;
 
 		if (!isSearch) {
 			searchDropdown.classList.remove('show');
 			searchInput.blur();
 		}
 
-		if (!isSearch && !isFilter && !isNode && !isTooltip) {
-			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-			tooltip.style.display = 'none';
-			activeHoveredNode = null;
+		if (!isOutside) return;
+
+		if (isSearchPinned && searchWasFocused) {
+			return;
 		}
+
+		document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+		tooltip.style.display = 'none';
+		activeHoveredNode = null;
+		isSearchPinned = false;
 	}
 
 	let globalTouchStartX = 0;
 	let globalTouchStartY = 0;
+	let touchStartedWithSearchFocus = false;
 
 	document.addEventListener('touchstart', (e) => {
 		globalTouchStartX = e.changedTouches[0].screenX;
 		globalTouchStartY = e.changedTouches[0].screenY;
+		touchStartedWithSearchFocus = document.activeElement === searchInput;
 	}, { capture: true, passive: true });
 
 	document.addEventListener('touchend', (e) => {
@@ -744,18 +760,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			globalTouchStartX,
 			globalTouchStartY,
 			touch.screenX,
-			touch.screenY
+			touch.screenY,
+			touchStartedWithSearchFocus
 		);
+
+		touchStartedWithSearchFocus = false;
 	}, { capture: true, passive: true });
 
 	let globalPenStartX = 0;
 	let globalPenStartY = 0;
+	let penStartedWithSearchFocus = false;
 
 	document.addEventListener('pointerdown', (e) => {
 		if (e.pointerType !== 'pen') return;
 
 		globalPenStartX = e.clientX;
 		globalPenStartY = e.clientY;
+		penStartedWithSearchFocus = document.activeElement === searchInput;
 	}, { capture: true, passive: true });
 
 	document.addEventListener('pointerup', (e) => {
@@ -766,8 +787,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			globalPenStartX,
 			globalPenStartY,
 			e.clientX,
-			e.clientY
+			e.clientY,
+			penStartedWithSearchFocus
 		);
+
+		penStartedWithSearchFocus = false;
 	}, { capture: true, passive: true });
 
 	/* SEARCH DROPDOWN RE-OPEN HANDLERS */
