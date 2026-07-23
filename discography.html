@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 1</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -458,116 +458,126 @@ document.addEventListener('DOMContentLoaded', () => {
     pz.on('pan', updateMagneticTooltip);
     pz.on('zoom', updateMagneticTooltip);
     
-    /* SEARCH & FILTER ENGINE */
-    const searchInput = document.getElementById('tl-search-box');
-    const searchDropdown = document.getElementById('tl-search-dropdown');
-    const filterBtns = document.querySelectorAll('.tl-filter-btn');
-    const searchClearBtn = document.getElementById('tl-search-clear');
+	/* SEARCH & FILTER ENGINE */
+	const searchInput = document.getElementById('tl-search-box');
+	const searchDropdown = document.getElementById('tl-search-dropdown');
+	const filterBtns = document.querySelectorAll('.tl-filter-btn');
+	const searchClearBtn = document.getElementById('tl-search-clear');
 
-    /* EXECUTE SEARCH */
-    function runSearch() {
-        const keyword = searchInput.value.toLowerCase().trim();
-        const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
-        const activeFilterBtn = document.querySelector('.tl-filter-btn.active');
-        const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+	/* PANZOOM NODE FOCUS HELPER */
+	function focusNodeOnMap(node) {
+		const targetScale = 1;
+		const containerRect = dragContainer.getBoundingClientRect();
+		const currentTransform = pz.getTransform();
+		const nodeRect = node.getBoundingClientRect();
 
-        searchDropdown.innerHTML = '';
-        searchClearBtn.style.display = keyword.length > 0 ? 'block' : 'none';
+		const nodeScreenX = nodeRect.left + nodeRect.width / 2;
+		const nodeScreenY = nodeRect.top + nodeRect.height / 2;
 
-        allMusicNodes.forEach(node => node.classList.remove('is-searched'));
+		const nodeLocalX = (nodeScreenX - containerRect.left - currentTransform.x) / currentTransform.scale;
+		const nodeLocalY = (nodeScreenY - containerRect.top - currentTransform.y) / currentTransform.scale;
 
-        if (keyword.length < 2) {
-            searchDropdown.classList.remove('show');
-            return;
-        }
+		const targetX = containerRect.width / 2 - nodeLocalX * targetScale;
+		const targetY = containerRect.height / 2 - nodeLocalY * targetScale;
 
-        let matchedNodes = [];
-        allMusicNodes.forEach((node, index) => {
-            const isMatchFilter = (currentFilter === 'all' || node.dataset.type === currentFilter);
-            if (!isMatchFilter) return;
+		pz.zoomAbs(0, 0, targetScale);
+		pz.moveTo(targetX, targetY);
+	}
 
-            const nodeData = ((node.dataset.title || '') + ' ' + (node.dataset.sub || '') + ' ' + (node.dataset.released || '') + ' ' + (node.dataset.label || '') + ' ' + (node.dataset.tieup || '')).toLowerCase();
+	/* EXECUTE SEARCH */
+	function runSearch() {
+		const keyword = searchInput.value.toLowerCase().trim();
+		const allMusicNodes = document.querySelectorAll('.tl-node[data-title]');
+		const activeFilterBtn = document.querySelector('.tl-filter-btn.active');
+		const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
-            if (nodeData.includes(keyword)) {
-                node.classList.add('is-searched');
-                matchedNodes.push({ node, index });
-            }
-        });
+		searchDropdown.innerHTML = '';
+		searchClearBtn.style.display = keyword.length > 0 ? 'block' : 'none';
+
+		allMusicNodes.forEach(node => node.classList.remove('is-searched'));
+
+		if (keyword.length < 2) {
+			searchDropdown.classList.remove('show');
+			return;
+		}
+
+		const matchedNodes = [];
+
+		allMusicNodes.forEach((node, index) => {
+			const isMatchFilter = currentFilter === 'all' || node.dataset.type === currentFilter;
+			if (!isMatchFilter) return;
+
+			const nodeData = (
+				(node.dataset.title || '') + ' ' +
+				(node.dataset.sub || '') + ' ' +
+				(node.dataset.released || '') + ' ' +
+				(node.dataset.label || '') + ' ' +
+				(node.dataset.tieup || '')
+			).toLowerCase();
+
+			if (nodeData.includes(keyword)) {
+				node.classList.add('is-searched');
+				matchedNodes.push({ node, index });
+			}
+		});
 
 		if (matchedNodes.length === 0) {
 			searchDropdown.innerHTML = '<div class="tl-dropdown-empty">No matching info.</div>';
 			searchDropdown.classList.add('show');
-		} else {
-            allMusicNodes.forEach(n => n.classList.remove('force-hover'));
+			return;
+		}
 
-            let dropdownHTML = '';
-            matchedNodes.forEach(match => {
-                const node = match.node;
-                const innerImg = node.querySelector('img');
-                const imgSrc = innerImg ? innerImg.getAttribute('src') : '';
-                dropdownHTML += `
-                    <div class="tl-dropdown-item" data-index="${match.index}">
-                        <img src="${imgSrc}" draggable="false">
-                        <span class="tl-di-title">${node.dataset.sub}</span>
-                        <span class="tl-di-date">${node.dataset.released}</span>
-                    </div>
-                `;
-            });
-            searchDropdown.innerHTML = dropdownHTML;
-            searchDropdown.classList.add('show');
+		allMusicNodes.forEach(node => node.classList.remove('force-hover'));
 
-            const firstNode = matchedNodes[0].node;
-            firstNode.classList.add('force-hover');
-            activeHoveredNode = firstNode;
-            
-            const cRect = dragContainer.getBoundingClientRect();
-            const currentT = pz.getTransform();
-            const r = firstNode.getBoundingClientRect();
-            
-            const nodeScreenX = r.left + r.width / 2;
-            const nodeScreenY = r.top + r.height / 2;
-            const localX = (nodeScreenX - cRect.left - currentT.x) / currentT.scale;
-            const localY = (nodeScreenY - cRect.top - currentT.y) / currentT.scale;
+		let dropdownHTML = '';
 
-            currentT.scale = 1;
-            currentT.x = (cRect.width / 2) - localX;
-            currentT.y = (cRect.height / 2) - localY;
-            zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${currentT.x}, ${currentT.y})`;
+		matchedNodes.forEach(match => {
+			const node = match.node;
+			const innerImg = node.querySelector('img');
+			const imgSrc = innerImg ? innerImg.getAttribute('src') : '';
 
-            updateTooltipContent(firstNode);
-            updateMagneticTooltip();
+			dropdownHTML += `
+				<div class="tl-dropdown-item" data-index="${match.index}">
+					<img src="${imgSrc}" draggable="false">
+					<span class="tl-di-title">${node.dataset.sub}</span>
+					<span class="tl-di-date">${node.dataset.released}</span>
+				</div>
+			`;
+		});
 
-            searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetNode = allMusicNodes[this.getAttribute('data-index')];
-                    allMusicNodes.forEach(n => n.classList.remove('force-hover'));
-                    targetNode.classList.add('force-hover');
-                    
-                    const t = pz.getTransform();
-                    const cr = dragContainer.getBoundingClientRect();
-                    const nr = targetNode.getBoundingClientRect();
-                    
-                    const lx = (nr.left + nr.width / 2 - cr.left - t.x) / t.scale;
-                    const ly = (nr.top + nr.height / 2 - cr.top - t.y) / t.scale;
-                    
-                    t.scale = 1;
-                    t.x = (cr.width / 2) - lx;
-                    t.y = (cr.height / 2) - ly;
-                    zoomTarget.style.transform = `matrix(1, 0, 0, 1, ${t.x}, ${t.y})`;
-                    
-                    activeHoveredNode = targetNode;
-                    updateTooltipContent(targetNode);
-                    updateMagneticTooltip();
+		searchDropdown.innerHTML = dropdownHTML;
+		searchDropdown.classList.add('show');
 
-                    searchDropdown.classList.remove('show');
-                });
-            });
-        }
-    }
+		const firstNode = matchedNodes[0].node;
 
-    searchInput.addEventListener('input', runSearch);
+		firstNode.classList.add('force-hover');
+		activeHoveredNode = firstNode;
+
+		focusNodeOnMap(firstNode);
+		updateTooltipContent(firstNode);
+		updateMagneticTooltip();
+
+		searchDropdown.querySelectorAll('.tl-dropdown-item').forEach(item => {
+			item.addEventListener('click', function(e) {
+				e.preventDefault();
+
+				const targetNode = allMusicNodes[this.getAttribute('data-index')];
+
+				allMusicNodes.forEach(node => node.classList.remove('force-hover'));
+
+				targetNode.classList.add('force-hover');
+				activeHoveredNode = targetNode;
+
+				focusNodeOnMap(targetNode);
+				updateTooltipContent(targetNode);
+				updateMagneticTooltip();
+
+				searchDropdown.classList.remove('show');
+			});
+		});
+	}
+
+	searchInput.addEventListener('input', runSearch);
 
     /* FILTER BUTTON CLICK LISTENER */
     filterBtns.forEach(btn => {
