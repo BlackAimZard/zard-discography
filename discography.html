@@ -88,7 +88,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 .tl-search-clear { position: absolute; right: 0; top: 0; width: 36px; height: 36px; color: #999; cursor: pointer; display: none; user-select: none; }
 .tl-search-clear:hover { color: #fff; }
 .tl-search-clear svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; }
-.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #222; border: 2px solid #555; color: #999; font-family: 'Meiryo', sans-serif; font-size: 12px; cursor: pointer; box-sizing: border-box; color 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
+.tl-btn-reset { width: 115px; height: 36px; flex-shrink: 0; background: #222; border: 2px solid #555; color: #999; font-family: 'Meiryo', sans-serif; font-size: 12px; cursor: pointer; box-sizing: border-box; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
 .tl-btn-reset:hover {color: #fff; border-color: #fff; }
 
 /* ===== 5. SEARCH DROPDOWN ===== */
@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 3</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 4</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -382,28 +382,32 @@ document.addEventListener('DOMContentLoaded', () => {
         isGlobalDragging = false;
     });
 
-    /* TOOLTIP INTERACTION ENGINE */
-    const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
+	/* TOOLTIP INTERACTION ENGINE */
+	const nodesWithData = document.querySelectorAll('.tl-node[data-title]');
 
-    nodesWithData.forEach(node => {
-        node.addEventListener('mouseenter', (e) => {
-            if (isGlobalDragging && !node.classList.contains('force-hover')) return;
+	nodesWithData.forEach(node => {
+		node.addEventListener('pointerenter', (e) => {
+			if (e.pointerType !== 'mouse') return;
+			if (isGlobalDragging && !node.classList.contains('force-hover')) return;
 
-            activeHoveredNode = node;
-            node.classList.add('is-hovered'); 
-            updateTooltipContent(node);
-            updateMagneticTooltip();
-        });
+			activeHoveredNode = node;
+			node.classList.add('is-hovered');
 
-        node.addEventListener('mouseleave', () => { 
-            activeHoveredNode = null;
-            node.classList.remove('is-hovered'); 
-            
-            if (!node.classList.contains('force-hover')) {
-                tooltip.style.display = 'none'; 
-            }
-        });
-    });
+			updateTooltipContent(node);
+			updateMagneticTooltip();
+		});
+
+		node.addEventListener('pointerleave', (e) => {
+			if (e.pointerType !== 'mouse') return;
+
+			activeHoveredNode = null;
+			node.classList.remove('is-hovered');
+
+			if (!node.classList.contains('force-hover')) {
+				tooltip.style.display = 'none';
+			}
+		});
+	});
 
     /* RENDER TOOLTIP CONTENT */
     function updateTooltipContent(node) {
@@ -615,6 +619,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 	/* GLOBAL EVENT HANDLERS */
+	const isTouchLikePointer = pointerType => {
+		return pointerType === 'touch' || pointerType === 'pen';
+	};
+
 	document.querySelectorAll('.tl-node').forEach(node => {
 		node.addEventListener('pointerenter', (e) => {
 			if (e.pointerType !== 'mouse' || isGlobalDragging) return;
@@ -640,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				e.clientY - pointerStartY
 			);
 
-			if (pointerType !== 'touch' && pointerType !== 'pen') return;
+			if (!isTouchLikePointer(pointerType)) return;
 			if (pointerDistance > 10) return;
 
 			if (e.cancelable) e.preventDefault();
@@ -675,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			pointerType = null;
 			pointerDistance = 0;
 
-			if (currentPointerType === 'touch' || currentPointerType === 'pen') {
+			if (isTouchLikePointer(currentPointerType)) {
 				e.preventDefault();
 				return;
 			}
@@ -690,58 +698,91 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-    /* WINDOW RESIZE HANDLER */
-    window.addEventListener('resize', updateMagneticTooltip, { passive: true });
+	/* WINDOW RESIZE HANDLER */
+	window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.tl-search-inner')) {
-            searchDropdown.classList.remove('show');
-        }
-    });
+	document.addEventListener('click', (e) => {
+		if (!e.target.closest('.tl-search-inner')) {
+			searchDropdown.classList.remove('show');
+		}
+	});
 
-    let globalTouchStartX = 0;
-    let globalTouchStartY = 0;
+	/* GLOBAL POINTER DISMISS HANDLER */
+	const globalPointerStarts = new Map();
+	let isGlobalMultiPointerGesture = false;
 
-    document.addEventListener('touchstart', (e) => {
-        globalTouchStartX = e.changedTouches[0].screenX;
-        globalTouchStartY = e.changedTouches[0].screenY;
-    }, { capture: true, passive: true });
+	document.addEventListener('pointerdown', (e) => {
+		if (!isTouchLikePointer(e.pointerType)) return;
 
-    document.addEventListener('touchend', (e) => {
-        const touchEndX = e.changedTouches[0].screenX;
-        const touchEndY = e.changedTouches[0].screenY;
-        const distance = Math.sqrt(Math.pow(touchEndX - globalTouchStartX, 2) + Math.pow(touchEndY - globalTouchStartY, 2));
+		globalPointerStarts.set(e.pointerId, {
+			x: e.clientX,
+			y: e.clientY
+		});
 
-        if (distance > 10) return; 
+		if (globalPointerStarts.size > 1) {
+			isGlobalMultiPointerGesture = true;
+		}
+	}, { capture: true, passive: true });
 
-        const isSearch = e.target.closest('.tl-search-inner');
-        const isFilter = e.target.closest('.tl-filter-group');
-        const isNode = e.target.closest('.tl-node');
-        const isTooltip = e.target.closest('.tl-global-tooltip');
-        
-        if (!isSearch) {
-            searchDropdown.classList.remove('show');
-            document.getElementById('tl-search-box').blur();
-        }
+	document.addEventListener('pointerup', (e) => {
+		if (!isTouchLikePointer(e.pointerType)) return;
 
-        if (!isSearch && !isFilter && !isNode && !isTooltip) {
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-            tooltip.style.display = 'none';
-            activeHoveredNode = null;
-        }
-    }, { capture: true, passive: true });
+		const pointerStart = globalPointerStarts.get(e.pointerId);
+		const wasMultiPointerGesture = isGlobalMultiPointerGesture;
 
-    searchInput.addEventListener('click', () => {
-        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
-            searchDropdown.classList.add('show');
-        }
-    });
+		globalPointerStarts.delete(e.pointerId);
 
-    searchInput.addEventListener('focus', () => {
-        if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
-            searchDropdown.classList.add('show');
-        }
-    });
+		if (globalPointerStarts.size === 0) {
+			isGlobalMultiPointerGesture = false;
+		}
+
+		if (!pointerStart || wasMultiPointerGesture) return;
+
+		const distance = Math.hypot(
+			e.clientX - pointerStart.x,
+			e.clientY - pointerStart.y
+		);
+
+		if (distance > 10) return;
+
+		const isSearch = e.target.closest('.tl-search-inner');
+		const isFilter = e.target.closest('.tl-filter-group');
+		const isNode = e.target.closest('.tl-node');
+		const isTooltip = e.target.closest('.tl-global-tooltip');
+
+		if (!isSearch) {
+			searchDropdown.classList.remove('show');
+			searchInput.blur();
+		}
+
+		if (!isSearch && !isFilter && !isNode && !isTooltip) {
+			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+			tooltip.style.display = 'none';
+			activeHoveredNode = null;
+		}
+	}, { capture: true, passive: true });
+
+	document.addEventListener('pointercancel', (e) => {
+		if (!isTouchLikePointer(e.pointerType)) return;
+
+		globalPointerStarts.delete(e.pointerId);
+
+		if (globalPointerStarts.size === 0) {
+			isGlobalMultiPointerGesture = false;
+		}
+	}, { capture: true, passive: true });
+
+	searchInput.addEventListener('click', () => {
+		if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
+			searchDropdown.classList.add('show');
+		}
+	});
+
+	searchInput.addEventListener('focus', () => {
+		if (searchInput.value.trim().length >= 2 && searchDropdown.children.length > 0) {
+			searchDropdown.classList.add('show');
+		}
+	});
 });
 </script>
 </div>
