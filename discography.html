@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY V2</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY V5</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -334,16 +334,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const startY = (containerRect.height - contentHeight) / 2;
     pz.moveTo(startX, startY);
     
-    /* MAP RESET HANDLER */
-    document.getElementById('tl-reset-btn').addEventListener('click', () => {
-        document.querySelectorAll('.tl-node').forEach(n => n.classList.remove('force-hover', 'is-hovered'));
-        tooltip.style.display = 'none';
-        activeHoveredNode = null;
-		isSearchPinned = false;
-        
-        pz.zoomAbs(0, 0, defaultZoom);
-        pz.moveTo(startX, startY);
-    });
+	/* MAP RESET HANDLER */
+	document.getElementById('tl-reset-btn').addEventListener('click', resetTimelineState);
 
     /* LOCAL COORDINATES HELPER */
     function getLocalCoords(element, target) {
@@ -622,6 +614,44 @@ document.addEventListener('DOMContentLoaded', () => {
         runSearch(); 
         searchInput.focus(); 
     });
+	
+	/* TIMELINE STATE RESET */
+	function resetTimelineState() {
+		cancelAnimationFrame(tooltipFrame);
+
+		document.querySelectorAll('.tl-node').forEach(node => {
+			node.classList.remove(
+				'force-hover',
+				'is-hovered',
+				'is-searched',
+				'is-filtered'
+			);
+		});
+
+		tooltip.style.display = 'none';
+		tooltip.style.left = '';
+		tooltip.style.top = '';
+
+		activeHoveredNode = null;
+		isSearchPinned = false;
+		isGlobalMouseDown = false;
+		isGlobalDragging = false;
+
+		searchInput.value = '';
+		searchInput.blur();
+
+		searchClearBtn.style.display = 'none';
+
+		searchDropdown.innerHTML = '';
+		searchDropdown.classList.remove('show');
+
+		filterBtns.forEach(btn => {
+			btn.classList.toggle('active', btn.dataset.filter === 'all');
+		});
+
+		pz.zoomAbs(0, 0, defaultZoom);
+		pz.moveTo(startX, startY);
+	}
 
 	/* GLOBAL EVENT HANDLERS */
 	const isTouchLikePointer = pointerType => {
@@ -673,6 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const link = node.getAttribute('href');
 
 				if (link && link !== '#') {
+					resetTimelineState();
 					window.location.href = link;
 				}
 			}
@@ -700,6 +731,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				return;
 			}
 
+			const link = node.getAttribute('href');
+
+			if (link && link !== '#') {
+				resetTimelineState();
+				return;
+			}
+
 			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
 			isSearchPinned = false;
 			node.classList.add('force-hover');
@@ -707,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	/* WINDOW RESIZE HANDLER */
+	window.addEventListener('pageshow', resetTimelineState);
 	window.addEventListener('resize', updateMagneticTooltip, { passive: true });
 
 	document.addEventListener('click', (e) => {
