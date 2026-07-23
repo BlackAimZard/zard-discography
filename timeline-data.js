@@ -13,7 +13,7 @@ const TIMELINE_HTML = `
 			   data-tieup='"Kekkon no Risou to Genjitsu" Theme Song'>
                 <img src="assets/disc-photo/sg/sg-tl-thumb/sg01.jpg" draggable="false">
             </a>
-			<a href="#" class="tl-node" draggable="false"
+			<a href="album.html#al01" class="tl-node" draggable="false"
 			   data-type="album"
                data-thumb="assets/disc-photo/al/al01.jpg"
                data-title="1st Album"
@@ -42,7 +42,7 @@ const TIMELINE_HTML = `
 			   data-tieup='"Shichinin no Onna Bengoshi Season 2" Theme Song'>
                 <img src="assets/disc-photo/sg/sg-tl-thumb/sg03.jpg" draggable="false">
             </a>
-			<a href="#" class="tl-node" draggable="false"
+			<a href="album.html#al02" class="tl-node" draggable="false"
 			   data-type="album"
                data-thumb="assets/disc-photo/al/al02.jpg"
                data-title="2nd Album"
