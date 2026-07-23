@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 2</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 3</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -616,8 +616,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	/* GLOBAL EVENT HANDLERS */
 	document.querySelectorAll('.tl-node').forEach(node => {
-		node.addEventListener('mouseenter', () => {
-			if (isGlobalDragging) return;
+		node.addEventListener('pointerenter', (e) => {
+			if (e.pointerType !== 'mouse' || isGlobalDragging) return;
 
 			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
 		});
@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				e.clientY - pointerStartY
 			);
 
-			if (pointerType !== 'touch') return;
+			if (pointerType !== 'touch' && pointerType !== 'pen') return;
 			if (pointerDistance > 10) return;
 
 			if (e.cancelable) e.preventDefault();
@@ -675,7 +675,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			pointerType = null;
 			pointerDistance = 0;
 
-			if (currentPointerType === 'touch') {
+			if (currentPointerType === 'touch' || currentPointerType === 'pen') {
 				e.preventDefault();
 				return;
 			}
