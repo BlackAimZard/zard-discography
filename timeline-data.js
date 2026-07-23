@@ -5,51 +5,51 @@ const TIMELINE_HTML = `
         <div class="tl-nodes-container">
             <a href="single.html#sg01" class="tl-node" draggable="false"
 			   data-type="single"
-               data-thumb="assets/disco-cover-photo/sg/sg01.jpg"
+               data-thumb="assets/disc-photo/sg/sg01.jpg"
                data-title="1st Single"
                data-sub="Good-bye My Loneliness"
                data-released="1991.02.10"
                data-label="PODH-1029"
 			   data-tieup='"Kekkon no Risou to Genjitsu" Theme Song'>
-                <img src="assets/disco-cover-photo/sg/sg-tl-thumb/sg01.jpg" draggable="false">
+                <img src="assets/disc-photo/sg/sg-tl-thumb/sg01.jpg" draggable="false">
             </a>
 			<a href="#" class="tl-node" draggable="false"
 			   data-type="album"
-               data-thumb="assets/disco-cover-photo/al/al01.jpg"
+               data-thumb="assets/disc-photo/al/al01.jpg"
                data-title="1st Album"
                data-sub="Good-bye My Loneliness"
                data-released="1991.03.27"
                data-label="POCH-1082">
-                <img src="assets/disco-cover-photo/al/al-tl-thumb/al01.jpg" draggable="false">
+                <img src="assets/disc-photo/al/al-tl-thumb/al01.jpg" draggable="false">
             </a>
             <a href="single.html#sg02" class="tl-node" draggable="false"
 			   data-type="single"
-               data-thumb="assets/disco-cover-photo/sg/sg02.jpg"
+               data-thumb="assets/disc-photo/sg/sg02.jpg"
                data-title="2nd Single"
                data-sub="Fushigi ne..."
                data-released="1991.06.25"
                data-label="PODH-1040"
 			   data-tieup='"Magical Zunou Power!!" Theme Song'>
-                <img src="assets/disco-cover-photo/sg/sg-tl-thumb/sg02.jpg" draggable="false">
+                <img src="assets/disc-photo/sg/sg-tl-thumb/sg02.jpg" draggable="false">
             </a>
 			<a href="single.html#sg03" class="tl-node" draggable="false"
 			   data-type="single"
-               data-thumb="assets/disco-cover-photo/sg/sg03.jpg"
+               data-thumb="assets/disc-photo/sg/sg03.jpg"
                data-title="3rd Single"
                data-sub="Mou Sagasanai"
                data-released="1991.11.06"
                data-label="PODH-1060"
 			   data-tieup='"Shichinin no Onna Bengoshi Season 2" Theme Song'>
-                <img src="assets/disco-cover-photo/sg/sg-tl-thumb/sg03.jpg" draggable="false">
+                <img src="assets/disc-photo/sg/sg-tl-thumb/sg03.jpg" draggable="false">
             </a>
 			<a href="#" class="tl-node" draggable="false"
 			   data-type="album"
-               data-thumb="assets/disco-cover-photo/al/al02.jpg"
+               data-thumb="assets/disc-photo/al/al02.jpg"
                data-title="2nd Album"
                data-sub="Mou Sagasanai"
                data-released="1991.12.25"
                data-label="POCH-1111">
-                <img src="assets/disco-cover-photo/al/al-tl-thumb/al02.jpg" draggable="false">
+                <img src="assets/disc-photo/al/al-tl-thumb/al02.jpg" draggable="false">
             </a>
         </div>
     </div>
@@ -59,13 +59,13 @@ const TIMELINE_HTML = `
         <div class="tl-nodes-container">
             <a href="single.html#sg04" class="tl-node" draggable="false"
 			   data-type="single"
-               data-thumb="assets/disco-cover-photo/sg/sg04.jpg"
+               data-thumb="assets/disc-photo/sg/sg04.jpg"
                data-title="4th Single"
                data-sub="Nemurenai Yoru wo Daite"
                data-released="1992.08.05"
                data-label="PODH-1087"
 			   data-tieup='"Tonight" Ending Theme'>
-                <img src="assets/disco-cover-photo/sg/sg-tl-thumb/sg04.jpg" draggable="false">
+                <img src="assets/disc-photo/sg/sg-tl-thumb/sg04.jpg" draggable="false">
             </a>
             <div class="tl-node empty"></div>
         </div>
