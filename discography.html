@@ -198,7 +198,7 @@ a:hover { color: #ff0000; text-decoration: underline; }
 
 <!-- CONTENT TITLE -->
 <tr><td align="center" valign="top">
-<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 1</span>
+<span id="content-title" style="display: block; width: 100%; max-width: 750px; background-color: #222; padding: 10px; box-sizing: border-box; text-align: left; cursor: default;">DISCOGRAPHY 2</span>
 </td></tr>
     
 <tr><td align="left" valign="top">
@@ -614,72 +614,81 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.focus(); 
     });
 
-    /* GLOBAL EVENT HANDLERS */
-    document.querySelectorAll('.tl-node').forEach(node => {
-        node.addEventListener('mouseenter', () => {
-            if (isGlobalDragging) return; 
-            
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-        });
-        
-        let mouseStartX = 0;
-        let mouseStartY = 0;
+	/* GLOBAL EVENT HANDLERS */
+	document.querySelectorAll('.tl-node').forEach(node => {
+		node.addEventListener('mouseenter', () => {
+			if (isGlobalDragging) return;
 
-        node.addEventListener('mousedown', (e) => {
-            mouseStartX = e.clientX;
-            mouseStartY = e.clientY;
-        });
+			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+		});
 
-        node.addEventListener('click', (e) => {
-            const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            if (isTouch) {
-                e.preventDefault(); 
-                return;
-            }
+		let pointerStartX = 0;
+		let pointerStartY = 0;
+		let pointerDistance = 0;
+		let pointerType = null;
 
-            const distance = Math.sqrt(Math.pow(e.clientX - mouseStartX, 2) + Math.pow(e.clientY - mouseStartY, 2));
-            
-            if (distance > 1) {
-                e.preventDefault();
-                return; 
-            }
+		node.addEventListener('pointerdown', (e) => {
+			pointerStartX = e.clientX;
+			pointerStartY = e.clientY;
+			pointerDistance = 0;
+			pointerType = e.pointerType;
+		});
 
-            document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-            node.classList.add('force-hover');
-        });
+		node.addEventListener('pointerup', (e) => {
+			pointerDistance = Math.hypot(
+				e.clientX - pointerStartX,
+				e.clientY - pointerStartY
+			);
 
-        let touchStartX = 0;
-        let touchStartY = 0;
+			if (pointerType !== 'touch') return;
+			if (pointerDistance > 10) return;
 
-        node.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, {passive: true});
-        
-        node.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
-            const distance = Math.sqrt(Math.pow(touchEndX - touchStartX, 2) + Math.pow(touchEndY - touchStartY, 2));
-            
-            if (distance > 10) return; 
-            
-            if (e.cancelable) e.preventDefault();
-            if (!node.hasAttribute('data-title')) return;
-            
-            if (!node.classList.contains('force-hover')) {
-                document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
-                node.classList.add('force-hover');
-                activeHoveredNode = node;
-                updateTooltipContent(node);
-                updateMagneticTooltip();
-            } else {
-                const link = node.getAttribute('href');
-                if (link && link !== '#') {
-                    window.location.href = link;
-                }
-            }
-        });
-    });
+			if (e.cancelable) e.preventDefault();
+			if (!node.hasAttribute('data-title')) return;
+
+			if (!node.classList.contains('force-hover')) {
+				document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+
+				node.classList.add('force-hover');
+				activeHoveredNode = node;
+
+				updateTooltipContent(node);
+				updateMagneticTooltip();
+			} else {
+				const link = node.getAttribute('href');
+
+				if (link && link !== '#') {
+					window.location.href = link;
+				}
+			}
+		});
+
+		node.addEventListener('pointercancel', () => {
+			pointerType = null;
+			pointerDistance = Infinity;
+		});
+
+		node.addEventListener('click', (e) => {
+			const currentPointerType = pointerType;
+			const currentDistance = pointerDistance;
+
+			pointerType = null;
+			pointerDistance = 0;
+
+			if (currentPointerType === 'touch') {
+				e.preventDefault();
+				return;
+			}
+
+			if (currentDistance > 1) {
+				e.preventDefault();
+				return;
+			}
+
+			document.querySelectorAll('.force-hover').forEach(n => n.classList.remove('force-hover'));
+			node.classList.add('force-hover');
+		});
+	});
 
     /* WINDOW RESIZE HANDLER */
     window.addEventListener('resize', updateMagneticTooltip, { passive: true });
