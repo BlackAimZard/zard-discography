@@ -12,6 +12,7 @@ const TIMELINE_TYPE_CONFIG = {
 };
 
 const TIMELINE_DATA = [
+
     {
         year: 1991,
         slots: [
@@ -22,7 +23,7 @@ const TIMELINE_DATA = [
                 title: "Good-bye My Loneliness",
                 released: "1991.02.10",
                 label: "PODH-1029",
-                tieup: "\"Kekkon no Risou to Genjitsu\" Theme Song"
+                tieup: '"Kekkon no Risou to Genjitsu" Theme Song'
             },
             {
                 id: "al01",
@@ -39,7 +40,7 @@ const TIMELINE_DATA = [
                 title: "Fushigi ne...",
                 released: "1991.06.25",
                 label: "PODH-1040",
-                tieup: "\"Magical Zunou Power!!\" Theme Song"
+                tieup: '"Magical Zunou Power!!" Theme Song'
             },
             {
                 id: "sg03",
@@ -48,7 +49,7 @@ const TIMELINE_DATA = [
                 title: "Mou Sagasanai",
                 released: "1991.11.06",
                 label: "PODH-1060",
-                tieup: "\"Shichinin no Onna Bengoshi Season 2\" Theme Song"
+                tieup: '"Shichinin no Onna Bengoshi Season 2" Theme Song'
             },
             {
                 id: "al02",
@@ -60,6 +61,7 @@ const TIMELINE_DATA = [
             }
         ]
     },
+
     {
         year: 1992,
         slots: [
@@ -70,143 +72,177 @@ const TIMELINE_DATA = [
                 title: "Nemurenai Yoru wo Daite",
                 released: "1992.08.05",
                 label: "PODH-1087",
-                tieup: "\"Tonight\" Ending Theme"
+                tieup: '"Tonight" Ending Theme'
             },
             null
         ]
     },
+
     {
         year: 1993,
         slots: [null, null, null, null]
     },
+
     {
         year: 1994,
         slots: [null, null, null, null]
     },
+
     {
         year: 1995,
         slots: [null, null, null, null]
     },
+
     {
         year: 1996,
         slots: [null, null, null, null]
     },
+
     {
         year: 1997,
         slots: [null, null, null, null]
     },
+
     {
         year: 1998,
         slots: [null, null, null, null]
     },
+
     {
         year: 1999,
         slots: [null, null, null, null]
     },
+
     {
         year: 2000,
         slots: [null, null, null, null]
     },
+
     {
         year: 2001,
         slots: [null, null, null, null]
     },
+
     {
         year: 2002,
         slots: [null, null, null, null]
     },
+
     {
         year: 2003,
         slots: [null, null, null, null]
     },
+
     {
         year: 2004,
         slots: [null, null, null, null]
     },
+
     {
         year: 2005,
         slots: [null, null, null, null]
     },
+
     {
         year: 2006,
         slots: [null, null, null, null]
     },
+
     {
         year: 2007,
         slots: [null, null, null, null]
     },
+
     {
         year: 2008,
         slots: [null, null, null, null]
     },
+
     {
         year: 2009,
         slots: [null, null, null, null]
     },
+
     {
         year: 2010,
         slots: [null, null, null, null]
     },
+
     {
         year: 2011,
         slots: [null, null, null, null]
     },
+
     {
         year: 2012,
         slots: [null, null, null, null]
     },
+
     {
         year: 2013,
         slots: [null, null, null, null]
     },
+
     {
         year: 2014,
         slots: [null, null, null, null]
     },
+
     {
         year: 2015,
         slots: [null, null, null, null]
     },
+
     {
         year: 2016,
         slots: [null, null, null, null]
     },
+
     {
         year: 2017,
         slots: [null, null, null, null]
     },
+
     {
         year: 2018,
         slots: [null, null, null, null]
     },
+
     {
         year: 2019,
         slots: [null, null, null, null]
     },
+
     {
         year: 2020,
         slots: [null, null, null, null]
     },
+
     {
         year: 2021,
         slots: [null, null, null, null]
     },
+
     {
         year: 2022,
         slots: [null, null, null, null]
     },
+
     {
         year: 2023,
         slots: [null, null, null, null]
     },
+
     {
         year: 2024,
         slots: [null, null, null, null]
     },
+
     {
         year: 2025,
         slots: [null, null, null, null]
     },
+
     {
         year: 2026,
         slots: [null, null, null, null]
