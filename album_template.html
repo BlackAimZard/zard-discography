@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="robots" content="none">
+<title>ZARD ¦ ALBUM LIST</title>
+<style type="text/css">
+/* GITHUB FONTS IMPORT */
+@font-face {font-family: 'Meiryo';src: url('fonts/Meiryo.woff2') format('woff2');}
+
+/* BASE RESET */
+body, h2, ul, li { margin: 0; padding: 0; outline: 0; }
+ul { list-style: none; }
+
+/* TD & IMG FIX */
+td { vertical-align: middle; font-size: 14px; line-height: 1.4; }
+img { border: 0; display: block; }
+
+/* GLOBAL FONT */
+body { background-color: #FFFFFF; font-size: 16px; font-family: "Times New Roman", sans-serif; }
+html, body { overscroll-behavior: none; }
+h2 { font-size: 32px; color: #000; margin: 10px 0 30px 10px; }
+
+/* ELEMENT & ICON */
+a { background: transparent; text-decoration: none; margin: 0; padding: 0; vertical-align: baseline; }
+a:visited { color: blue; }
+a:hover { color: #ff0000; text-decoration: none; }
+li { margin-left: 2em; }
+
+/* TABLE SIZE FIX */
+table { width: 100%; min-width: 1000px; }
+
+/* CREDIT (Lyrics / Music / Arrangement) FIX */
+.credit { display: block; margin-left: 30px; }
+
+/* MULTI-DISC TRACKLIST */
+.disc-heading { display: block; margin: 10px 0 4px; }
+.disc-heading:first-child { margin-top: 0; }
+
+/* HIGHLIGHT CONTENT EFFECT */
+@keyframes flash { 0% { background-color: #FFFF00; } 100% { background-color: transparent; } }
+tbody:target { animation: flash 1.5s ease-out; }
+</style>
+</head>
+
+<body>
+<b style="display: inline-block; font-size: 24px; margin: 10px 0 0 10px;">Album</b>
+<div style="margin: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+<table border="1" cellpadding="3">
+
+<tbody>
+<tr bgcolor="#D3EEFD">
+<td rowspan="4" align="center"><b>No.</b></td>
+<td align="center"><b>Title</b></td>
+<td rowspan="4" align="center"><b>Tracklist<br>(Lyrics / Music / Arrangement)</b></td>
+<td rowspan="4" align="center"><b>Format<br>Label – Catalog Number<br>Release Date</b></td>
+<td rowspan="4" align="center"><b>Tie-up</b></td>
+<td rowspan="4" align="center"><b>Related</b></td>
+</tr>
+<tr bgcolor="#D3EEFD"><td rowspan="2" align="center"><b>Cover</b></td></tr>
+<tr bgcolor="#D3EEFD"></tr>
+<tr bgcolor="#D3EEFD"><td align="center"><b>First Released</b></td></tr>
+{{ALBUM_ROWS}}
+</tbody>
+
+</table>
+</div>
+</body>
+</html>

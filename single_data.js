@@ -1,0 +1,3514 @@
+/*
+1. type
+2. id
+3. order
+4. category
+5. title
+6. japaneseTitle
+7. releases
+8. cover
+9. tracks
+10. related
+*/
+
+const SINGLE_DATA = [
+	{
+		type: "single",
+		id: "sg01",
+		order: "1st",
+		category: null,
+		title: "Good-bye My Loneliness",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1029",
+				edition: null,
+				released: "1991.02.10"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1029",
+				edition: null,
+				released: "1991.02.10"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1010",
+				edition: null,
+				released: "1993.09.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6017",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg01.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Good-bye My Loneliness",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network drama “Kekkon no Risou to Genjitsu”（結婚の理想と現実）Theme Song",
+					"Clarion（クラリオン）Karaoke CF Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Ai wa Kurayami no Naka de",
+				japaneseTitle: "愛は暗闇の中で",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: ZARD, Hiroshi Terao",
+				karaoke: false,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/Good-bye_My_Loneliness"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg01"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg02",
+		order: "2nd",
+		category: null,
+		title: "Fushigi ne...",
+		japaneseTitle: "不思議ね…",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1040",
+				edition: null,
+				released: "1991.06.25"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1040",
+				edition: null,
+				released: "1991.06.25"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1011",
+				edition: null,
+				released: "1993.09.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6018",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg02.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Fushigi ne...",
+				japaneseTitle: "不思議ね…",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Nippon TV Network quiz show “Magical Zunou Power!!”（マジカル頭脳パワー!!）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Sunao ni Ienakute",
+				japaneseTitle: "素直に言えなくて",
+				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/不思議ね…"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg02"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg03",
+		order: "3rd",
+		category: null,
+		title: "Mou Sagasanai",
+		japaneseTitle: "もう探さない",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1060",
+				edition: null,
+				released: "1991.11.06"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1060",
+				edition: null,
+				released: "1991.11.06"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1012",
+				edition: null,
+				released: "1993.09.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6019",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg03.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Mou Sagasanai",
+				japaneseTitle: "もう探さない",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network drama “Shichinin no Onna Bengoshi II”（七人の女弁護士II）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Konna ni Aishitemo",
+				japaneseTitle: "こんなに愛しても",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Mou Sagasanai",
+				japaneseTitle: "もう探さない",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Konna ni Aishitemo",
+				japaneseTitle: "こんなに愛しても",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%82%82%E3%81%86%E6%8E%A2%E3%81%95%E3%81%AA%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg03"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg04",
+		order: "4th",
+		category: null,
+		title: "Nemurenai Yoru wo Daite",
+		japaneseTitle: "眠れない夜を抱いて",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1087",
+				edition: null,
+				released: "1992.08.05"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1087",
+				edition: null,
+				released: "1992.08.05"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1013",
+				edition: null,
+				released: "1993.09.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6020",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg04.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Nemurenai Yoru wo Daite",
+				japaneseTitle: "眠れない夜を抱いて",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi, Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network wide show “Tonight”（トゥナイト）Ending Theme",
+					"TV Asahi Network drama “Love Story wo Kimi ni '92 〜Nemurenai Yoru wo Daite〜”（ラブストーリーを君に'92〜眠れない夜を抱いて〜）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Dangerous Tonight",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Nemurenai Yoru wo Daite",
+				japaneseTitle: "眠れない夜を抱いて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Dangerous Tonight",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E7%9C%A0%E3%82%8C%E3%81%AA%E3%81%84%E5%A4%9C%E3%82%92%E6%8A%B1%E3%81%84%E3%81%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg04"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg05",
+		order: "5th",
+		category: null,
+		title: "IN MY ARMS TONIGHT",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1094",
+				edition: null,
+				released: "1992.09.09"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1094",
+				edition: null,
+				released: "1992.09.09"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1014",
+				edition: null,
+				released: "1993.09.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6021",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg05.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "IN MY ARMS TONIGHT",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Michiya Haruhata / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"TBS TV Network drama “Gakkou ga Abunai”（学校があぶない）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Ase no Naka de CRY",
+				japaneseTitle: "汗の中でCRY",
+				credit: "Lyrics: Izumi Sakai / Music: Toshiya Matsukawa / Arrangement: Daisuke Ikeda, Masazumi Ozawa",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "IN MY ARMS TONIGHT",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Ase no Naka de CRY",
+				japaneseTitle: "汗の中でCRY",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/IN_MY_ARMS_TONIGHT"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg05"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg06",
+		order: "6th",
+		category: null,
+		title: "Makenaide",
+		japaneseTitle: "負けないで",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "PO・b.gram",
+				catalog: "PODH-1137",
+				edition: null,
+				released: "1993.01.27"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1001",
+				edition: null,
+				released: "unreleased"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1031",
+				edition: null,
+				released: "1994.01.01"
+			},
+			{
+				format: "Cassette",
+				label: "PO・b.gram",
+				catalog: "POSH-1137",
+				edition: null,
+				released: "1993.01.27"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6022",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg06.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Makenaide",
+				japaneseTitle: "負けないで",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network drama “Bokutachi no Drama Series”（ボクたちのドラマシリーズ）“Shiratori Reiko de Gozaimasu! Season 1”（白鳥麗子でございます! 第1シリーズ）Ending Theme",
+					"TV Saitama “Sydney 2000 Olympic Asian Qualifiers Send-Off Match”（シドニーオリンピック2000アジア地区予選 壮行試合）Theme Song",
+					"Nippon TV Network “13th All Japan High School Quiz Championship”（第13回全国高等学校クイズ選手権）Ending Theme",
+					"NTT DoCoMo Vancouver Olympics-related “Ou'en in Vancouver-hen”（応援 in バンクーバー篇）CM Song from February 10, 2010"
+				]
+			},
+			{
+				track: 2,
+				title: "Stray Love",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Makenaide",
+				japaneseTitle: "負けないで",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Stray Love",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E8%B2%A0%E3%81%91%E3%81%AA%E3%81%84%E3%81%A7"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg06"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg07",
+		order: "7th",
+		category: null,
+		title: "Kimi ga Inai",
+		japaneseTitle: "君がいない",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1004",
+				edition: null,
+				released: "1993.04.21"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6023",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg07.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kimi ga Inai",
+				japaneseTitle: "君がいない",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network drama “Kanojo no Kirai na Kanojo”（彼女の嫌いな彼女）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Watashi dake Mitsumete",
+				japaneseTitle: "私だけ見つめて",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Kimi ga Inai",
+				japaneseTitle: "君がいない",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Watashi dake Mitsumete",
+				japaneseTitle: "私だけ見つめて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E5%90%9B%E3%81%8C%E3%81%84%E3%81%AA%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg07"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg08",
+		order: "8th",
+		category: null,
+		title: "Yureru Omoi",
+		japaneseTitle: "揺れる想い",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1005",
+				edition: null,
+				released: "1993.05.19"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6024",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg08.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Yureru Omoi",
+				japaneseTitle: "揺れる想い",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Otsuka Pharmaceutical “Pocari Sweat” CM Song",
+					"Chiba TV Network music program' “MU-GEN〜Music Generations〜” October 2006 Opening Theme",
+					"Spotify (@SpotifyJP) “Anata no Hibi ni Ongaku wo: Jikka no Katazuke-hen 30-byou”（「あなたの日々に音楽を」実家の片付け篇 30秒）TV CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Just for you",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi, Daisuke Ikeda",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Yureru Omoi",
+				japaneseTitle: "揺れる想い",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Just for you",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%8F%BA%E3%82%8C%E3%82%8B%E6%83%B3%E3%81%84_(%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg08"
+			}
+		]
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr01",
+		order: null,
+		category: null,
+		title: "Kimi ga Inai/Yureru Omoi",
+		japaneseTitle: "君がいない／揺れる想い",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDI-1001",
+				edition: "Promotional Release",
+				released: null
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg09",
+		order: "9th",
+		category: null,
+		title: "Mou Sukoshi Ato Sukoshi...",
+		japaneseTitle: "もう少し あと少し…",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1008",
+				edition: null,
+				released: "1993.09.04"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6025",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg09.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Mou Sukoshi Ato Sukoshi...",
+				japaneseTitle: "もう少し あと少し…",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network drama “Lullaby Keiji '93”（ララバイ刑事'93）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Kanariya",
+				japaneseTitle: "カナリヤ",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Mou Sukoshi Ato Sukoshi...",
+				japaneseTitle: "もう少し あと少し…",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Kanariya",
+				japaneseTitle: "カナリヤ",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%82%82%E3%81%86%E5%B0%91%E3%81%97_%E3%81%82%E3%81%A8%E5%B0%91%E3%81%97%E2%80%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg09"
+			}
+		]
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr02",
+		order: null,
+		category: null,
+		title: "Mou Sukoshi Ato Sukoshi.../Kanariya",
+		japaneseTitle: "もう少し あと少し…／カナリヤ",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "DCI-7001",
+				edition: "Promotional Release",
+				released: null
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg10",
+		order: "10th",
+		category: null,
+		title: "Kitto Wasurenai",
+		japaneseTitle: "きっと忘れない",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1016",
+				edition: null,
+				released: "1993.11.03"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6026",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg10.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kitto Wasurenai",
+				japaneseTitle: "きっと忘れない",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network drama “Bokutachi no Drama Series”（ボクたちのドラマシリーズ）“Shiratori Reiko de Gozaimasu! Season 2”（白鳥麗子でございます! 第2シリーズ）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Tasogare ni My Lonely Heart",
+				japaneseTitle: "黄昏にMy Lonely Heart",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Kitto Wasurenai",
+				japaneseTitle: "きっと忘れない",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Tasogare ni My Lonely Heart",
+				japaneseTitle: "黄昏にMy Lonely Heart",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%8D%E3%81%A3%E3%81%A8%E5%BF%98%E3%82%8C%E3%81%AA%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg10"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg11",
+		order: "11th",
+		category: null,
+		title: "Kono Ai ni Oyogi Tsukarete mo/Boy",
+		japaneseTitle: "この愛に泳ぎ疲れても／Boy",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1033",
+				edition: null,
+				released: "1994.02.02"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6027",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg11.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kono Ai ni Oyogi Tsukarete mo",
+				japaneseTitle: "この愛に泳ぎ疲れても",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Kansai TV/Fuji TV Network drama “Ai to Giwaku no Suspense”（愛と疑惑のサスペンス）Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Boy",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV-produced film “Natsu no Niwa 〜The Friends〜”（夏の庭〜The Friends〜）Ending Theme"
+				]
+			},
+			{
+				track: 3,
+				title: "Kono Ai ni Oyogi Tsukarete mo",
+				japaneseTitle: "この愛に泳ぎ疲れても",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Boy",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%AE%E6%84%9B%E3%81%AB%E6%B3%B3%E3%81%8E%E7%96%B2%E3%82%8C%E3%81%A6%E3%82%82/Boy#%E6%B3%A8%E9%87%88"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg11"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg12",
+		order: "12th",
+		category: null,
+		title: "Konna ni Soba ni Iru no ni",
+		japaneseTitle: "こんなにそばに居るのに",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1039",
+				edition: null,
+				released: "1994.08.08"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6028",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg12.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Konna ni Soba ni Iru no ni",
+				japaneseTitle: "こんなにそばに居るのに",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Boutique JOY（ブティックJOY）TV-CF Image Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Anata no Sei ja Nai",
+				japaneseTitle: "あなたのせいじゃない",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Konna ni Soba ni Iru no ni",
+				japaneseTitle: "こんなにそばに居るのに",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%93%E3%82%93%E3%81%AA%E3%81%AB%E3%81%9D%E3%81%B0%E3%81%AB%E5%B1%85%E3%82%8B%E3%81%AE%E3%81%AB"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg12"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg13",
+		order: "13th",
+		category: null,
+		title: "Anata wo Kanjite Itai",
+		japaneseTitle: "あなたを感じていたい",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1041",
+				edition: null,
+				released: "1994.12.24"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6029",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg13.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Anata wo Kanjite Itai",
+				japaneseTitle: "あなたを感じていたい",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Tetsuro Oda",
+				karaoke: false,
+				tieup: [
+					"NTT DoCoMo pager “Palfy V”（パルフィー V）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Take me to your dream",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Anata wo Kanjite Itai",
+				japaneseTitle: "あなたを感じていたい",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%82%E3%81%AA%E3%81%9F%E3%82%92%E6%84%9F%E3%81%98%E3%81%A6%E3%81%84%E3%81%9F%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg13"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg14",
+		order: "14th",
+		category: null,
+		title: "Just believe in love",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "BGDH-1042",
+				edition: null,
+				released: "1995.02.01"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6030",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg14.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Just believe in love",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Michiya Haruhata / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"TBS TV Network drama “Yureru Omoi”（揺れる想い）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Ready, Go!",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Just believe in love",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/Just_believe_in_love"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg14"
+			}
+		]
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr03",
+		order: null,
+		category: null,
+		title: "I'm in love",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDI-1001",
+				edition: "Promotional Release / TOWER RECORDS SHIBUYA \"SUPER STORE\"",
+				released: "1995.03.10"
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr04",
+		order: null,
+		category: null,
+		title: "High Heel Nugi Sutete",
+		japaneseTitle: "ハイヒール脱ぎ捨てて",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDI-1002",
+				edition: "Promotional Release / OIOI TOKYO TASTE \"Rooms\" Viewer Giveaway",
+				released: null
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg15",
+		order: "15th",
+		category: null,
+		title: "Ai ga Mienai",
+		japaneseTitle: "愛が見えない",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1003",
+				edition: null,
+				released: "1995.06.05"
+			},
+			{
+				format: null,
+				label: "B-Gram Records",
+				catalog: "JBDI-1003",
+				edition: "Promotional Release / Unverified",
+				released: null
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6031",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg15.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Ai ga Mienai",
+				japaneseTitle: "愛が見えない",
+				credit: "Lyrics: Izumi Sakai / Music: Masazumi Ozawa / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Bristol-Myers Squibb “SEA BREEZE '95” CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Teenage dream",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Ai ga Mienai",
+				japaneseTitle: "愛が見えない",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Teenage dream",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%84%9B%E3%81%8C%E8%A6%8B%E3%81%88%E3%81%AA%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg15"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg16",
+		order: "16th",
+		category: null,
+		title: "Sayonara wa Ima mo Kono Mune ni Imasu",
+		japaneseTitle: "サヨナラは今もこの胸に居ます",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1006",
+				edition: null,
+				released: "1995.08.28"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6032",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg16.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Sayonara wa Ima mo Kono Mune ni Imasu",
+				japaneseTitle: "サヨナラは今もこの胸に居ます",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Toei “Bokutachi no Eiga Series”（ぼくたちの映画シリーズ）film “Shiratori Reiko de Gozaimasu!”（白鳥麗子でございます!）Theme Song",
+					"Nationwide 28-Station Network program “J-ROCK ARTIST Count Down 50” Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Nemuri",
+				japaneseTitle: "眠り",
+				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Sayonara wa Ima mo Kono Mune ni Imasu",
+				japaneseTitle: "サヨナラは今もこの胸に居ます",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Nemuri",
+				japaneseTitle: "眠り",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%A8%E3%83%8A%E3%83%A9%E3%81%AF%E4%BB%8A%E3%82%82%E3%81%93%E3%81%AE%E8%83%B8%E3%81%AB%E5%B1%85%E3%81%BE%E3%81%99"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg16"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg17",
+		order: "17th",
+		category: null,
+		title: "My Friend",
+		japaneseTitle: "マイ フレンド",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1011",
+				edition: null,
+				released: "1996.01.08"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6033",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg17.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "My Friend",
+				japaneseTitle: "マイ フレンド",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network anime “SLAM DUNK”（スラムダンク）4th Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Mezameta Asa wa...",
+				japaneseTitle: "目覚めた朝は…",
+				credit: "Lyrics: Izumi Sakai / Music: Mitsuyoshi Yonezawa / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "My Friend",
+				japaneseTitle: "マイ フレンド",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Mezameta Asa wa...",
+				japaneseTitle: "目覚めた朝は…",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4_%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg17"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg18",
+		order: "18th",
+		category: null,
+		title: "Kokoro wo Hiraite",
+		japaneseTitle: "心を開いて",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1016",
+				edition: null,
+				released: "1996.05.06"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6034",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg18.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kokoro wo Hiraite",
+				japaneseTitle: "心を開いて",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Otsuka Pharmaceutical “Pocari Sweat” CM Song",
+					"Mitsubishi Motors Corporation ⑭ CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Change my mind",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Kokoro wo Hiraite",
+				japaneseTitle: "心を開いて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Change my mind",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E5%BF%83%E3%82%92%E9%96%8B%E3%81%84%E3%81%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg18"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg19",
+		order: "19th",
+		category: null,
+		title: "Don't you see!",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1023",
+				edition: null,
+				released: "1997.01.06"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6035",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg19.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Don't you see!",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network anime “Dragon Ball GT”（ドラゴンボールGT）2nd Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Kaeranu Jikan no Naka de",
+				japaneseTitle: "帰らぬ時間の中で",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Nippon TV Network “Imahito”（いまひと）Theme Song"
+				]
+			},
+			{
+				track: 3,
+				title: "Don't you see!",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Kaeranu Jikan no Naka de",
+				japaneseTitle: "帰らぬ時間の中で",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/Don't_you_see!"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg19"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg20",
+		order: "20th",
+		category: null,
+		title: "Kimi ni Aitaku Nattara...",
+		japaneseTitle: "君に逢いたくなったら…",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1024",
+				edition: null,
+				released: "1997.02.26"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6036",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg20.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kimi ni Aitaku Nattara...",
+				japaneseTitle: "君に逢いたくなったら…",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"TBS TV Network drama “Risou no Kekkon”（理想の結婚）Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Ai wo Shinjite Itai",
+				japaneseTitle: "愛を信じていたい",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Kimi ni Aitaku Nattara...",
+				japaneseTitle: "君に逢いたくなったら…",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Ai wo Shinjite Itai",
+				japaneseTitle: "愛を信じていたい",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E5%90%9B%E3%81%AB%E9%80%A2%E3%81%84%E3%81%9F%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%82%89%E2%80%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg20"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg21",
+		order: "21st",
+		category: null,
+		title: "Kaze ga Toori Nukeru Machi he",
+		japaneseTitle: "風が通り抜ける街へ",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1029",
+				edition: null,
+				released: "1997.07.02"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6037",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg21.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kaze ga Toori Nukeru Machi he",
+				japaneseTitle: "風が通り抜ける街へ",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Japan Racing Association “'97 Summer JRA” Campaign Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Tooi Hoshi wo Kazoete",
+				japaneseTitle: "遠い星を数えて",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Kaze ga Toori Nukeru Machi he",
+				japaneseTitle: "風が通り抜ける街へ",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Tooi Hoshi wo Kazoete",
+				japaneseTitle: "遠い星を数えて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E9%A2%A8%E3%81%8C%E9%80%9A%E3%82%8A%E6%8A%9C%E3%81%91%E3%82%8B%E8%A1%97%E3%81%B8"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg21"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg22",
+		order: "22nd",
+		category: null,
+		title: "Eien",
+		japaneseTitle: "永遠",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1030",
+				edition: null,
+				released: "1997.08.20"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6038",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg22.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Eien",
+				japaneseTitle: "永遠",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network drama “Shitsurakuen”（失楽園）Theme Song",
+					"Canon “NEW EOS Kiss” CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "I can't let go",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Hirohito Furui",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Eien",
+				japaneseTitle: "永遠",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "I can't let go",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%B0%B8%E9%81%A0_(ZARD%E3%81%AE%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg22"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg23",
+		order: "23rd",
+		category: null,
+		title: "My Baby Grand ~Nukumori ga Hoshikute~",
+		japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1031",
+				edition: null,
+				released: "1997.12.03"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6039",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg23.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "My Baby Grand ~Nukumori ga Hoshikute~",
+				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"NTT DoCoMo “DoCoMo '97 Winter”（ドコモ ’97-冬）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Love is Gone",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network drama “Shitsurakuen: Tokubetsu-hen”（失楽園・特別編）Theme Song"
+				]
+			},
+			{
+				track: 3,
+				title: "My Baby Grand ~Nukumori ga Hoshikute~",
+				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Love is Gone",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/My_Baby_Grand_%E3%80%9C%E3%81%AC%E3%81%8F%E3%82%82%E3%82%8A%E3%81%8C%E6%AC%B2%E3%81%97%E3%81%8F%E3%81%A6%E3%80%9C"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg23"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg24",
+		order: "24th",
+		category: null,
+		title: "Iki mo Dekinai",
+		japaneseTitle: "息もできない",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1036",
+				edition: null,
+				released: "1998.03.04"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6040",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg24.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Iki mo Dekinai",
+				japaneseTitle: "息もできない",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network anime “Chuuka Ichiban!”（中華一番!）2nd Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Vintage",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Iki mo Dekinai",
+				japaneseTitle: "息もできない",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Vintage",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%81%AF%E3%82%82%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg24"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg25",
+		order: "25th",
+		category: null,
+		title: "Unmei no Roulette Mawashite",
+		japaneseTitle: "運命のルーレット廻して",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1041",
+				edition: null,
+				released: "1998.09.17"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6041",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg25.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Unmei no Roulette Mawashite",
+				japaneseTitle: "運命のルーレット廻して",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Shoujo no Koro ni Modotta Mitai ni",
+				japaneseTitle: "少女の頃に戻ったみたいに",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 02: 14-banme no Target”（名探偵コナン １４番目の標的）Theme Song"
+				]
+			},
+			{
+				track: 3,
+				title: "Unmei no Roulette Mawashite",
+				japaneseTitle: "運命のルーレット廻して",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E9%81%8B%E5%91%BD%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%AC%E3%83%83%E3%83%88%E5%BB%BB%E3%81%97%E3%81%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg25"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg26",
+		order: "26th",
+		category: null,
+		title: "Atarashii Door ~Fuyu no Himawari~",
+		japaneseTitle: "新しいドア 〜冬のひまわり〜",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1042",
+				edition: null,
+				released: "1998.12.02"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6042",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg26.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Atarashii Door ~Fuyu no Himawari~",
+				japaneseTitle: "新しいドア 〜冬のひまわり〜",
+				credit: "Lyrics: Izumi Sakai / Music: Masato Kitano / Arrangement: Hirohito Furui",
+				karaoke: false,
+				tieup: [
+					"Sapporo Breweries “Fuyu Monogatari”（冬物語）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Atarashii Door ~Fuyu no Himawari~",
+				japaneseTitle: "新しいドア 〜冬のひまわり〜",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%96%B0%E3%81%97%E3%81%84%E3%83%89%E3%82%A2_%E3%80%9C%E5%86%AC%E3%81%AE%E3%81%B2%E3%81%BE%E3%82%8F%E3%82%8A%E3%80%9C"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg26"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg27",
+		order: "27th",
+		category: null,
+		title: "GOOD DAY",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1043",
+				edition: null,
+				released: "1998.12.02"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6043",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg27.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "GOOD DAY",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Beautylabo “Natural Color”（ナチュラルカラー）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "GOOD DAY",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/GOOD_DAY_(ZARD%E3%81%AE%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg27"
+			}
+		]
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr05",
+		order: null,
+		category: null,
+		title: "Atarashii Door ~Fuyu no Himawari~/GOOD DAY",
+		japaneseTitle: "新しいドア 〜冬のひまわり〜／GOOD DAY",
+		releases: [
+			{
+				format: null,
+				label: "B-Gram Records",
+				catalog: "JBCI-1010",
+				edition: "Promotional Release",
+				released: null
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg28",
+		order: "28th",
+		category: null,
+		title: "MIND GAMES",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-1022",
+				edition: null,
+				released: "unreleased"
+			},
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1046",
+				edition: null,
+				released: "1999.04.07"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6044",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg28.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "MIND GAMES",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Masaaki Watanuki, Hirohito Furui",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network sports program “Pro Yakyuu News”（プロ野球ニュース）Image Song",
+					"Nippon Broadcasting System radio program “Show Up Nighter '99”（ショウアップナイター'99）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Hypnosis",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Hitoshi Okamoto / Arrangement: Hitoshi Okamoto, Hirohito Furui",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "MIND GAMES (Redway Secret Mix)",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Masaaki Watanuki, Hirohito Furui",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "MIND GAMES",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/MIND_GAMES_(ZARD%E3%81%AE%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg28"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg29",
+		order: "29th",
+		category: null,
+		title: "Sekai wa Kitto Mirai no Naka",
+		japaneseTitle: "世界はきっと未来の中",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1047",
+				edition: null,
+				released: "1999.06.16"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6045",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg29.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Sekai wa Kitto Mirai no Naka",
+				japaneseTitle: "世界はきっと未来の中",
+				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Akihito Tokunaga, Hirohito Furui, Kenji Shiojiri",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network drama “Maiko-san wa Meitantei!”（舞妓さんは名探偵!）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Sekai wa Kitto Mirai no Naka",
+				japaneseTitle: "世界はきっと未来の中",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E4%B8%96%E7%95%8C%E3%81%AF%E3%81%8D%E3%81%A3%E3%81%A8%E6%9C%AA%E6%9D%A5%E3%81%AE%E4%B8%AD"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg29"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg30",
+		order: "30th",
+		category: null,
+		title: "Itai Kurai Kimi ga Afureteiru yo",
+		japaneseTitle: "痛いくらい君があふれているよ",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDJ-1049",
+				edition: null,
+				released: "1999.10.14"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6046",
+				edition: "30th Anniversary Edition",
+				released: "2020.02.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg30.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Itai Kurai Kimi ga Afureteiru yo",
+				japaneseTitle: "痛いくらい君があふれているよ",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Kenji Shiojiri",
+				karaoke: false,
+				tieup: [
+					"Nestlé Japan “NESCAFÉ moment”（ネスカフェモーメント）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Itai Kurai Kimi ga Afureteiru yo (Re-Mix)",
+				japaneseTitle: "痛いくらい君があふれているよ (Re-Mix)",
+				credit: "Lyrics: Izumi Sakai / Music: Kenji Shiojiri / Remix: FAST ALVY and ME-YA",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Itai Kurai Kimi ga Afureteiru yo",
+				japaneseTitle: "痛いくらい君があふれているよ",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Itai Kurai Kimi ga Afureteiru yo (Secret Track)",
+				japaneseTitle: "痛いくらい君があふれているよ（シークレットトラック）",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Kenji Shiojiri",
+				karaoke: false,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E7%97%9B%E3%81%84%E3%81%8F%E3%82%89%E3%81%84%E5%90%9B%E3%81%8C%E3%81%82%E3%81%B5%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%82%88"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg30"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg31",
+		order: "31st",
+		category: null,
+		title: "Kono Namida Hoshi ni Nare",
+		japaneseTitle: "この涙 星になれ",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-1027",
+				edition: null,
+				released: "1999.12.01"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg31.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kono Namida Hoshi ni Nare",
+				japaneseTitle: "この涙 星になれ",
+				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Hirohito Furui",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network drama “Kasouken no Onna”（科捜研の女）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "O・mo・hi・de",
+				japaneseTitle: "お・も・ひ・で",
+				credit: "Lyrics: Izumi Sakai / Music: Hiroshi Terao / Arrangement: Hirohito Furui, Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network information program “Zeitaku na Kyuujitsu”（贅沢な休日）Theme Song",
+					"“Change IZU 2000!”（チェンジ伊豆2000!）Image Song"
+				]
+			},
+			{
+				track: 3,
+				title: "Kono Namida Hoshi ni Nare",
+				japaneseTitle: "この涙 星になれ",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "O・mo・hi・de",
+				japaneseTitle: "お・も・ひ・で",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 5,
+				title: "Kono Namida Hoshi ni Nare remix",
+				japaneseTitle: "この涙 星になれ remix",
+				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Hirohito Furui",
+				karaoke: false,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%AE%E6%B6%99_%E6%98%9F%E3%81%AB%E3%81%AA%E3%82%8C"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg31"
+			}
+		]
+	},
+
+
+	{
+		type: "promotional",
+		id: "pr06",
+		order: null,
+		category: null,
+		title: "O・mo・hi・de",
+		japaneseTitle: "お・も・ひ・で",
+		releases: [
+			{
+				format: "8cm CD",
+				label: "B-Gram Records",
+				catalog: "JBDI-1007",
+				edition: "Promotional Release / CHANGE IZU 2000! IZU WAKAGAERU DAISAKUSEN meets ZARD",
+				released: null
+			}
+		],
+		cover: null,
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg32",
+		order: "32nd",
+		category: null,
+		title: "Get U're Dream",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-1031",
+				edition: null,
+				released: "2000.09.06"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg32.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Get U're Dream",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"NHK Sydney Olympics Broadcast Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Get U're Dream (Version Two)",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Get U're Dream (Version Three)",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: YOKO Black. Stone",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Get U're Dream",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 5,
+				title: "Get U're Dream (Perry Geyer Short Mix) (Secret Track)",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Remix: Perry Geyer",
+				karaoke: false,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/Get_U%27re_Dream"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg32"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg33",
+		order: "33rd",
+		category: null,
+		title: "promised you",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-1032",
+				edition: null,
+				released: "2000.11.15"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg33.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "promised you",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Cybersound",
+				karaoke: false,
+				tieup: [
+					"TV Asahi Network two-hour drama program “Doyou Wide Gekijou”（土曜ワイド劇場）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "The only truth I know is you",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "promised you",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/Promised_you"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg33"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg34",
+		order: "34th",
+		category: null,
+		title: "Sawayakana Kimi no Kimochi",
+		japaneseTitle: "さわやかな君の気持ち",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-3001",
+				edition: null,
+				released: "2002.05.22"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg34.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Sawayakana Kimi no Kimochi",
+				japaneseTitle: "さわやかな君の気持ち",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Nivea-Kao “8×4 (Eight Four)” CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Dakishimete Ite",
+				japaneseTitle: "抱きしめていて",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Konami PlayStation 2 game “Tokimeki Memorial 3 〜Yakusoku no Ano Basho de〜”（ときめきメモリアル3 ～約束のあの場所で～）Bitter Ending Theme"
+				]
+			},
+			{
+				track: 3,
+				title: "Seven Rainbow",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Konami PlayStation 2 game “Tokimeki Memorial 3 〜Yakusoku no Ano Basho de〜”（ときめきメモリアル3 ～約束のあの場所で～）Opening Theme"
+				]
+			},
+			{
+				track: 4,
+				title: "Sawayakana Kimi no Kimochi",
+				japaneseTitle: "さわやかな君の気持ち",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%95%E3%82%8F%E3%82%84%E3%81%8B%E3%81%AA%E5%90%9B%E3%81%AE%E6%B0%97%E6%8C%81%E3%81%A1"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg34"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sgbox01",
+		order: null,
+		category: null,
+		title: "ZARD PREMIUM BOX 1991-2001 Complete Single Collection（FC-Exclusive Release）",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "34CD Box Set",
+				label: "B-Gram Records",
+				catalog: "JBCD-2000",
+				edition: "1–34",
+				released: "2002.09.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sgbox01.jpg"
+		},
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg35",
+		order: "35th",
+		category: null,
+		title: "Ashita wo Yume Mite",
+		japaneseTitle: "明日を夢見て",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6001",
+				edition: null,
+				released: "2003.04.09"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg35.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Ashita wo Yume Mite",
+				japaneseTitle: "明日を夢見て",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Satoru Kobayashi",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Sagashi ni Ikou yo",
+				japaneseTitle: "探しに行こうよ",
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Ashita wo Yume Mite",
+				japaneseTitle: "明日を夢見て",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%98%8E%E6%97%A5%E3%82%92%E5%A4%A2%E8%A6%8B%E3%81%A6_(%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg35"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg36",
+		order: "36th",
+		category: null,
+		title: "Hitomi Tojite",
+		japaneseTitle: "瞳閉じて",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6002",
+				edition: null,
+				released: "2003.07.09"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg36.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Hitomi Tojite",
+				japaneseTitle: "瞳閉じて",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network sports program “Kandou Factory Suporuto!”（感動ファクトリー すぽると!）Image Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Itoshii Hito yo ~Na mo Naki Tabibito yo~",
+				japaneseTitle: "愛しい人よ 〜名もなき旅人よ〜",
+				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Yoshinobu Ohga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Hitomi Tojite",
+				japaneseTitle: "瞳閉じて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E7%9E%B3%E9%96%89%E3%81%98%E3%81%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg36"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg37",
+		order: "37th",
+		category: null,
+		title: "Motto Chikaku de Kimi no Yokogao Mitetai",
+		japaneseTitle: "もっと近くで君の横顔見ていたい",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6004",
+				edition: null,
+				released: "2003.11.12"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg37.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Motto Chikaku de Kimi no Yokogao Mitetai",
+				japaneseTitle: "もっと近くで君の横顔見ていたい",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: [
+					"Gekkeikan “Tsuki”（月）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Reset",
+				japaneseTitle: "リセット",
+				credit: "Lyrics: Izumi Sakai / Music: Makoto Miyoshi / Arrangement: Satoru Kobayashi",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Motto Chikaku de Kimi no Yokogao Mitetai",
+				japaneseTitle: "もっと近くで君の横顔見ていたい",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%82%82%E3%81%A3%E3%81%A8%E8%BF%91%E3%81%8F%E3%81%A7%E5%90%9B%E3%81%AE%E6%A8%AA%E9%A1%94%E8%A6%8B%E3%81%A6%E3%81%84%E3%81%9F%E3%81%84"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg37"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg38",
+		order: "38th",
+		category: null,
+		title: "Kakegae no Nai Mono",
+		japaneseTitle: "かけがえのないもの",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6005",
+				edition: null,
+				released: "unreleased"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-4001",
+				edition: null,
+				released: "2004.06.23"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg38.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kakegae no Nai Mono",
+				japaneseTitle: "かけがえのないもの",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Satoru Kobayashi",
+				karaoke: false,
+				tieup: [
+					"TBS TV Network dating variety show “Koisuru Hanikami!”（恋するハニカミ!）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Muga Muchuu",
+				japaneseTitle: "無我夢中",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: night clubbers",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Eien (What a beautiful moment Tour Opening Ver.)",
+				japaneseTitle: "永遠 (What a beautiful moment Tour Opening Ver.)",
+				credit: "Music: Akihito Tokunaga / Arrangement: Daisuke Ikeda",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Kakegae no Nai Mono",
+				japaneseTitle: "かけがえのないもの",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%81%8B%E3%81%91%E3%81%8C%E3%81%88%E3%81%AE%E3%81%AA%E3%81%84%E3%82%82%E3%81%AE_(ZARD%E3%81%AE%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg38"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg39",
+		order: "39th",
+		category: null,
+		title: "Kyou wa Yukkuri Hanasou",
+		japaneseTitle: "今日はゆっくり話そう",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-4002",
+				edition: null,
+				released: "2004.11.24"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg39.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kyou wa Yukkuri Hanasou",
+				japaneseTitle: "今日はゆっくり話そう",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: [
+					"Gekkeikan “Tsuki”（月）CM Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Awai Yuki ga Tokete",
+				japaneseTitle: "淡い雪がとけて",
+				credit: "Lyrics: Izumi Sakai / Music: Hiroshi Terao / Arrangement: Akihito Tokunaga",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Ame ga Furidasu Mae ni",
+				japaneseTitle: "雨が降り出す前に",
+				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Kyou wa Yukkuri Hanasou",
+				japaneseTitle: "今日はゆっくり話そう",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E4%BB%8A%E6%97%A5%E3%81%AF%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8A%E8%A9%B1%E3%81%9D%E3%81%86"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg39"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg40",
+		order: "40th",
+		category: null,
+		title: "Hoshi no Kagayaki yo/Natsu wo Matsu Sail no You ni",
+		japaneseTitle: "星のかがやきよ／夏を待つセイル(帆)のように",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6006",
+				edition: null,
+				released: "2005.04.20"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg40.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Hoshi no Kagayaki yo",
+				japaneseTitle: "星のかがやきよ",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Natsu wo Matsu Sail (Ho) no You ni",
+				japaneseTitle: "夏を待つセイル(帆)のように",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 09: Suihei Senjou no Strategy”（名探偵コナン 水平線上の陰謀）Theme Song"
+				]
+			},
+			{
+				track: 3,
+				title: "Hoshi no Kagayaki yo",
+				japaneseTitle: "星のかがやきよ",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Natsu wo Matsu Sail (Ho) no You ni",
+				japaneseTitle: "夏を待つセイル(帆)のように",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%98%9F%E3%81%AE%E3%81%8B%E3%81%8C%E3%82%84%E3%81%8D%E3%82%88/%E5%A4%8F%E3%82%92%E5%BE%85%E3%81%A4%E3%82%BB%E3%82%A4%E3%83%AB(%E5%B8%86)%E3%81%AE%E3%82%88%E3%81%86%E3%81%AB"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg40"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg41",
+		order: "41st",
+		category: null,
+		title: "Kanashii Hodo Anata ga Suki/Karatto Ikou!",
+		japaneseTitle: "悲しいほど貴方が好き／カラッといこう!",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6007",
+				edition: null,
+				released: "2006.03.08"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg41.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Kanashii Hodo Anata ga Suki",
+				japaneseTitle: "悲しいほど貴方が好き",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Ending Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Karatto Ikou!",
+				japaneseTitle: "カラッといこう!",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Fuji TV Network morning information program “Mezamashi Doyoubi”（めざましどようび）January–March 2006 Theme Song"
+				]
+			},
+			{
+				track: 3,
+				title: "Kanashii Hodo Anata ga Suki",
+				japaneseTitle: "悲しいほど貴方が好き",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Karatto Ikou!",
+				japaneseTitle: "カラッといこう!",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E6%82%B2%E3%81%97%E3%81%84%E3%81%BB%E3%81%A9%E8%B2%B4%E6%96%B9%E3%81%8C%E5%A5%BD%E3%81%8D/%E3%82%AB%E3%83%A9%E3%83%83%E3%81%A8%E3%81%84%E3%81%93%E3%81%86!"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg41"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg42",
+		order: "42nd",
+		category: null,
+		title: "Heart ni Hi wo Tsukete",
+		japaneseTitle: "ハートに火をつけて",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6008",
+				edition: "Limited Edition",
+				released: "2006.05.10"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6009",
+				edition: "Regular Edition",
+				released: "2006.05.10"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg42.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Heart ni Hi wo Tsukete",
+				japaneseTitle: "ハートに火をつけて",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"TBS TV Network “Ai no Gekijou”（愛の劇場）drama “Suteki ni Common!”（すてきにコモン!）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Kimi e no Blues",
+				japaneseTitle: "君へのブルース",
+				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Heart ni Hi wo Tsukete ~Piano Instrumental Version~",
+				japaneseTitle: "ハートに火をつけて 〜ピアノ・インストゥルメンタル・バージョン〜",
+				credit: "Music: Aika Ohno / Arrangement: Akira Onozuka",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Heart ni Hi wo Tsukete",
+				japaneseTitle: "ハートに火をつけて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%BC%E3%83%88%E3%81%AB%E7%81%AB%E3%82%92%E3%81%A4%E3%81%91%E3%81%A6_(ZARD%E3%81%AE%E6%9B%B2)"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg42"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg43",
+		order: "43rd",
+		category: null,
+		title: "Glorious Mind",
+		japaneseTitle: "グロリアス マインド",
+		releases: [
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-4003",
+				edition: null,
+				released: "2007.12.12"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg43.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Glorious Mind",
+				japaneseTitle: "グロリアス マインド",
+				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme",
+					"TV Asahi Network news program “Super J Channel”（スーパーJチャンネル）Ending Theme for the December 14, 2007 Broadcast",
+					"Chiba TV Network music information program “MU-GEN〜Music Generations〜” December 2007 Opening Theme"
+				]
+			},
+			{
+				track: 2,
+				title: "Sagashi ni Ikou yo (2007 version)",
+				japaneseTitle: "探しに行こうよ (2007 version)",
+				credit: "Lyrics: Izumi Sakai / Music: Akihito Tokunaga / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Ai wo Shinjite Itai (2007 version)",
+				japaneseTitle: "愛を信じていたい (2007 version)",
+				credit: "Lyrics: Izumi Sakai / Music: Akihito Tokunaga / Arrangement: Takeshi Hayama",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Glorious Mind",
+				japaneseTitle: "グロリアス マインド",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%AD%E3%83%AA%E3%82%A2%E3%82%B9_%E3%83%9E%E3%82%A4%E3%83%B3%E3%83%89"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg43"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sg44",
+		order: "44th",
+		category: null,
+		title: "Tsubasa wo Hirogete/Ai wa Kurayami no Naka de",
+		japaneseTitle: "翼を広げて／愛は暗闇の中で",
+		releases: [
+			{
+				format: "CD+DVD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6011",
+				edition: "Limited Edition / Bonus DVD: JBBB-6011",
+				released: "2008.04.09"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6012",
+				edition: "Regular Edition",
+				released: "2008.04.09"
+			},
+			{
+				format: null,
+				label: "B-Gram Records",
+				catalog: "JBCI-6012",
+				edition: "Promotional Release / Unverified",
+				released: null
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg44.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Tsubasa wo Hirogete",
+				japaneseTitle: "翼を広げて",
+				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
+				karaoke: false,
+				tieup: [
+					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 12: Senritsu no Full Score”（名探偵コナン 戦慄の楽譜）Theme Song"
+				]
+			},
+			{
+				track: 2,
+				title: "Ai wa Kurayami no Naka de featuring Aya Kamiki",
+				japaneseTitle: "愛は暗闇の中で featuring Aya Kamiki",
+				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Siyon Morishita",
+				karaoke: false,
+				tieup: [
+					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme"
+				]
+			},
+			{
+				track: 3,
+				title: "Tsubasa wo Hirogete",
+				japaneseTitle: "翼を広げて",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Ai wa Kurayami no Naka de featuring Aya Kamiki",
+				japaneseTitle: "愛は暗闇の中で featuring Aya Kamiki",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E7%BF%BC%E3%82%92%E5%BA%83%E3%81%92%E3%81%A6/%E6%84%9B%E3%81%AF%E6%9A%97%E9%97%87%E3%81%AE%E4%B8%AD%E3%81%A7"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg44"
+			}
+		]
+	},
+
+
+	{
+		type: "single",
+		id: "sgbox02",
+		order: null,
+		category: null,
+		title: "ZARD Premium Box 1991-2008 Complete Single Collection",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "49CD+1DVD Box Set",
+				label: "B-Gram Records",
+				catalog: "JBCD-2008",
+				edition: "1–49",
+				released: "2008.05.28"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sgbox02.jpg"
+		},
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sg45",
+		order: "45th",
+		category: null,
+		title: "Sunao ni Ienakute",
+		japaneseTitle: "素直に言えなくて",
+		releases: [
+			{
+				format: "CD+DVD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6013",
+				edition: "Limited Edition / Bonus DVD: JBBB-6013",
+				released: "2009.05.27"
+			},
+			{
+				format: "12cm CD",
+				label: "B-Gram Records",
+				catalog: "JBCJ-6014",
+				edition: "Regular Edition",
+				released: "2009.05.27"
+			},
+			{
+				format: null,
+				label: "B-Gram Records",
+				catalog: "JBCI-6014",
+				edition: "Promotional Release / Unverified",
+				released: null
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sg45.jpg"
+		},
+		tracks: [
+			{
+				track: 1,
+				title: "Sunao ni Ienakute ~featuring Mai Kuraki~",
+				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
+				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Hitoshi Okamoto",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 2,
+				title: "Hypnosis",
+				japaneseTitle: null,
+				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Hitoshi Okamoto",
+				karaoke: false,
+				tieup: null
+			},
+			{
+				track: 3,
+				title: "Sunao ni Ienakute ~featuring Mai Kuraki~",
+				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
+				credit: null,
+				karaoke: true,
+				tieup: null
+			},
+			{
+				track: 4,
+				title: "Hypnosis",
+				japaneseTitle: null,
+				credit: null,
+				karaoke: true,
+				tieup: null
+			}
+		],
+		related: [
+			{
+				title: "Wiki",
+				href: "https://ja.wikipedia.org/wiki/%E7%B4%A0%E7%9B%B4%E3%81%AB%E8%A8%80%E3%81%88%E3%81%AA%E3%81%8F%E3%81%A6"
+			},
+			{
+				title: "PV/CM",
+				href: "https://zard-lab.net/pv/single/sg45"
+			}
+		]
+	}
+];
