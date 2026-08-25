@@ -134,7 +134,7 @@ const SINGLE_DATA = [
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
 				karaoke: false,
 				tieup: [
-					"Nippon TV Network quiz show “Magical Zunou Power!!”（マジカル頭脳パワー!!）Theme Song"
+					"Nippon TV Network quiz show “Magical Zunou Power!!”（マジカル頭脳パワー!!）Ending Theme"
 				]
 			},
 			{
@@ -636,7 +636,7 @@ const SINGLE_DATA = [
 				karaoke: false,
 				tieup: [
 					"Otsuka Pharmaceutical “Pocari Sweat” CM Song",
-					"Chiba TV Network music program' “MU-GEN〜Music Generations〜” October 2006 Opening Theme",
+					"Chiba TV Network music program “MU-GEN〜Music Generations〜” October 2006 Opening Theme",
 					"Spotify (@SpotifyJP) “Anata no Hibi ni Ongaku wo: Jikka no Katazuke-hen 30-byou”（「あなたの日々に音楽を」実家の片付け篇 30秒）TV CM Song"
 				]
 			},
@@ -1235,7 +1235,7 @@ const SINGLE_DATA = [
 				credit: "Lyrics: Izumi Sakai / Music: Masazumi Ozawa / Arrangement: Takeshi Hayama",
 				karaoke: false,
 				tieup: [
-					"Bristol-Myers Squibb “SEA BREEZE '95” CM Song"
+					"Bristol-Myers Squibb “SEA BREEZE '95” Image Song"
 				]
 			},
 			{
@@ -1461,8 +1461,7 @@ const SINGLE_DATA = [
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
 				karaoke: false,
 				tieup: [
-					"Otsuka Pharmaceutical “Pocari Sweat” CM Song",
-					"Mitsubishi Motors Corporation ⑭ CM Song"
+					"Otsuka Pharmaceutical “Pocari Sweat” CM Song"
 				]
 			},
 			{
@@ -1471,7 +1470,9 @@ const SINGLE_DATA = [
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
 				karaoke: false,
-				tieup: null
+				tieup: [
+					"Mitsubishi Motors Corporation CM Song"
+				]
 			},
 			{
 				track: 3,
@@ -1614,7 +1615,7 @@ const SINGLE_DATA = [
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
 				karaoke: false,
 				tieup: [
-					"TBS TV Network drama “Risou no Kekkon”（理想の結婚）Opening Theme"
+					"TBS TV Network drama “Risou no Kekkon”（理想の結婚）Theme Song"
 				]
 			},
 			{
@@ -1698,7 +1699,9 @@ const SINGLE_DATA = [
 				japaneseTitle: "遠い星を数えて",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Akihito Tokunaga",
 				karaoke: false,
-				tieup: null
+				tieup: [
+					"MBS Drama Tokku “Nishiogikubo Mitsuboshi Youshudou”（西荻窪 三ツ星洋酒堂）Ending Theme (2021) - SARD UNDERGROUND (cover)"
+				]
 			},
 			{
 				track: 3,
@@ -1811,7 +1814,7 @@ const SINGLE_DATA = [
 		id: "sg23",
 		order: "23rd",
 		category: null,
-		title: "My Baby Grand ~Nukumori ga Hoshikute~",
+		title: "My Baby Grand ～Nukumori ga Hoshikute～",
 		japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
 		releases: [
 			{
@@ -1835,7 +1838,7 @@ const SINGLE_DATA = [
 		tracks: [
 			{
 				track: 1,
-				title: "My Baby Grand ~Nukumori ga Hoshikute~",
+				title: "My Baby Grand ～Nukumori ga Hoshikute～",
 				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
 				karaoke: false,
@@ -1855,7 +1858,7 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 3,
-				title: "My Baby Grand ~Nukumori ga Hoshikute~",
+				title: "My Baby Grand ～Nukumori ga Hoshikute～",
 				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
 				credit: null,
 				karaoke: true,
@@ -2032,7 +2035,7 @@ const SINGLE_DATA = [
 		id: "sg26",
 		order: "26th",
 		category: null,
-		title: "Atarashii Door ~Fuyu no Himawari~",
+		title: "Atarashii Door ～Fuyu no Himawari～",
 		japaneseTitle: "新しいドア 〜冬のひまわり〜",
 		releases: [
 			{
@@ -2056,7 +2059,7 @@ const SINGLE_DATA = [
 		tracks: [
 			{
 				track: 1,
-				title: "Atarashii Door ~Fuyu no Himawari~",
+				title: "Atarashii Door ～Fuyu no Himawari～",
 				japaneseTitle: "新しいドア 〜冬のひまわり〜",
 				credit: "Lyrics: Izumi Sakai / Music: Masato Kitano / Arrangement: Hirohito Furui",
 				karaoke: false,
@@ -2066,7 +2069,7 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 2,
-				title: "Atarashii Door ~Fuyu no Himawari~",
+				title: "Atarashii Door ～Fuyu no Himawari～",
 				japaneseTitle: "新しいドア 〜冬のひまわり〜",
 				credit: null,
 				karaoke: true,
@@ -2150,7 +2153,7 @@ const SINGLE_DATA = [
 		id: "pr05",
 		order: null,
 		category: null,
-		title: "Atarashii Door ~Fuyu no Himawari~/GOOD DAY",
+		title: "Atarashii Door ～Fuyu no Himawari～/GOOD DAY",
 		japaneseTitle: "新しいドア 〜冬のひまわり〜／GOOD DAY",
 		releases: [
 			{
@@ -2698,14 +2701,14 @@ const SINGLE_DATA = [
 		id: "sgbox01",
 		order: null,
 		category: null,
-		title: "ZARD PREMIUM BOX 1991-2001 Complete Single Collection（FC-Exclusive Release）",
+		title: "ZARD PREMIUM BOX 1991-2001 SINGLE COLLECTION (FC-Exclusive Release)",
 		japaneseTitle: null,
 		releases: [
 			{
 				format: "34CD Box Set",
 				label: "B-Gram Records",
-				catalog: "JBCD-2000",
-				edition: "1–34",
+				catalog: "JBCD-2000 (1～34)",
+				edition: "FC-Exclusive Release",
 				released: "2002.09.10"
 			}
 		],
@@ -2809,7 +2812,7 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 2,
-				title: "Itoshii Hito yo ~Na mo Naki Tabibito yo~",
+				title: "Itoshii Hito yo ～Na mo Naki Tabibito yo～",
 				japaneseTitle: "愛しい人よ 〜名もなき旅人よ〜",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Yoshinobu Ohga",
 				karaoke: false,
@@ -3227,7 +3230,7 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 3,
-				title: "Heart ni Hi wo Tsukete ~Piano Instrumental Version~",
+				title: "Heart ni Hi wo Tsukete ～Piano Instrumental Version～",
 				japaneseTitle: "ハートに火をつけて 〜ピアノ・インストゥルメンタル・バージョン〜",
 				credit: "Music: Aika Ohno / Arrangement: Akira Onozuka",
 				karaoke: false,
@@ -3414,19 +3417,43 @@ const SINGLE_DATA = [
 		id: "sgbox02",
 		order: null,
 		category: null,
-		title: "ZARD Premium Box 1991-2008 Complete Single Collection",
+		title: "ZARD PREMIUM BOX 2002-2008 SINGLE COLLECTION (FC-Exclusive Release)",
 		japaneseTitle: null,
 		releases: [
 			{
-				format: "49CD+1DVD Box Set",
+				format: "15CD+1DVD Box Set",
 				label: "B-Gram Records",
-				catalog: "JBCD-2008",
-				edition: "1–49",
+				catalog: "JBCD-2008 (34～48)",
+				edition: "FC-Exclusive Release",
 				released: "2008.05.28"
 			}
 		],
 		cover: {
 			src: "assets/disc_photo/sg/sgbox02.jpg"
+		},
+		tracks: null,
+		related: null
+	},
+
+
+	{
+		type: "single",
+		id: "sgbox03",
+		order: null,
+		category: null,
+		title: "ZARD PREMIUM BOX 1991-2008 Complete Single Collection",
+		japaneseTitle: null,
+		releases: [
+			{
+				format: "49CD+1DVD Box Set",
+				label: "B-Gram Records",
+				catalog: "JBCD-2008 (1～49)",
+				edition: null,
+				released: "2008.05.28"
+			}
+		],
+		cover: {
+			src: "assets/disc_photo/sg/sgbox03.jpg"
 		},
 		tracks: null,
 		related: null
@@ -3469,7 +3496,7 @@ const SINGLE_DATA = [
 		tracks: [
 			{
 				track: 1,
-				title: "Sunao ni Ienakute ~featuring Mai Kuraki~",
+				title: "Sunao ni Ienakute ～featuring Mai Kuraki～",
 				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
 				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Hitoshi Okamoto",
 				karaoke: false,
@@ -3485,7 +3512,7 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 3,
-				title: "Sunao ni Ienakute ~featuring Mai Kuraki~",
+				title: "Sunao ni Ienakute ～featuring Mai Kuraki～",
 				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
 				credit: null,
 				karaoke: true,
