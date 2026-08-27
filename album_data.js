@@ -789,7 +789,7 @@ const ALBUM_DATA = [
                 credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
                 karaoke: false,
                 tieup: [
-                    "Tower Records Super Store Shibuya grand-opening commemorative song"
+                    "TOWER RECORDS SHIBUYA “SUPER STORE” Image Song"
                 ]
             },
             {
