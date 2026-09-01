@@ -3131,7 +3131,7 @@ const SINGLE_DATA = [
 		order: "41st",
 		category: null,
 		title: "Kanashii Hodo Anata ga Suki/Karatto Ikou!",
-		japaneseTitle: "悲しいほど貴方が好き／カラッといこう!",
+		japaneseTitle: "悲しいほど貴方が好き／カラッといこう！",
 		releases: [
 			{
 				format: "12cm CD",
@@ -3158,7 +3158,7 @@ const SINGLE_DATA = [
 			{
 				track: 2,
 				title: "Karatto Ikou!",
-				japaneseTitle: "カラッといこう!",
+				japaneseTitle: "カラッといこう！",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
 				karaoke: false,
 				tieup: [
@@ -3176,7 +3176,7 @@ const SINGLE_DATA = [
 			{
 				track: 4,
 				title: "Karatto Ikou!",
-				japaneseTitle: "カラッといこう!",
+				japaneseTitle: "カラッといこう！",
 				credit: null,
 				karaoke: true,
 				tieup: null

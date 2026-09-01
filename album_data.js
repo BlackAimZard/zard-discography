@@ -4637,7 +4637,7 @@ const ALBUM_DATA = [
                 disc: 6,
                 track: 7,
                 title: "Karatto Ikou!",
-                japaneseTitle: "カラッといこう!",
+                japaneseTitle: "カラッといこう！",
                 credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
                 karaoke: false,
                 tieup: [
