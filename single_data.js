@@ -58,7 +58,6 @@ const SINGLE_DATA = [
 				title: "Good-bye My Loneliness",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network drama “Kekkon no Risou to Genjitsu”（結婚の理想と現実）Theme Song",
 					"Clarion（クラリオン）Karaoke CF Song"
@@ -69,7 +68,6 @@ const SINGLE_DATA = [
 				title: "Ai wa Kurayami no Naka de",
 				japaneseTitle: "愛は暗闇の中で",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: ZARD, Hiroshi Terao",
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -132,7 +130,6 @@ const SINGLE_DATA = [
 				title: "Fushigi ne...",
 				japaneseTitle: "不思議ね…",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Nippon TV Network quiz show “Magical Zunou Power!!”（マジカル頭脳パワー!!）Ending Theme"
 				]
@@ -142,7 +139,6 @@ const SINGLE_DATA = [
 				title: "Sunao ni Ienakute",
 				japaneseTitle: "素直に言えなくて",
 				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -205,7 +201,6 @@ const SINGLE_DATA = [
 				title: "Mou Sagasanai",
 				japaneseTitle: "もう探さない",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network drama “Shichinin no Onna Bengoshi II”（七人の女弁護士II）Theme Song"
 				]
@@ -215,23 +210,20 @@ const SINGLE_DATA = [
 				title: "Konna ni Aishitemo",
 				japaneseTitle: "こんなに愛しても",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Mou Sagasanai",
-				japaneseTitle: "もう探さない",
+				title: "Mou Sagasanai (Original Karaoke)",
+				japaneseTitle: "もう探さない (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Konna ni Aishitemo",
-				japaneseTitle: "こんなに愛しても",
+				title: "Konna ni Aishitemo (Original Karaoke)",
+				japaneseTitle: "こんなに愛しても (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -294,7 +286,6 @@ const SINGLE_DATA = [
 				title: "Nemurenai Yoru wo Daite",
 				japaneseTitle: "眠れない夜を抱いて",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi, Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network wide show “Tonight”（トゥナイト）Ending Theme",
 					"TV Asahi Network drama “Love Story wo Kimi ni '92 〜Nemurenai Yoru wo Daite〜”（ラブストーリーを君に'92〜眠れない夜を抱いて〜）Theme Song"
@@ -305,23 +296,20 @@ const SINGLE_DATA = [
 				title: "Dangerous Tonight",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Nemurenai Yoru wo Daite",
-				japaneseTitle: "眠れない夜を抱いて",
+				title: "Nemurenai Yoru wo Daite (Original Karaoke)",
+				japaneseTitle: "眠れない夜を抱いて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Dangerous Tonight",
+				title: "Dangerous Tonight (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -384,7 +372,6 @@ const SINGLE_DATA = [
 				title: "IN MY ARMS TONIGHT",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Michiya Haruhata / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"TBS TV Network drama “Gakkou ga Abunai”（学校があぶない）Ending Theme"
 				]
@@ -394,23 +381,20 @@ const SINGLE_DATA = [
 				title: "Ase no Naka de CRY",
 				japaneseTitle: "汗の中でCRY",
 				credit: "Lyrics: Izumi Sakai / Music: Toshiya Matsukawa / Arrangement: Daisuke Ikeda, Masazumi Ozawa",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "IN MY ARMS TONIGHT",
+				title: "IN MY ARMS TONIGHT (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Ase no Naka de CRY",
-				japaneseTitle: "汗の中でCRY",
+				title: "Ase no Naka de CRY (Original Karaoke)",
+				japaneseTitle: "汗の中でCRY (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -480,7 +464,6 @@ const SINGLE_DATA = [
 				title: "Makenaide",
 				japaneseTitle: "負けないで",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network drama “Bokutachi no Drama Series”（ボクたちのドラマシリーズ）“Shiratori Reiko de Gozaimasu! Season 1”（白鳥麗子でございます! 第1シリーズ）Ending Theme",
 					"66th Senbatsu High School Baseball Tournament（第66回選抜高等学校野球大会）Entrance March",
@@ -495,23 +478,20 @@ const SINGLE_DATA = [
 				title: "Stray Love",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Makenaide",
-				japaneseTitle: "負けないで",
+				title: "Makenaide (Original Karaoke)",
+				japaneseTitle: "負けないで (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Stray Love",
+				title: "Stray Love (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -560,7 +540,6 @@ const SINGLE_DATA = [
 				title: "Kimi ga Inai",
 				japaneseTitle: "君がいない",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network drama “Kanojo no Kirai na Kanojo”（彼女の嫌いな彼女）Theme Song"
 				]
@@ -570,23 +549,20 @@ const SINGLE_DATA = [
 				title: "Watashi dake Mitsumete",
 				japaneseTitle: "私だけ見つめて",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Kimi ga Inai",
-				japaneseTitle: "君がいない",
+				title: "Kimi ga Inai (Original Karaoke)",
+				japaneseTitle: "君がいない (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Watashi dake Mitsumete",
-				japaneseTitle: "私だけ見つめて",
+				title: "Watashi dake Mitsumete (Original Karaoke)",
+				japaneseTitle: "私だけ見つめて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -635,7 +611,6 @@ const SINGLE_DATA = [
 				title: "Yureru Omoi",
 				japaneseTitle: "揺れる想い",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Otsuka Pharmaceutical “Pocari Sweat” CM Song",
 					"Chiba TV Network music information program “MU-GEN〜Music Generations〜” October 2006 Opening Theme",
@@ -647,23 +622,20 @@ const SINGLE_DATA = [
 				title: "Just for you",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi, Daisuke Ikeda",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Yureru Omoi",
-				japaneseTitle: "揺れる想い",
+				title: "Yureru Omoi (Original Karaoke)",
+				japaneseTitle: "揺れる想い (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Just for you",
+				title: "Just for you (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -736,7 +708,6 @@ const SINGLE_DATA = [
 				title: "Mou Sukoshi Ato Sukoshi...",
 				japaneseTitle: "もう少し あと少し…",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network drama “Lullaby Keiji '93”（ララバイ刑事'93）Ending Theme"
 				]
@@ -746,23 +717,20 @@ const SINGLE_DATA = [
 				title: "Kanariya",
 				japaneseTitle: "カナリヤ",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Mou Sukoshi Ato Sukoshi...",
-				japaneseTitle: "もう少し あと少し…",
+				title: "Mou Sukoshi Ato Sukoshi... (Original Karaoke)",
+				japaneseTitle: "もう少し あと少し… (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Kanariya",
-				japaneseTitle: "カナリヤ",
+				title: "Kanariya (Original Karaoke)",
+				japaneseTitle: "カナリヤ (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -833,7 +801,6 @@ const SINGLE_DATA = [
 				title: "Kitto Wasurenai",
 				japaneseTitle: "きっと忘れない",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network drama “Bokutachi no Drama Series”（ボクたちのドラマシリーズ）“Shiratori Reiko de Gozaimasu! Season 2”（白鳥麗子でございます! 第2シリーズ）Ending Theme"
 				]
@@ -843,23 +810,20 @@ const SINGLE_DATA = [
 				title: "Tasogare ni My Lonely Heart",
 				japaneseTitle: "黄昏にMy Lonely Heart",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Kitto Wasurenai",
-				japaneseTitle: "きっと忘れない",
+				title: "Kitto Wasurenai (Original Karaoke)",
+				japaneseTitle: "きっと忘れない (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Tasogare ni My Lonely Heart",
-				japaneseTitle: "黄昏にMy Lonely Heart",
+				title: "Tasogare ni My Lonely Heart (Original Karaoke)",
+				japaneseTitle: "黄昏にMy Lonely Heart (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -908,7 +872,6 @@ const SINGLE_DATA = [
 				title: "Kono Ai ni Oyogi Tsukarete mo",
 				japaneseTitle: "この愛に泳ぎ疲れても",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Kansai TV/Fuji TV Network drama “Ai to Giwaku no Suspense”（愛と疑惑のサスペンス）Opening Theme"
 				]
@@ -918,25 +881,22 @@ const SINGLE_DATA = [
 				title: "Boy",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV-produced film “Natsu no Niwa 〜The Friends〜”（夏の庭〜The Friends〜）Ending Theme"
 				]
 			},
 			{
 				track: 3,
-				title: "Kono Ai ni Oyogi Tsukarete mo",
-				japaneseTitle: "この愛に泳ぎ疲れても",
+				title: "Kono Ai ni Oyogi Tsukarete mo (Original Karaoke)",
+				japaneseTitle: "この愛に泳ぎ疲れても (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Boy",
+				title: "Boy (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -985,7 +945,6 @@ const SINGLE_DATA = [
 				title: "Konna ni Soba ni Iru no ni",
 				japaneseTitle: "こんなにそばに居るのに",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Boutique JOY（ブティックJOY）TV-CF Image Song"
 				]
@@ -995,15 +954,13 @@ const SINGLE_DATA = [
 				title: "Anata no Sei ja Nai",
 				japaneseTitle: "あなたのせいじゃない",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Konna ni Soba ni Iru no ni",
-				japaneseTitle: "こんなにそばに居るのに",
+				title: "Konna ni Soba ni Iru no ni (Original Karaoke)",
+				japaneseTitle: "こんなにそばに居るのに (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1052,7 +1009,6 @@ const SINGLE_DATA = [
 				title: "Anata wo Kanjite Itai",
 				japaneseTitle: "あなたを感じていたい",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Tetsuro Oda",
-				karaoke: false,
 				tieup: [
 					"NTT DoCoMo pager “Palfy V”（パルフィー V）CM Song"
 				]
@@ -1062,15 +1018,13 @@ const SINGLE_DATA = [
 				title: "Take me to your dream",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Anata wo Kanjite Itai",
-				japaneseTitle: "あなたを感じていたい",
+				title: "Anata wo Kanjite Itai (Original Karaoke)",
+				japaneseTitle: "あなたを感じていたい (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1119,7 +1073,6 @@ const SINGLE_DATA = [
 				title: "Just believe in love",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Michiya Haruhata / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"TBS TV Network drama “Yureru Omoi”（揺れる想い）Theme Song"
 				]
@@ -1129,15 +1082,13 @@ const SINGLE_DATA = [
 				title: "Ready, Go!",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Daria Kawashima / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Just believe in love",
+				title: "Just believe in love (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1241,7 +1192,6 @@ const SINGLE_DATA = [
 				title: "Ai ga Mienai",
 				japaneseTitle: "愛が見えない",
 				credit: "Lyrics: Izumi Sakai / Music: Masazumi Ozawa / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"SEA BREEZE '95 Image Song"
 				]
@@ -1251,23 +1201,20 @@ const SINGLE_DATA = [
 				title: "Teenage dream",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Ai ga Mienai",
-				japaneseTitle: "愛が見えない",
+				title: "Ai ga Mienai (Original Karaoke)",
+				japaneseTitle: "愛が見えない (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Teenage dream",
+				title: "Teenage dream (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1316,7 +1263,6 @@ const SINGLE_DATA = [
 				title: "Sayonara wa Ima mo Kono Mune ni Imasu",
 				japaneseTitle: "サヨナラは今もこの胸に居ます",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Toei “Bokutachi no Eiga Series”（ぼくたちの映画シリーズ）film “Shiratori Reiko de Gozaimasu!”（白鳥麗子でございます!）Theme Song",
 					"Nationwide 28-Station Network program “J-ROCK ARTIST Count Down 50” Ending Theme"
@@ -1327,23 +1273,20 @@ const SINGLE_DATA = [
 				title: "Nemuri",
 				japaneseTitle: "眠り",
 				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Sayonara wa Ima mo Kono Mune ni Imasu",
-				japaneseTitle: "サヨナラは今もこの胸に居ます",
+				title: "Sayonara wa Ima mo Kono Mune ni Imasu (Original Karaoke)",
+				japaneseTitle: "サヨナラは今もこの胸に居ます (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Nemuri",
-				japaneseTitle: "眠り",
+				title: "Nemuri (Original Karaoke)",
+				japaneseTitle: "眠り (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1392,7 +1335,6 @@ const SINGLE_DATA = [
 				title: "My Friend",
 				japaneseTitle: "マイ フレンド",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network anime “SLAM DUNK”（スラムダンク）4th Ending Theme",
 					"TV Tokyo Network game and esports variety program “Ariyoshieeeee! Sou da! Ima kara Omaenchi de Game Shinai?”（有吉ぃぃeeeee!そうだ!今からお前んチでゲームしない?）Episode 112 Ending Theme"
@@ -1403,23 +1345,20 @@ const SINGLE_DATA = [
 				title: "Mezameta Asa wa...",
 				japaneseTitle: "目覚めた朝は…",
 				credit: "Lyrics: Izumi Sakai / Music: Mitsuyoshi Yonezawa / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "My Friend",
-				japaneseTitle: "マイ フレンド",
+				title: "My Friend (Original Karaoke)",
+				japaneseTitle: "マイ フレンド (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Mezameta Asa wa...",
-				japaneseTitle: "目覚めた朝は…",
+				title: "Mezameta Asa wa... (Original Karaoke)",
+				japaneseTitle: "目覚めた朝は… (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1468,7 +1407,6 @@ const SINGLE_DATA = [
 				title: "Kokoro wo Hiraite",
 				japaneseTitle: "心を開いて",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Otsuka Pharmaceutical “Pocari Sweat” CM Song"
 				]
@@ -1478,25 +1416,22 @@ const SINGLE_DATA = [
 				title: "Change my mind",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Mitsubishi Motors Corporation CM Song"
 				]
 			},
 			{
 				track: 3,
-				title: "Kokoro wo Hiraite",
-				japaneseTitle: "心を開いて",
+				title: "Kokoro wo Hiraite (Original Karaoke)",
+				japaneseTitle: "心を開いて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Change my mind",
+				title: "Change my mind (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1545,7 +1480,6 @@ const SINGLE_DATA = [
 				title: "Don't you see!",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network anime “Dragon Ball GT”（ドラゴンボールGT）2nd Ending Theme"
 				]
@@ -1555,25 +1489,22 @@ const SINGLE_DATA = [
 				title: "Kaeranu Jikan no Naka de",
 				japaneseTitle: "帰らぬ時間の中で",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Nippon TV Network “Imahito”（いまひと）Theme Song"
 				]
 			},
 			{
 				track: 3,
-				title: "Don't you see!",
+				title: "Don't you see! (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Kaeranu Jikan no Naka de",
-				japaneseTitle: "帰らぬ時間の中で",
+				title: "Kaeranu Jikan no Naka de (Original Karaoke)",
+				japaneseTitle: "帰らぬ時間の中で (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1622,7 +1553,6 @@ const SINGLE_DATA = [
 				title: "Kimi ni Aitaku Nattara...",
 				japaneseTitle: "君に逢いたくなったら…",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"TBS TV Network drama “Risou no Kekkon”（理想の結婚）Theme Song"
 				]
@@ -1632,23 +1562,20 @@ const SINGLE_DATA = [
 				title: "Ai wo Shinjite Itai",
 				japaneseTitle: "愛を信じていたい",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Kimi ni Aitaku Nattara...",
-				japaneseTitle: "君に逢いたくなったら…",
+				title: "Kimi ni Aitaku Nattara... (Original Karaoke)",
+				japaneseTitle: "君に逢いたくなったら… (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Ai wo Shinjite Itai",
-				japaneseTitle: "愛を信じていたい",
+				title: "Ai wo Shinjite Itai (Original Karaoke)",
+				japaneseTitle: "愛を信じていたい (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1697,7 +1624,6 @@ const SINGLE_DATA = [
 				title: "Kaze ga Toori Nukeru Machi he",
 				japaneseTitle: "風が通り抜ける街へ",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Japan Racing Association “'97 Summer JRA” Campaign Song"
 				]
@@ -1707,25 +1633,22 @@ const SINGLE_DATA = [
 				title: "Tooi Hoshi wo Kazoete",
 				japaneseTitle: "遠い星を数えて",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"MBS Drama Tokku “Nishiogikubo Mitsuboshi Youshudou”（西荻窪 三ツ星洋酒堂）Ending Theme (2021) - SARD UNDERGROUND (cover)"
 				]
 			},
 			{
 				track: 3,
-				title: "Kaze ga Toori Nukeru Machi he",
-				japaneseTitle: "風が通り抜ける街へ",
+				title: "Kaze ga Toori Nukeru Machi he (Original Karaoke)",
+				japaneseTitle: "風が通り抜ける街へ (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Tooi Hoshi wo Kazoete",
-				japaneseTitle: "遠い星を数えて",
+				title: "Tooi Hoshi wo Kazoete (Original Karaoke)",
+				japaneseTitle: "遠い星を数えて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1774,7 +1697,6 @@ const SINGLE_DATA = [
 				title: "Eien",
 				japaneseTitle: "永遠",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network drama “Shitsurakuen”（失楽園）Theme Song",
 					"Canon “NEW EOS Kiss” CM Song"
@@ -1785,23 +1707,20 @@ const SINGLE_DATA = [
 				title: "I can't let go",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Hirohito Furui",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Eien",
-				japaneseTitle: "永遠",
+				title: "Eien (Original Karaoke)",
+				japaneseTitle: "永遠 (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "I can't let go",
+				title: "I can't let go (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1850,7 +1769,6 @@ const SINGLE_DATA = [
 				title: "My Baby Grand ～Nukumori ga Hoshikute～",
 				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"NTT DoCoMo “DoCoMo '97 Winter”（ドコモ ’97-冬）CF Song"
 				]
@@ -1860,25 +1778,22 @@ const SINGLE_DATA = [
 				title: "Love is Gone",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network drama “Shitsurakuen: Tokubetsu-hen”（失楽園・特別編）Theme Song"
 				]
 			},
 			{
 				track: 3,
-				title: "My Baby Grand ～Nukumori ga Hoshikute～",
-				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜",
+				title: "My Baby Grand ～Nukumori ga Hoshikute～ (Original Karaoke)",
+				japaneseTitle: "My Baby Grand 〜ぬくもりが欲しくて〜 (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Love is Gone",
+				title: "Love is Gone (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -1927,7 +1842,6 @@ const SINGLE_DATA = [
 				title: "Iki mo Dekinai",
 				japaneseTitle: "息もできない",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network anime “Chuuka Ichiban!”（中華一番!）2nd Opening Theme"
 				]
@@ -1937,23 +1851,20 @@ const SINGLE_DATA = [
 				title: "Vintage",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Iki mo Dekinai",
-				japaneseTitle: "息もできない",
+				title: "Iki mo Dekinai (Original Karaoke)",
+				japaneseTitle: "息もできない (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Vintage",
+				title: "Vintage (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2002,7 +1913,6 @@ const SINGLE_DATA = [
 				title: "Unmei no Roulette Mawashite",
 				japaneseTitle: "運命のルーレット廻して",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme",
 					"Yomiuri TV/Nippon TV Network anime special “Meitantei Conan Episode ‘ONE’: Chiisaku Natta Meitantei”（名探偵コナン エピソード“ONE” 小さくなった名探偵）Insert Song"
@@ -2013,17 +1923,15 @@ const SINGLE_DATA = [
 				title: "Shoujo no Koro ni Modotta Mitai ni",
 				japaneseTitle: "少女の頃に戻ったみたいに",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 02: 14-banme no Target”（名探偵コナン 14番目の標的）Theme Song"
 				]
 			},
 			{
 				track: 3,
-				title: "Unmei no Roulette Mawashite",
-				japaneseTitle: "運命のルーレット廻して",
+				title: "Unmei no Roulette Mawashite (Original Karaoke)",
+				japaneseTitle: "運命のルーレット廻して (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2072,17 +1980,15 @@ const SINGLE_DATA = [
 				title: "Atarashii Door ～Fuyu no Himawari～",
 				japaneseTitle: "新しいドア 〜冬のひまわり〜",
 				credit: "Lyrics: Izumi Sakai / Music: Masato Kitano / Arrangement: Hirohito Furui",
-				karaoke: false,
 				tieup: [
 					"Sapporo Breweries “Fuyu Monogatari”（冬物語）CM Song"
 				]
 			},
 			{
 				track: 2,
-				title: "Atarashii Door ～Fuyu no Himawari～",
-				japaneseTitle: "新しいドア 〜冬のひまわり〜",
+				title: "Atarashii Door ～Fuyu no Himawari～ (Original Karaoke)",
+				japaneseTitle: "新しいドア 〜冬のひまわり〜 (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2131,17 +2037,15 @@ const SINGLE_DATA = [
 				title: "GOOD DAY",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Beautylabo “Natural Color”（ナチュラルカラー）CM Song"
 				]
 			},
 			{
 				track: 2,
-				title: "GOOD DAY",
+				title: "GOOD DAY (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2219,7 +2123,6 @@ const SINGLE_DATA = [
 				title: "MIND GAMES",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Masaaki Watanuki, Hirohito Furui",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network sports program “Pro Yakyuu News”（プロ野球ニュース）Image Song",
 					"Nippon Broadcasting System radio program “Show Up Nighter '99”（ショウアップナイター'99）Ending Theme"
@@ -2230,7 +2133,6 @@ const SINGLE_DATA = [
 				title: "Hypnosis",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Hitoshi Okamoto / Arrangement: Hitoshi Okamoto, Hirohito Furui",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -2238,15 +2140,13 @@ const SINGLE_DATA = [
 				title: "MIND GAMES (Redway Secret Mix)",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Masaaki Watanuki / Arrangement: Masaaki Watanuki, Hirohito Furui",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "MIND GAMES",
+				title: "MIND GAMES (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2295,17 +2195,15 @@ const SINGLE_DATA = [
 				title: "Sekai wa Kitto Mirai no Naka",
 				japaneseTitle: "世界はきっと未来の中",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Akihito Tokunaga, Hirohito Furui, Kenji Shiojiri",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network Thursday Mystery drama “Maiko-san wa Meitantei!”（舞妓さんは名探偵!）Theme Song"
 				]
 			},
 			{
 				track: 2,
-				title: "Sekai wa Kitto Mirai no Naka",
-				japaneseTitle: "世界はきっと未来の中",
+				title: "Sekai wa Kitto Mirai no Naka (Original Karaoke)",
+				japaneseTitle: "世界はきっと未来の中 (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2354,7 +2252,6 @@ const SINGLE_DATA = [
 				title: "Itai Kurai Kimi ga Afureteiru yo",
 				japaneseTitle: "痛いくらい君があふれているよ",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Kenji Shiojiri",
-				karaoke: false,
 				tieup: [
 					"Nestlé Japan “NESCAFÉ Moment”（ネスカフェモーメント）CM Song"
 				]
@@ -2364,15 +2261,13 @@ const SINGLE_DATA = [
 				title: "Itai Kurai Kimi ga Afureteiru yo (Re-Mix)",
 				japaneseTitle: "痛いくらい君があふれているよ (Re-Mix)",
 				credit: "Lyrics: Izumi Sakai / Music: Kenji Shiojiri / Remix: FAST ALVY and ME-YA",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Itai Kurai Kimi ga Afureteiru yo",
-				japaneseTitle: "痛いくらい君があふれているよ",
+				title: "Itai Kurai Kimi ga Afureteiru yo (Original Karaoke)",
+				japaneseTitle: "痛いくらい君があふれているよ (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
@@ -2380,7 +2275,6 @@ const SINGLE_DATA = [
 				title: "Itai Kurai Kimi ga Afureteiru yo (Secret Track)",
 				japaneseTitle: "痛いくらい君があふれているよ（シークレットトラック）",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Kenji Shiojiri",
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -2422,7 +2316,6 @@ const SINGLE_DATA = [
 				title: "Kono Namida Hoshi ni Nare",
 				japaneseTitle: "この涙 星になれ",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Hirohito Furui",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network drama “Kasouken no Onna”（科捜研の女）Theme Song"
 				]
@@ -2432,7 +2325,6 @@ const SINGLE_DATA = [
 				title: "O・mo・hi・de",
 				japaneseTitle: "お・も・ひ・で",
 				credit: "Lyrics: Izumi Sakai / Music: Hiroshi Terao / Arrangement: Hirohito Furui, Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network “Zeitaku na Kyuujitsu”（贅沢な休日）Theme Song",
 					"“Change IZU 2000!”（チェンジ伊豆2000!）Image Song"
@@ -2440,18 +2332,16 @@ const SINGLE_DATA = [
 			},
 			{
 				track: 3,
-				title: "Kono Namida Hoshi ni Nare",
-				japaneseTitle: "この涙 星になれ",
+				title: "Kono Namida Hoshi ni Nare (Original Karaoke)",
+				japaneseTitle: "この涙 星になれ (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "O・mo・hi・de",
-				japaneseTitle: "お・も・ひ・で",
+				title: "O・mo・hi・de (Original Karaoke)",
+				japaneseTitle: "お・も・ひ・で (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
@@ -2459,7 +2349,6 @@ const SINGLE_DATA = [
 				title: "Kono Namida Hoshi ni Nare remix (Secret Track)",
 				japaneseTitle: "この涙 星になれ remix (シークレットトラック)",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Hirohito Furui",
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -2525,7 +2414,6 @@ const SINGLE_DATA = [
 				title: "Get U're Dream",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"NHK Sydney Olympics Broadcast Theme Song"
 				]
@@ -2535,7 +2423,6 @@ const SINGLE_DATA = [
 				title: "Get U're Dream (Version Two)",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -2543,15 +2430,13 @@ const SINGLE_DATA = [
 				title: "Get U're Dream (Version Three)",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: YOKO Black. Stone",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Get U're Dream",
+				title: "Get U're Dream (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
@@ -2559,7 +2444,6 @@ const SINGLE_DATA = [
 				title: "Get U're Dream (Perry Geyer Short Mix) (Secret Track)",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Remix: Perry Geyer",
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -2601,7 +2485,6 @@ const SINGLE_DATA = [
 				title: "promised you",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Cybersound",
-				karaoke: false,
 				tieup: [
 					"TV Asahi Network two-hour drama program “Doyou Wide Gekijou”（土曜ワイド劇場）Ending Theme"
 				]
@@ -2611,15 +2494,13 @@ const SINGLE_DATA = [
 				title: "The only truth I know is you",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "promised you",
+				title: "promised you (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2661,7 +2542,6 @@ const SINGLE_DATA = [
 				title: "Sawayakana Kimi no Kimochi",
 				japaneseTitle: "さわやかな君の気持ち",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Nivea-Kao “8×4 (Eight Four)” CM Song"
 				]
@@ -2671,7 +2551,6 @@ const SINGLE_DATA = [
 				title: "Dakishimete Ite",
 				japaneseTitle: "抱きしめていて",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Konami PlayStation 2 game “Tokimeki Memorial 3 〜Yakusoku no Ano Basho de〜”（ときめきメモリアル3 ～約束のあの場所で～）Bitter Ending Theme"
 				]
@@ -2681,17 +2560,15 @@ const SINGLE_DATA = [
 				title: "Seven Rainbow",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Konami PlayStation 2 game “Tokimeki Memorial 3 〜Yakusoku no Ano Basho de〜”（ときめきメモリアル3 ～約束のあの場所で～）Opening Theme"
 				]
 			},
 			{
 				track: 4,
-				title: "Sawayakana Kimi no Kimochi",
-				japaneseTitle: "さわやかな君の気持ち",
+				title: "Sawayakana Kimi no Kimochi (Original Karaoke)",
+				japaneseTitle: "さわやかな君の気持ち (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2757,7 +2634,6 @@ const SINGLE_DATA = [
 				title: "Ashita wo Yume Mite",
 				japaneseTitle: "明日を夢見て",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Satoru Kobayashi",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Ending Theme"
 				]
@@ -2767,15 +2643,13 @@ const SINGLE_DATA = [
 				title: "Sagashi ni Ikou yo",
 				japaneseTitle: "探しに行こうよ",
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Ashita wo Yume Mite",
-				japaneseTitle: "明日を夢見て",
+				title: "Ashita wo Yume Mite (Original Karaoke)",
+				japaneseTitle: "明日を夢見て (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2817,7 +2691,6 @@ const SINGLE_DATA = [
 				title: "Hitomi Tojite",
 				japaneseTitle: "瞳閉じて",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network sports program “Kandou Factory Suporuto!”（感動ファクトリー すぽると!）Image Song"
 				]
@@ -2827,15 +2700,13 @@ const SINGLE_DATA = [
 				title: "Itoshii Hito yo ～Na mo Naki Tabibito yo～",
 				japaneseTitle: "愛しい人よ 〜名もなき旅人よ〜",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Yoshinobu Ohga",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Hitomi Tojite",
-				japaneseTitle: "瞳閉じて",
+				title: "Hitomi Tojite (Original Karaoke)",
+				japaneseTitle: "瞳閉じて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2877,7 +2748,6 @@ const SINGLE_DATA = [
 				title: "Motto Chikaku de Kimi no Yokogao Mitetai",
 				japaneseTitle: "もっと近くで君の横顔見ていたい",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: [
 					"Gekkeikan “Tsuki”（月）CM Song"
 				]
@@ -2887,15 +2757,13 @@ const SINGLE_DATA = [
 				title: "Reset",
 				japaneseTitle: "リセット",
 				credit: "Lyrics: Izumi Sakai / Music: Makoto Miyoshi / Arrangement: Satoru Kobayashi",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Motto Chikaku de Kimi no Yokogao Mitetai",
-				japaneseTitle: "もっと近くで君の横顔見ていたい",
+				title: "Motto Chikaku de Kimi no Yokogao Mitetai (Original Karaoke)",
+				japaneseTitle: "もっと近くで君の横顔見ていたい (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -2944,7 +2812,6 @@ const SINGLE_DATA = [
 				title: "Kakegae no Nai Mono",
 				japaneseTitle: "かけがえのないもの",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Satoru Kobayashi",
-				karaoke: false,
 				tieup: [
 					"TBS TV Network dating variety show “Koisuru Hanikami!”（恋するハニカミ!）Theme Song"
 				]
@@ -2954,7 +2821,6 @@ const SINGLE_DATA = [
 				title: "Muga Muchuu",
 				japaneseTitle: "無我夢中",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: night clubbers",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -2962,15 +2828,13 @@ const SINGLE_DATA = [
 				title: "Eien (What a beautiful moment Tour Opening Ver.)",
 				japaneseTitle: "永遠 (What a beautiful moment Tour Opening Ver.)",
 				credit: "Music: Akihito Tokunaga / Arrangement: Daisuke Ikeda",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Kakegae no Nai Mono",
-				japaneseTitle: "かけがえのないもの",
+				title: "Kakegae no Nai Mono (Original Karaoke)",
+				japaneseTitle: "かけがえのないもの (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3012,7 +2876,6 @@ const SINGLE_DATA = [
 				title: "Kyou wa Yukkuri Hanasou",
 				japaneseTitle: "今日はゆっくり話そう",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: [
 					"Gekkeikan “Tsuki”（月）CM Song"
 				]
@@ -3022,7 +2885,6 @@ const SINGLE_DATA = [
 				title: "Awai Yuki ga Tokete",
 				japaneseTitle: "淡い雪がとけて",
 				credit: "Lyrics: Izumi Sakai / Music: Hiroshi Terao / Arrangement: Akihito Tokunaga",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -3030,15 +2892,13 @@ const SINGLE_DATA = [
 				title: "Ame ga Furidasu Mae ni",
 				japaneseTitle: "雨が降り出す前に",
 				credit: "Lyrics: Izumi Sakai / Music: Yuichiro Iwai / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Kyou wa Yukkuri Hanasou",
-				japaneseTitle: "今日はゆっくり話そう",
+				title: "Kyou wa Yukkuri Hanasou (Original Karaoke)",
+				japaneseTitle: "今日はゆっくり話そう (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3080,7 +2940,6 @@ const SINGLE_DATA = [
 				title: "Hoshi no Kagayaki yo",
 				japaneseTitle: "星のかがやきよ",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme"
 				]
@@ -3090,7 +2949,6 @@ const SINGLE_DATA = [
 				title: "Natsu wo Matsu Sail no You ni",
 				japaneseTitle: "夏を待つセイル(帆)のように",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 09: Suihei Senjou no Strategy”（名探偵コナン 水平線上の陰謀）Theme Song"
 				]
@@ -3100,7 +2958,6 @@ const SINGLE_DATA = [
 				title: "Hoshi no Kagayaki yo (Instrumental)",
 				japaneseTitle: "星のかがやきよ (Instrumental)",
 				credit: null,
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -3108,7 +2965,6 @@ const SINGLE_DATA = [
 				title: "Natsu wo Matsu Sail (Ho) no You ni (Instrumental)",
 				japaneseTitle: "夏を待つセイル(帆)のように (Instrumental)",
 				credit: null,
-				karaoke: false,
 				tieup: null
 			}
 		],
@@ -3150,7 +3006,6 @@ const SINGLE_DATA = [
 				title: "Kanashii Hodo Anata ga Suki",
 				japaneseTitle: "悲しいほど貴方が好き",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Ending Theme"
 				]
@@ -3160,25 +3015,22 @@ const SINGLE_DATA = [
 				title: "Karatto Ikou!",
 				japaneseTitle: "カラッといこう！",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Fuji TV Network morning information program “Mezamashi Doyoubi”（めざましどようび）January–March 2006 Theme Song"
 				]
 			},
 			{
 				track: 3,
-				title: "Kanashii Hodo Anata ga Suki",
-				japaneseTitle: "悲しいほど貴方が好き",
+				title: "Kanashii Hodo Anata ga Suki (Original Karaoke)",
+				japaneseTitle: "悲しいほど貴方が好き (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Karatto Ikou!",
-				japaneseTitle: "カラッといこう！",
+				title: "Karatto Ikou! (Original Karaoke)",
+				japaneseTitle: "カラッといこう！ (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3227,7 +3079,6 @@ const SINGLE_DATA = [
 				title: "Heart ni Hi wo Tsukete",
 				japaneseTitle: "ハートに火をつけて",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"TBS TV Network “Ai no Gekijou”（愛の劇場）drama “Suteki ni Common!”（すてきにコモン!）Theme Song"
 				]
@@ -3237,7 +3088,6 @@ const SINGLE_DATA = [
 				title: "Kimi e no Blues",
 				japaneseTitle: "君へのブルース",
 				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -3245,15 +3095,13 @@ const SINGLE_DATA = [
 				title: "Heart ni Hi wo Tsukete ～Piano Instrumental Version～",
 				japaneseTitle: "ハートに火をつけて 〜ピアノ・インストゥルメンタル・バージョン〜",
 				credit: "Music: Aika Ohno / Arrangement: Akira Onozuka",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Heart ni Hi wo Tsukete",
-				japaneseTitle: "ハートに火をつけて",
+				title: "Heart ni Hi wo Tsukete (Original Karaoke)",
+				japaneseTitle: "ハートに火をつけて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3295,7 +3143,6 @@ const SINGLE_DATA = [
 				title: "Glorious Mind",
 				japaneseTitle: "グロリアス マインド",
 				credit: "Lyrics: Izumi Sakai / Music: Aika Ohno / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme",
 					"TV Asahi Network news program “Super J Channel”（スーパーJチャンネル）Ending Theme for the December 14, 2007 Broadcast",
@@ -3307,7 +3154,6 @@ const SINGLE_DATA = [
 				title: "Sagashi ni Ikou yo (2007 version)",
 				japaneseTitle: "探しに行こうよ (2007 version)",
 				credit: "Lyrics: Izumi Sakai / Music: Akihito Tokunaga / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -3315,15 +3161,13 @@ const SINGLE_DATA = [
 				title: "Ai wo Shinjite Itai (2007 version)",
 				japaneseTitle: "愛を信じていたい (2007 version)",
 				credit: "Lyrics: Izumi Sakai / Music: Akihito Tokunaga / Arrangement: Takeshi Hayama",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Glorious Mind",
-				japaneseTitle: "グロリアス マインド",
+				title: "Glorious Mind (Original Karaoke)",
+				japaneseTitle: "グロリアス マインド (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3379,7 +3223,6 @@ const SINGLE_DATA = [
 				title: "Tsubasa wo Hirogete",
 				japaneseTitle: "翼を広げて",
 				credit: "Lyrics: Izumi Sakai / Music: Tetsuro Oda / Arrangement: Masao Akashi",
-				karaoke: false,
 				tieup: [
 					"Nationwide Toho Youga-kei Roadshow “Meitantei Conan Movie 12: Senritsu no Full Score”（名探偵コナン 戦慄の楽譜）Theme Song",
 					"Chiba TV Network music information program “MU-GEN〜Music Generations〜” Ending Theme"
@@ -3390,25 +3233,22 @@ const SINGLE_DATA = [
 				title: "Ai wa Kurayami no Naka de featuring Aya Kamiki",
 				japaneseTitle: "愛は暗闇の中で featuring Aya Kamiki",
 				credit: "Lyrics: Izumi Sakai / Music: Seiichiro Kuribayashi / Arrangement: Siyon Morishita",
-				karaoke: false,
 				tieup: [
 					"Yomiuri TV/Nippon TV Network anime “Meitantei Conan”（名探偵コナン）Opening Theme"
 				]
 			},
 			{
 				track: 3,
-				title: "Tsubasa wo Hirogete",
-				japaneseTitle: "翼を広げて",
+				title: "Tsubasa wo Hirogete (Original Karaoke)",
+				japaneseTitle: "翼を広げて (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Ai wa Kurayami no Naka de featuring Aya Kamiki",
-				japaneseTitle: "愛は暗闇の中で featuring Aya Kamiki",
+				title: "Ai wa Kurayami no Naka de featuring Aya Kamiki (Original Karaoke)",
+				japaneseTitle: "愛は暗闇の中で featuring Aya Kamiki (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],
@@ -3512,7 +3352,6 @@ const SINGLE_DATA = [
 				title: "Sunao ni Ienakute ～featuring Mai Kuraki～",
 				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
 				credit: "Lyrics & Music: Izumi Sakai / Arrangement: Hitoshi Okamoto",
-				karaoke: false,
 				tieup: null
 			},
 			{
@@ -3520,23 +3359,20 @@ const SINGLE_DATA = [
 				title: "Hypnosis",
 				japaneseTitle: null,
 				credit: "Lyrics: Izumi Sakai / Music & Arrangement: Hitoshi Okamoto",
-				karaoke: false,
 				tieup: null
 			},
 			{
 				track: 3,
-				title: "Sunao ni Ienakute ～featuring Mai Kuraki～",
-				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜",
+				title: "Sunao ni Ienakute ～featuring Mai Kuraki～ (Original Karaoke)",
+				japaneseTitle: "素直に言えなくて 〜featuring Mai Kuraki〜 (Original Karaoke)",
 				credit: null,
-				karaoke: true,
 				tieup: null
 			},
 			{
 				track: 4,
-				title: "Hypnosis",
+				title: "Hypnosis (Original Karaoke)",
 				japaneseTitle: null,
 				credit: null,
-				karaoke: true,
 				tieup: null
 			}
 		],

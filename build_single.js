@@ -31,7 +31,6 @@ const TRACK_FIELDS = [
     "title",
     "japaneseTitle",
     "credit",
-    "karaoke",
     "tieup"
 ];
 
@@ -841,11 +840,11 @@ function getValidationExample(pathLabel) {
     }
 
     if (/\.tracks$/.test(pathLabel)) {
-        return "tracks: [ { track: 1, title: \"Song\", japaneseTitle: null, credit: null, karaoke: false, tieup: [ \"Theme Song\" ] } ] or tracks: null.";
+        return "tracks: [ { track: 1, title: \"Song\", japaneseTitle: null, credit: null, tieup: [ \"Theme Song\" ] } ] or tracks: null.";
     }
 
     if (/\.tracks\[[0-9]+\]$/.test(pathLabel)) {
-        return '{ track: 1, title: "Song", japaneseTitle: null, credit: null, karaoke: false, tieup: [ "Theme Song" ] }';
+        return '{ track: 1, title: "Song", japaneseTitle: null, credit: null, tieup: [ "Theme Song" ] }';
     }
 
     if (/\.releases$/.test(pathLabel)) {
@@ -879,7 +878,6 @@ function getValidationExample(pathLabel) {
         src: 'src: "assets/cover.jpg".',
         track: "track: 1, track: 2, track: 3, ... in source order.",
         credit: 'credit: "Lyrics: Izumi Sakai" or credit: null.',
-        karaoke: "karaoke: true or karaoke: false.",
         tieup: 'tieup: [ "Theme Song" ] or tieup: null.',
         href: 'href: "https://example.com".',
         category: 'category: "Single Collection" or category: null.'
@@ -1537,19 +1535,6 @@ function validateTracks(
                 `${label}.credit`,
                 errors,
                 `${pathLabel}.credit`
-            );
-        }
-
-        if (
-            Object.hasOwn(track, "karaoke") &&
-            typeof track.karaoke !== "boolean"
-        ) {
-            errors.add(
-                `${label}.karaoke must be true or false.`,
-                "FIELD VALUES",
-                {
-                    path: `${pathLabel}.karaoke`
-                }
             );
         }
 
@@ -2227,26 +2212,28 @@ function createCoverHTML(cover) {
     );
 }
 
-function createTrackHTML(track, index, tracks) {
+function createTrackHTML(track) {
     const japaneseTitle = track.japaneseTitle === null
         ? ""
-        : `（${escapeHTML(track.japaneseTitle)}）`;
+        : (
+            '<span style="display: block;">' +
+            `${escapeHTML(track.japaneseTitle)}</span>`
+        );
     const credit = track.credit === null
         ? ""
-        : `<span class="credit">(${escapeHTML(track.credit)})</span>`;
-    const karaoke = track.karaoke === true
-        ? `${track.japaneseTitle === null ? " " : ""}(original karaoke)`
-        : "";
-    const lineBreak = (
-        track.credit === null &&
-        index < tracks.length - 1
-    )
-        ? "<br>"
-        : "";
+        : (
+            '<span class="credit" style="display: block; margin-left: 0;">' +
+            `${escapeHTML(track.credit)}</span>`
+        );
 
     return (
-        `${track.track}. <b>${escapeHTML(track.title)}</b>` +
-        `${japaneseTitle}${credit}${karaoke}${lineBreak}`
+        '<div style="display: grid; ' +
+        'grid-template-columns: max-content minmax(0, 1fr); ' +
+        'column-gap: 0.25em;">' +
+        `<span>${track.track}.</span>` +
+        `<div><b>${escapeHTML(track.title)}</b>` +
+        `${japaneseTitle}${credit}</div>` +
+        "</div>"
     );
 }
 
@@ -2256,8 +2243,8 @@ function createTracksHTML(tracks, eol) {
     }
 
     return tracks
-        .map((track, index) => {
-            return createTrackHTML(track, index, tracks);
+        .map(track => {
+            return createTrackHTML(track);
         })
         .join(`${eol} `);
 }
